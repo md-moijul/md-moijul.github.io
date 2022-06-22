@@ -1,0 +1,48 @@
+@media only screen and (max-width: 400px) {
+    .header_area .main-menu .navbar,
+    .header_area .main-menu .navbar .navbar-brand {
+        padding: 2%;
+        margin: 0%;
+    }
+    .header_area .main-menu .navbar {
+        background-color: rgba(234, 246, 254, 1)
+    }
+    .site-main>.projects-area .box {
+        height: auto;
+    }
+    .site-main .site-banner,
+    .site-main .about-area,
+    .site-main .projects-area,
+    .site-main .services-area {
+        padding: 2%;
+    }
+    .site-main .about-area .about-title .paragraph>p,
+    .site-main .about-area .about-title h4 {
+        text-align: center;
+        margin-left: 2%;
+        margin-top: 10%;
+    }
+    h1 {
+        font-size: 30px;
+    }
+    h4 {
+        font-size: 20px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+    p {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .site-main>.projects-area .box,
+    .site-main>.services-area .services {
+        height: auto;
+    }
+    .site-main>.services-area .services {
+        margin: 0% 5% 10% 5%;
+        gap: 2px;
+    }
+}
