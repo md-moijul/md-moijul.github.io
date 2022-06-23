@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@import url(./_global.css);
 body {
     background-color: beige;
 }
 
+#one {
+    color: var(--primary-color);
+}
+
 #two {
-    color: blue;
+    color: red;
     font-family: 'Raleway', sans-serif;
 }
