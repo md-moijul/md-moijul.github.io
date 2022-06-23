@@ -1,3 +1,11 @@
 :root {
     --primary-color: #4458dc;
 }
+
+#two {
+    color: red;
+}
+
+#three {
+    color: green;
+}
