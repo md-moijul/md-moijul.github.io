@@ -15,12 +15,12 @@
     .site-main .projects-area,
     .site-main .services-area {
         padding: 2%;
+        margin-top: 20%;
     }
     .site-main .about-area .about-title .paragraph>p,
     .site-main .about-area .about-title h4 {
         text-align: center;
         margin-left: 2%;
-        margin-top: 10%;
     }
     h1 {
         font-size: 30px;
