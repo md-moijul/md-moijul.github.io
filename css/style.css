@@ -234,6 +234,10 @@ body {
     transition: .3s ease;
 }
 
+.site-main>.projects-area .box:hover {
+    box-shadow: var(--box-shadow);
+}
+
 .site-main>.projects-area .box .title-text {
     padding: 5% 2%;
 }
