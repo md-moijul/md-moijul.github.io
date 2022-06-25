@@ -277,16 +277,18 @@ body {
     padding: 10%;
 }
 
-.site-main>.services-area .services {
+.site-main>.services-area .box {
     background: rgba(229, 249, 253, 0.973);
-    width: 100%;
-    height: 24rem;
+    color: black;
     border-radius: 25px;
-    margin: 10% 5% 10% 5%;
-    transition: box-shadow .5s ease;
+    border: 20px;
+    border-color: black;
+    margin: 1rem .1rem;
+    height: 22rem;
+    transition: .3s ease;
 }
 
-.site-main>.services-area .services:hover {
+.site-main>.services-area .box:hover {
     box-shadow: var(--box-shadow);
 }
 

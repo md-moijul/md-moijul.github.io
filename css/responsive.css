@@ -38,11 +38,11 @@
 
 @media only screen and (max-width: 767px) {
     .site-main>.projects-area .box,
-    .site-main>.services-area .services {
+    .site-main>.services-area .box {
         height: auto;
     }
-    .site-main>.services-area .services {
-        margin: 0% 5% 10% 5%;
-        gap: 2px;
+    .site-main>.projects-area .box .para,
+    .site-main>.services-area .box .para {
+        margin-bottom: 10%;
     }
 }
