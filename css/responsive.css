@@ -5,7 +5,10 @@
         margin: 0%;
     }
     .header_area .main-menu .navbar {
-        background-color: rgba(234, 246, 254, 1)
+        background-color: rgba(234, 246, 254, 1);
+    }
+    .header_area .main-menu .nav-item .nav-link {
+        padding: 5%;
     }
     .site-main>.projects-area .box {
         height: auto;
