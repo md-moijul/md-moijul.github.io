@@ -51,7 +51,7 @@
     }
     
     .navbar h4 {
-        font-weight: 4.5;
+        font-weight: 3.5rem;
         color: white;
     }
     
@@ -91,8 +91,8 @@
     
     #top .sub {
         padding-left: 2rem;
-        height: 4rem;
-        width: 18rem;
+        height: 3rem;
+        width: 13rem;
         background-color: transparent;
         border-radius: 25px;
         border-color: black;
@@ -115,7 +115,7 @@
     
     #top input[type=text] {
         font-family: 'Source Sans Pro', sans-serif;
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-weight: bold;
         color: black;
     }
@@ -124,7 +124,7 @@
         font-family: 'Source Sans Pro', sans-serif;
         font-weight: 900;
         /* text-shadow: 0 0 .5rem rgba(0, 0, 0, 0.438); */
-        font-size: 7rem;
+        font-size: 5rem;
         line-height: 7.5rem;
         letter-spacing: -0.5rem;
     }
@@ -139,7 +139,7 @@
     #top h5 {
         font-family: 'Source Sans Pro', sans-serif;
         font-weight: 600;
-        font-size: 6rem;
+        font-size: 2rem;
         color: #229da5;
         font-size: 2rem;
     }
@@ -189,7 +189,7 @@
     h1 {
         font-family: 'Source Sans Pro', sans-serif;
         font-weight: 900;
-        font-size: 8rem;
+        font-size: 5rem;
         letter-spacing: -5px;
         color: black;
     }
@@ -197,12 +197,10 @@
         color: rgba(84, 84, 84, 255);
         font-size: 3rem;
     } */
-    
-    .title-text {
+    /* .title-text {
         font-weight: 5rem;
-    }
-    
-    h2 {
+    } */
+    /* h2 {
         font-family: 'Source Sans Pro', sans-serif;
         font-weight: 900;
         size: 50rem;
@@ -212,11 +210,11 @@
     h4 {
         font-family: 'Source Sans Pro', sans-serif;
         font-size: 2rem;
-    }
+    } */
     
     #contactUs .btn {
         color: white;
-        font-size: 2rem;
+        font-size: 1.5rem;
         margin: 0 8rem;
         border-radius: 50px;
         background-color: #229da5;
