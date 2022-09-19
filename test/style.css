@@ -1,15 +1,241 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
-
-/* @import "_global.css"; */
-
-body {
-    background-color: beige;
-}
-
-#one {
-    color: var(--primary-color);
-}
-
-#two {
-    font-family: 'Raleway', sans-serif;
-}
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700;900&display=swap');
+    /* montserrat clasic */
+    
+    @font-face {
+        font-family: 'MyWebFont';
+        src: url('myfont.woff2') format('woff2');
+    }
+    
+    body {
+        background-image: url(./files/background.png);
+        background-color: rgba(243, 242, 241, 255);
+        background-size: 100%;
+        background-attachment: fixed;
+    }
+    
+    .section {
+        height: 100vh;
+    }
+    /* #top,
+    #contactUs {
+        background-color: rgba(243, 242, 241, 255);
+    } */
+    
+    #aboutUs,
+    #useCases {
+        background-color: rgba(0, 0, 0, 255);
+        color: white
+    }
+    /* nevbar */
+    /* .navbar-toggler-icon {
+        display: inline-block;
+        width: 1.5em;
+        height: 1.5em;
+        vertical-align: middle;
+        color: black;
+        content: "";
+        background: no-repeat center center;
+        background-size: 100% 100%;
+     } */
+    
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+    
+    .navbar-toggler {
+        border-color: rgb(255, 255, 255);
+    }
+    
+    .navbar {
+        background-color: black;
+    }
+    
+    .navbar h4 {
+        font-weight: 4.5;
+        color: white;
+    }
+    
+    .navbar.scrolled {
+        background-color: white;
+    }
+    
+    .navbar.scrolled h4 {
+        color: black;
+    }
+    
+    .linkedIn {
+        width: 50px;
+        height: 50px;
+        background-image: url(./files/linkedin-white.png);
+        background-size: 100%;
+        color: rgb(175, 175, 221);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    
+    .navbar.scrolled .linkedIn {
+        background-image: url(./files/linkedin-black.png);
+    }
+    /* top */
+    
+    #top .container-fluid {
+        padding: 0% 30% 0% 6%;
+    }
+    
+    #top {
+        background-image: url(./files/computer.png);
+        background-position: right;
+        background-size: 50%;
+        background-repeat: no-repeat;
+    }
+    
+    #top .sub {
+        padding-left: 2rem;
+        height: 4rem;
+        width: 18rem;
+        background-color: transparent;
+        border-radius: 25px;
+        border-color: black;
+        border-width: 0.3rem;
+    }
+    
+    #top input::placeholder,
+    .btn {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: black;
+        transition: .3s;
+    }
+    
+    #top .btn:hover {
+        background-color: black;
+        color: white;
+    }
+    
+    #top input[type=text] {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: black;
+    }
+    
+    #top h1 {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 900;
+        /* text-shadow: 0 0 .5rem rgba(0, 0, 0, 0.438); */
+        font-size: 7rem;
+        line-height: 7.5rem;
+        letter-spacing: -0.5rem;
+    }
+    
+    #top h2 {
+        font-family: 'Source Sans Pro', sans-serif;
+        color: rgba(84, 84, 84, 255);
+        font-weight: 700;
+        font-size: 5rem;
+    }
+    
+    #top h5 {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        font-size: 6rem;
+        color: #229da5;
+        font-size: 2rem;
+    }
+    
+    #top .form-control {
+        background-color: transparent;
+    }
+    /* about us */
+    
+    #aboutUs p {
+        margin: 5% 10%;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 2rem;
+    }
+    
+    #aboutUs .title-text {
+        color: white;
+    }
+    /* use cases*/
+    
+    #useCases .title-text {
+        color: white;
+    }
+    
+    .card-body {
+        color: white;
+        border-radius: 0%;
+        border: 0.3rem solid white;
+        height: 30rem;
+        width: 80%;
+        transition: box-shadow .3s;
+    }
+    
+    .card-body:hover {
+        box-shadow: 0 0 2rem rgba(255, 255, 255, 0.438);
+    }
+    
+    #useCases .container-fluid {
+        padding-left: 3rem;
+    }
+    
+    .card-body .card-title {
+        font-size: 2rem;
+    }
+    /* contact us*/
+    
+    h1 {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 900;
+        font-size: 8rem;
+        letter-spacing: -5px;
+        color: black;
+    }
+    /* .name-text {
+        color: rgba(84, 84, 84, 255);
+        font-size: 3rem;
+    } */
+    
+    .title-text {
+        font-weight: 5rem;
+    }
+    
+    h2 {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 900;
+        size: 50rem;
+    }
+    
+    p,
+    h4 {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 2rem;
+    }
+    
+    #contactUs .btn {
+        color: white;
+        font-size: 2rem;
+        margin: 0 8rem;
+        border-radius: 50px;
+        background-color: #229da5;
+        height: 5rem;
+        width: 20rem;
+        border-color: #229da5;
+    }
+    
+    #contactUs .container-fluid {
+        width: 70%;
+    }
+    
+    #contactUs .form-control {
+        background-color: white;
+        height: 3.5rem;
+    }
+    
+    #contactUs .message {
+        height: 8rem;
+        text-align: top;
+    }
+    /* test */

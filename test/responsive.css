@@ -1,0 +1,125 @@
+@media only screen and (max-width: 1400px) {
+    #top .container-fluid {
+        padding: 0% 10% 0% 5%;
+    }
+    #top h2 {
+        font-size: 5rem;
+    }
+    #top h1 {
+        font-size: 7rem;
+        line-height: 5.5rem;
+        letter-spacing: -0.2rem;
+    }
+    #top h5 {
+        padding-top: 10%;
+        font-size: 1.5rem;
+    }
+    #top .send-button .sub {
+        width: max-content;
+    }
+    #aboutUs h1 {
+        font-size: 8rem;
+    }
+    #aboutUs p {
+        font-size: 2.5rem;
+        margin: 2% 3%;
+    }
+    #contactUs h1 {
+        font-size: 8rem;
+    }
+    #contactUs form {
+        padding: 7% 10%;
+    }
+    #contactUs .btn {
+        font-size: 2.5rem;
+        height: auto;
+    }
+    #contactUs .container-fluid {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    #top .container-fluid {
+        padding: 0% 10% 0% 5%;
+    }
+    #top h2 {
+        font-size: 4rem;
+    }
+    #top h1 {
+        font-size: 7rem;
+        line-height: 5.5rem;
+        letter-spacing: -0.2rem;
+    }
+    #top h5 {
+        padding-top: 10%;
+        font-size: 1.5rem;
+    }
+    #top .send-button .sub {
+        width: max-content;
+    }
+    #top {
+        background-image: none;
+    }
+    #aboutUs h1 {
+        font-size: 7rem;
+    }
+    #aboutUs p {
+        font-size: 2rem;
+        margin: 2% 3%;
+    }
+    #contactUs h1 {
+        font-size: 7rem;
+    }
+    #contactUs form {
+        padding: 5% 8%;
+    }
+    #contactUs .btn {
+        font-size: 2rem;
+        height: auto;
+    }
+    #contactUs .container-fluid {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    #top .container-fluid {
+        padding: 0% 5% 0% 5%;
+    }
+    #top h2 {
+        font-size: 3rem;
+    }
+    #top h1 {
+        font-size: 5rem;
+        line-height: 4rem;
+        letter-spacing: -0.4rem;
+    }
+    #top h5 {
+        padding-top: 10%;
+        font-size: 1.5rem;
+    }
+    #top {
+        background-image: none;
+    }
+    #aboutUs h1 {
+        font-size: 5rem;
+    }
+    #aboutUs p {
+        font-size: 1.6rem;
+        margin: 2% 3%;
+    }
+    #contactUs h1 {
+        font-size: 4rem;
+    }
+    #contactUs form {
+        padding: 3% 5%;
+    }
+    #contactUs .btn {
+        font-size: 1.5rem;
+        height: auto;
+    }
+    #contactUs .container-fluid {
+        width: 100%;
+    }
+}
