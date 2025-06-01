@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+import NavigationPanel from "./components/NavigationPanel.vue";
+import AboutSection from "./components/sections/AboutSection.vue";
 </script>
 
 <template>
-	<HelloWorld msg="Vite + Vue" />
+	<div class="flex flex-col md:flex-row min-h-screen">
+		<NavigationPanel />
+		<main class="flex flex-1 overflow-y-auto h-screen">
+			<div class="max-w-3xl mx-auto space-y-24 md:space-y-32">
+				<AboutSection />
+			</div>
+		</main>
+	</div>
 </template>
 
 <style scoped>
