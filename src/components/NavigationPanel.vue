@@ -3,7 +3,7 @@ export default {};
 </script>
 
 <template>
-	<nav class="flex flex-col flex-1 p-16 justify-between h-full">
+	<nav class="flex flex-col flex-1 p-16 justify-between h-auto">
 		<div>
 			<h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white uppercase mb-2">
 				MD Moijul Islam
@@ -15,7 +15,8 @@ export default {};
 
 			<nav class="space-y-3">
 				<a href="#about" class="block text-xl font-medium"> About </a>
-				<a href="#projects" class="block text-xl font-medium"> projects </a>
+				<a href="#experience" class="block text-xl font-medium"> Experience </a>
+				<a href="#projects" class="block text-xl font-medium"> Projects </a>
 				<a href="#contact" class="block text-xl font-medium"> Contact </a>
 			</nav>
 		</div>

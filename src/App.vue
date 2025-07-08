@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import NavigationPanel from "./components/NavigationPanel.vue";
 import AboutSection from "./components/sections/AboutSection.vue";
+import ExperienceSection from "./components/sections/ExperienceSection.vue";
+import ProjectsSection from "./components/sections/ProjectsSection.vue";
 </script>
 
 <template>
@@ -9,6 +11,8 @@ import AboutSection from "./components/sections/AboutSection.vue";
 		<main class="flex flex-1 overflow-y-auto h-screen">
 			<div class="max-w-3xl mx-auto space-y-24 md:space-y-32">
 				<AboutSection />
+				<ExperienceSection />
+				<ProjectsSection />
 			</div>
 		</main>
 	</div>
