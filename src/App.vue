@@ -3,6 +3,7 @@ import NavigationPanel from "./components/NavigationPanel.vue";
 import AboutSection from "./components/sections/AboutSection.vue";
 import ExperienceSection from "./components/sections/ExperienceSection.vue";
 import ProjectsSection from "./components/sections/ProjectsSection.vue";
+import ContactSection from "./components/sections/ContactSection.vue";
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import ProjectsSection from "./components/sections/ProjectsSection.vue";
 				<AboutSection />
 				<ExperienceSection />
 				<ProjectsSection />
+				<ContactSection />
 			</div>
 		</main>
 	</div>

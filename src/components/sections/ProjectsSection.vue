@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { projects } from "../../assets/data";
+import { Badge } from "../ui/badge";
 </script>
 
 <template>
@@ -11,13 +12,7 @@ import { projects } from "../../assets/data";
 				<p class="mt-2 text-base">{{ project.desc }}</p>
 
 				<div class="mt-3 flex flex-wrap gap-2">
-					<span
-						v-for="tech in project.stack"
-						:key="tech"
-						class="bg-gray-700 text-gray-300 px-2 py-1 text-sm rounded-full"
-					>
-						{{ tech }}
-					</span>
+					<Badge variant="outline" v-for="tech in project.stack" :key="tech">Badge</Badge>
 				</div>
 			</article>
 		</div>
