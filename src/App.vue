@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import NavigationPanel from "./components/NavigationPanel.vue";
 import AboutSection from "./components/sections/AboutSection.vue";
-import ExperienceSection from "./components/sections/ExperienceSection.vue";
 import ProjectsSection from "./components/sections/ProjectsSection.vue";
 import ContactSection from "./components/sections/ContactSection.vue";
 </script>
 
 <template>
-	<div class="flex flex-col md:flex-row min-h-screen">
-		<NavigationPanel />
-		<main class="flex flex-1 overflow-y-auto h-screen">
-			<div class="max-w-3xl mx-auto space-y-24 md:space-y-32">
+	<div class="flex flex-col md:flex-row">
+		<div class="md:w-1/2 md:h-screen md:flex md:items-center md:justify-center">
+			<NavigationPanel />
+		</div>
+
+		<main class="md:w-1/2 md:h-screen overflow-y-auto">
+			<div class="max-w-3xl p-8 sm:p-12 md:p-16 space-y-24 md:space-y-32">
 				<AboutSection />
-				<ExperienceSection />
 				<ProjectsSection />
 				<ContactSection />
 			</div>
@@ -20,17 +21,4 @@ import ContactSection from "./components/sections/ContactSection.vue";
 	</div>
 </template>
 
-<style scoped>
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: filter 300ms;
-}
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-	filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style scoped></style>

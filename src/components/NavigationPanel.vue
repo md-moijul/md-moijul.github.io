@@ -10,8 +10,6 @@ let observer: IntersectionObserver;
 
 const updateActiveSection = () => {
 	let bestMatch = { id: "", ratio: -1 };
-
-	// Find the section with the highest visibility ratio.
 	sectionRatios.forEach((ratio, id) => {
 		if (ratio > bestMatch.ratio) {
 			bestMatch = { id, ratio };
@@ -25,23 +23,16 @@ const updateActiveSection = () => {
 };
 
 onMounted(() => {
-	// Create an array of thresholds from 0 to 1.0 in 0.01 increments.
-	// This makes the observer fire continuously as the section scrolls.
 	const thresholds = Array.from(Array(101).keys(), (i) => i / 100);
-
 	observer = new IntersectionObserver(
 		(entries) => {
-			// Update the map with the latest ratios for each entry.
 			entries.forEach((entry) => {
 				sectionRatios.set(entry.target.id, entry.intersectionRatio);
 			});
-			// Determine the new active section.
 			updateActiveSection();
 		},
 		{ threshold: thresholds }
 	);
-
-	// Observe all sections with the single observer.
 	sectionIds.forEach((id) => {
 		const section = document.getElementById(id);
 		if (section) observer.observe(section);
@@ -52,71 +43,59 @@ onUnmounted(() => {
 	if (observer) observer.disconnect();
 });
 </script>
-```
+
 <template>
-	<nav class="flex flex-col flex-1 p-16 justify-between h-auto">
-		<div>
-			<h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white uppercase mb-2">
+	<nav class="flex flex-col p-8 sm:p-12 md:p-16">
+		<div class="mb-16">
+			<h1 class="font-display text-4xl sm:text-5xl tracking-tight text-foreground uppercase mb-3">
 				MD Moijul Islam
 			</h1>
-			<h2 class="text-xl sm:text-2xl font-semibold mb-6">Junior Software Developer</h2>
-			<p class="text-gray-300 mb-10 text-lg">
+			<h2 class="font-sans text-lg sm:text-xl font-semibold text-foreground mb-4">Junior Software Developer</h2>
+			<p class="font-sans text-muted-foreground max-w-xs">
 				I build accessible, pixel-perfect digital experiences for the web.
 			</p>
-
-			<nav class="space-y-3">
-				<a
-					href="#about"
-					class="block text-xl font-medium"
-					:class="{ 'active-link': activeSection === 'about' }"
-				>
-					About
-				</a>
-				<a
-					href="#experience"
-					class="block text-xl font-medium"
-					:class="{ 'active-link': activeSection === 'experience' }"
-				>
-					Experience
-				</a>
-				<a
-					href="#projects"
-					class="block text-xl font-medium"
-					:class="{ 'active-link': activeSection === 'projects' }"
-				>
-					Projects
-				</a>
-				<a
-					href="#contact"
-					class="block text-xl font-medium"
-					:class="{ 'active-link': activeSection === 'contact' }"
-				>
-					Contact
-				</a>
-			</nav>
 		</div>
 
-		<div class="mt-auto">
-			<a href="https://linkedin.com/in/md-moijul" target="_blank" rel="noopener noreferrer" class="text-gray-400">
-				<img src="./assets/linkedinn.svg" class="logo vue" alt="linkedin" />
+		<nav class="flex flex-col items-start space-y-4">
+			<a
+				v-for="sectionId in sectionIds"
+				:key="sectionId"
+				:href="`#${sectionId}`"
+				class="font-sans font-medium tracking-widest uppercase text-xs transition-colors hover:text-foreground"
+				:class="activeSection === sectionId ? 'active-link' : 'text-muted-foreground'"
+			>
+				{{ sectionId }}
+			</a>
+		</nav>
+
+		<div class="mt-auto pt-16">
+			<a
+				href="https://linkedin.com/in/md-moijul"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-muted-foreground transition-colors hover:text-foreground"
+			>
+				<img src="../assets/linkedin.svg" class="h-6 w-6" alt="LinkedIn Profile" />
 			</a>
 		</div>
 	</nav>
 </template>
 
-<style>
+<style scoped>
 .active-link {
-	color: white;
-	font-weight: bold;
+	color: hsl(var(--foreground));
+	font-weight: 700;
 }
 
 .active-link::before {
 	content: "[";
-	margin-right: 0.25em;
+	margin-right: 0.5em;
+	font-weight: 400;
 }
 
 .active-link::after {
 	content: "]";
-	margin-left: 0.25em;
+	margin-left: 0.5em;
+	font-weight: 400;
 }
 </style>
