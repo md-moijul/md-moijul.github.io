@@ -3,6 +3,7 @@ import NavigationPanel from "./components/NavigationPanel.vue";
 import AboutSection from "./components/sections/AboutSection.vue";
 import ProjectsSection from "./components/sections/ProjectsSection.vue";
 import ContactSection from "./components/sections/ContactSection.vue";
+import ExperienceSection from "./components/sections/ExperienceSection.vue";
 </script>
 
 <template>
@@ -14,6 +15,7 @@ import ContactSection from "./components/sections/ContactSection.vue";
 		<main class="md:w-1/2 md:h-screen overflow-y-auto">
 			<div class="max-w-3xl p-8 sm:p-12 md:p-16 space-y-24 md:space-y-32">
 				<AboutSection />
+				<ExperienceSection />
 				<ProjectsSection />
 				<ContactSection />
 			</div>

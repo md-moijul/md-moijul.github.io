@@ -1,25 +1,35 @@
 <script setup lang="ts">
 import { projects } from "../../assets/data";
-import { Badge } from "../ui/badge";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 </script>
 
 <template>
-	<section id="projects" class="min-h-[60vh] py-10">
-		<h2 class="text-3xl font-bold mb-8">Projects</h2>
-		<div class="space-y-6 text-lg leading-relaxed">
-			<article v-for="project in projects" :key="project.name" :id="project.name">
-				<h3 class="text-xl font-bold">{{ project.name }}</h3>
-				<p class="mt-2 text-base">{{ project.desc }}</p>
-
-				<div class="mt-3 flex flex-wrap gap-2">
-					<Badge variant="outline" v-for="tech in project.stack" :key="tech">Badge</Badge>
-				</div>
-			</article>
+	<section id="projects" class="scroll-m-20">
+		<h2 class="text-xl font-bold uppercase tracking-widest text-primary mb-8">Projects</h2>
+		<div class="grid grid-cols-1 gap-6">
+			<Card v-for="project in projects" :key="project.name">
+				<CardHeader>
+					<CardTitle>{{ project.name }}</CardTitle>
+					<CardDescription v-if="project.date">
+						{{ project.date.toLocaleDateString("en-US", { year: "numeric", month: "long" }) }}
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<p class="text-muted-foreground">{{ project.desc }}</p>
+				</CardContent>
+				<CardFooter v-if="project.stack.length > 0" class="flex-wrap gap-2">
+					<Badge v-for="tech in project.stack" :key="tech">
+						{{ tech }}
+					</Badge>
+				</CardFooter>
+			</Card>
+		</div>
+		<div class="mt-8 flex">
+			<Button variant="outline" class="bg-black/20 shadow-md shadow-white"
+				>Check Out Full Project List ...</Button
+			>
 		</div>
 	</section>
 </template>
-
-<style scoped>
-section {
-}
-</style>

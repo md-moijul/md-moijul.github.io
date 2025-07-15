@@ -1,39 +1,41 @@
 <script setup lang="ts">
 import { experiences } from "../../assets/data";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 </script>
 
 <template>
-	<section id="experience" class="min-h-[60vh] py-10">
-		<h2 class="text-3xl font-bold mb-8">Experience</h2>
-		<ul class="space-y-8 text-lg leading-relaxed">
-			<li v-for="(experience, index) in experiences" :key="index">
-				<h3 class="font-bold text-xl">
-					{{ experience.jobTitle }} at
-					<a :href="experience.url" target="_blank" class="text-blue-500 hover:underline">{{
-						experience.company
-					}}</a>
-				</h3>
-				<p class="text-sm text-gray-400">
-					{{ experience.startDate.toLocaleDateString() }} -
-					{{ experience.EndDate === "present" ? "Present" : experience.EndDate.toLocaleDateString() }} |
-					{{ experience.location }}
-				</p>
-				<p class="mt-2">{{ experience.desc }}</p>
-				<div class="mt-2 flex flex-wrap gap-2">
-					<span
-						v-for="tech in experience.stack"
-						:key="tech"
-						class="bg-gray-700 text-gray-300 px-2 py-1 text-sm rounded"
-					>
-						{{ tech }}
-					</span>
-				</div>
-			</li>
-		</ul>
+	<section id="experience" class="scroll-m-20">
+		<h2 class="text-xl font-bold uppercase tracking-widest text-primary mb-8">Experience</h2>
+		<div class="space-y-6">
+			<Card v-for="(experience, index) in experiences" :key="index">
+				<CardHeader>
+					<CardTitle class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+						<a :href="experience.url" target="_blank" class="hover:underline">
+							{{ experience.jobTitle }} · {{ experience.company }}
+						</a>
+						<span class="text-sm font-normal text-muted-foreground">
+							{{ experience.startDate.toLocaleDateString("en-US", { year: "numeric", month: "short" }) }}
+							—
+							{{
+								experience.EndDate === "present"
+									? "Present"
+									: experience.EndDate.toLocaleDateString("en-US", {
+											year: "numeric",
+											month: "short",
+									  })
+							}}
+						</span>
+					</CardTitle>
+					<CardDescription>{{ experience.location }}</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<p class="text-muted-foreground">{{ experience.desc }}</p>
+				</CardContent>
+				<CardFooter v-if="experience.stack.length > 0" class="flex-wrap gap-2">
+					<Badge v-for="tech in experience.stack" :key="tech" variant="secondary"> @_{{ tech }} </Badge>
+				</CardFooter>
+			</Card>
+		</div>
 	</section>
 </template>
-
-<style scoped>
-section {
-}
-</style>
