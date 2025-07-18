@@ -12,7 +12,7 @@ import ExperienceSection from "./components/sections/ExperienceSection.vue";
 			<NavigationPanel />
 		</div>
 
-		<main class="md:w-1/2 md:h-screen overflow-y-auto">
+		<main class="md:w-1/2 md:h-screen overflow-y-auto scrollbar-hide">
 			<div class="max-w-3xl p-8 sm:p-12 md:p-16 space-y-24 md:space-y-32">
 				<AboutSection />
 				<ExperienceSection />

@@ -68,7 +68,7 @@ onUnmounted(() => {
 			</a>
 		</nav>
 
-		<div class="mt-auto pt-16">
+		<div class="flex gap-2 mt-auto pt-16">
 			<a
 				href="https://linkedin.com/in/md-moijul"
 				target="_blank"
@@ -76,6 +76,14 @@ onUnmounted(() => {
 				class="text-muted-foreground transition-colors hover:text-foreground"
 			>
 				<img src="../assets/linkedin.svg" class="h-6 w-6" alt="LinkedIn Profile" />
+			</a>
+			<a
+				href="https://https://github.com/md-moijul"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-muted-foreground transition-colors hover:text-foreground"
+			>
+				<img src="../assets/github.svg" class="h-6 w-6" alt="github Profile" />
 			</a>
 		</div>
 	</nav>
