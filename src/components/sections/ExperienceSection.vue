@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 </script>
 
 <template>
-	<section id="experience" class="scroll-m-20">
+	<section id="experience" class="scroll-m-16 min-h-screen">
 		<h2 class="text-xl font-bold uppercase tracking-widest text-primary mb-8">Experience</h2>
 		<div class="space-y-6">
 			<Card v-for="(experience, index) in experiences" :key="index">

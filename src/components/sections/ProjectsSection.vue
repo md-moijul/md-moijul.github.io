@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 </script>
 
 <template>
-	<section id="projects" class="scroll-m-20">
+	<section id="projects" class="scroll-m-20 min-h-screen">
 		<h2 class="text-xl font-bold uppercase tracking-widest text-primary mb-8">Projects</h2>
 		<div class="grid grid-cols-1 gap-6">
 			<Card v-for="project in projects" :key="project.name">

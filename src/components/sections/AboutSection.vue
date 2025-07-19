@@ -1,5 +1,5 @@
 <template>
-	<section id="about" class="min-h-[60vh] py-10">
+	<section id="about" class=" py-10 min-h-screen">
 		<h2 class="text-3xl font-bold mb-8">About Me</h2>
 		<div class="space-y-6 text-lg leading-relaxed">
 			<p>
