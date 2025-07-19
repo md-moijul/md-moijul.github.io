@@ -4,6 +4,10 @@ import AboutSection from "./components/sections/AboutSection.vue";
 import ProjectsSection from "./components/sections/ProjectsSection.vue";
 import ContactSection from "./components/sections/ContactSection.vue";
 import ExperienceSection from "./components/sections/ExperienceSection.vue";
+import { useLenis } from "./composables/useLenis";
+
+
+useLenis();
 </script>
 
 <template>

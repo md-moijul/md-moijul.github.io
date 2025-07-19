@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import 'tailwind-scrollbar-hide/v4';
+@import 'lenis/dist/lenis.css';
+
 
 :root {
 	--font-sans: "Play", sans-serif;
