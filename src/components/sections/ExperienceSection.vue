@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 				<CardHeader>
 					<CardTitle class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
 						<a :href="experience.url" target="_blank" class="hover:underline">
-							{{ experience.jobTitle }} · {{ experience.company }}
+							{{ experience.jobTitle }} 
 						</a>
 						<span class="text-sm font-normal text-muted-foreground">
 							{{ experience.startDate.toLocaleDateString("en-US", { year: "numeric", month: "short" }) }}
@@ -27,13 +27,15 @@ import { Badge } from "@/components/ui/badge";
 							}}
 						</span>
 					</CardTitle>
-					<CardDescription>{{ experience.location }}</CardDescription>
+					<CardDescription>
+                        {{ experience.company }}, {{ experience.location }}.
+                    </CardDescription>
 				</CardHeader>
 				<CardContent>
 					<p class="text-muted-foreground">{{ experience.desc }}</p>
 				</CardContent>
-				<CardFooter v-if="experience.stack.length > 0" class="flex-wrap gap-2">
-					<Badge v-for="tech in experience.stack" :key="tech" variant="secondary"> @_{{ tech }} </Badge>
+				<CardFooter v-if="experience.projects.length > 0" class="flex-wrap gap-2">
+					<Badge v-for="project in experience.projects" :key="project" variant="secondary"> @_{{ project }} </Badge>
 				</CardFooter>
 			</Card>
 		</div>

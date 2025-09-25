@@ -7,7 +7,7 @@ interface Experience {
     url?: string;
     startDate: Date;
     EndDate: Date | 'present';
-    stack: string[];
+    projects: string[];
 }
 
 export const experiences: Experience[] = [
@@ -16,29 +16,29 @@ export const experiences: Experience[] = [
         jobTitle: 'Software Developer',
         desc: 'Returning back as full-time as a software  developer, I focused on building interactive, drag-and-drop email editor Software as a service using React, TypeScript, Tailwind, Storybook,  Lexical, and React-Email.',
         location: 'Stroud',
-        startDate: new Date(),
+        startDate: new Date("2024-05"),
         EndDate: new Date(),
-        stack: ['react', 'typescript', 'mongo']
+        projects: ['FDC Digital', 'Gym Tech', 'LCP Group', 'Badland']
 
     },
     {
         company: 'Wilxite',
-        jobTitle: 'Software Developer',
-        desc: 'Returning back as full-time as a software  developer, I focused on building interactive, drag-and-drop email editor Software as a service using React, TypeScript, Tailwind, Storybook,  Lexical, and React-Email.',
+        jobTitle: 'Software Developer (Part-time) ',
+        desc: 'Worked part-time during my final year at university, contributing to several projects, including a Book Order Picking System for a warehouse. Focused on building fully responsive web apps.',
         location: 'Stroud',
-        startDate: new Date(),
-        EndDate: new Date(),
-        stack: ['react', 'typescript', 'mongo']
+        startDate: new Date("2023-09"),
+        EndDate: new Date("2024-05"),
+        projects: ['LCP Group', 'Robertson Restoration', 'WX-Dnd', 'Email Editor']
 
     },
     {
         company: 'Wilxite',
-        jobTitle: 'Software Developer',
-        desc: 'Returning back as full-time as a software  developer, I focused on building interactive, drag-and-drop email editor Software as a service using React, TypeScript, Tailwind, Storybook,  Lexical, and React-Email.',
+        jobTitle: 'Software Developer (Placement Student)',
+        desc: 'Completed a one-year placement where I primarily worked on a web application using Next.js, TypeScript, SCSS and Material UI to create interactive, responsive websites.',
         location: 'Stroud',
-        startDate: new Date(),
-        EndDate: new Date(),
-        stack: ['react', 'typescript', 'mongo']
+        startDate: new Date("2022-09"),
+        EndDate: new Date("2023-09"),
+        projects: ['Shoot My Mail', 'The Turn', 'Server Usage Frontend', 'Sparta Health',]
 
     },
 ]
