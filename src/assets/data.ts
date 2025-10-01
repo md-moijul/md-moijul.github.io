@@ -28,7 +28,7 @@ export const experiences: Experience[] = [
         location: 'Stroud',
         startDate: new Date("2023-09"),
         EndDate: new Date("2024-05"),
-        projects: ['LCP Group', 'Robertson Restoration', 'WX-Dnd', 'Email Editor']
+        projects: ['Robertson Restoration', 'Order Picking System', 'Email Editor']
 
     },
     {
@@ -38,7 +38,7 @@ export const experiences: Experience[] = [
         location: 'Stroud',
         startDate: new Date("2022-09"),
         EndDate: new Date("2023-09"),
-        projects: ['Shoot My Mail', 'The Turn', 'Server Usage Frontend', 'Sparta Health',]
+        projects: ['Shoot My Mail', 'WX-Dnd', 'The Turn', 'Server Usage Frontend', 'Sparta Health',]
 
     },
 ]
@@ -55,38 +55,64 @@ interface Project {
 
 export const projects: Project[] = [
     {
-        name: 'Gym-tech',
+        name: 'FDC Digital',
         desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-        stack: ['react', 'typescript', 'mongo']
+        stack: ['nextjs', 'typescript', 'mongo', 'tailwind', 'shadcn',]
     },
     {
         name: 'Gym-tech',
         desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-        stack: ['react', 'typescript', 'mongo']
+        stack: ['python', 'arduino', 'matplotlib', 'flask', 'express']
     },
     {
-        name: 'SMM',
+        name: 'Badland',
         desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-        stack: ['react', 'typescript', 'mongo']
-    },
-    {
-        name: 'FDC',
-        desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-        stack: ['react', 'typescript', 'mongo']
+        stack: ['jixaw', 'react', 'typescript', 'mongo', 'tailwind', 'shadcn']
     },
     {
         name: 'LCP Group',
         desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-        stack: ['react', 'typescript', 'mongo']
+        stack: ['jixaw', 'react', 'typescript', 'mongo', 'tailwind', 'shadcn']
     },
     {
         name: 'Robertson Restoration',
         desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-        stack: ['react', 'typescript', 'mongo']
+        stack: ['jixaw', 'react', 'typescript', 'mongo', 'scss']
     },
     {
-        name: 'Sparta-Health',
+        name: 'Order Picking System',
         desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-        stack: []
+        stack: ['react', 'typescript', 'mongo', 'mui']
+    },
+    {
+        name: 'Email Editor',
+        desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+        stack: ['reeact', 'typescript', 'tailwind', 'shadcn']
+    },
+    // ['Shoot My Mail', 'WX-Dnd', 'The Turn', 'Server Usage Frontend', 'Sparta Health',]
+    {
+        name: 'Shoot My Mail',
+        desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+        stack: ['reeact', 'typescript', 'tailwind', 'shadcn']
+    },
+    {
+        name: 'WX-Dnd',
+        desc: ``,
+        stack: ['reeact', 'typescript', 'tailwind', 'shadcn']
+    },
+    {
+        name: 'The Turn',
+        desc: `This is a landing site for The Turn Band. where user are able to view image gallary of previous events and an page to view upcoming gigs. This was another Project build from ground up by me.`,
+        stack: ['reeact', 'typescript', 'tailwind', 'shadcn']
+    },
+    {
+        name: 'Server Usage Frontend',
+        desc: `This was a project which was build on ground up by me. This project takes the Server api's and visulizes the usage and other specs of the server and namespaces in a dashboard fashion. it has search and filter functionality to see details on individual clients and their usege of resourses on each month.`,
+        stack: ['reeact', 'typescript', 'tailwind', 'shadcn']
+    },
+    {
+        name: 'Sparta Health',
+        desc: `This was my very first project as a placement student. This was a fully functioning web app which lacked the responsiveness of the website. I worked on making it compatible on different devices and browsers. also contributed to the Animations`,
+        stack: ['javascript', 'jquerry', 'css']
     },
 ]

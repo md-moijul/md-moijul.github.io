@@ -34,8 +34,8 @@ import { Badge } from "@/components/ui/badge";
 				<CardContent>
 					<p class="text-muted-foreground">{{ experience.desc }}</p>
 				</CardContent>
-				<CardFooter v-if="experience.projects.length > 0" class="flex-wrap gap-2">
-					<Badge v-for="project in experience.projects" :key="project" variant="secondary"> @_{{ project }} </Badge>
+				<CardFooter v-if="experience.projects.length > 0" class="flex-nowrap overflow-x-scroll gap-2">
+					<Badge v-for="project in experience.projects" :key="project" variant="secondary">&#128279; {{ project.replace(/ /g,"_") }} </Badge>
 				</CardFooter>
 			</Card>
 		</div>
