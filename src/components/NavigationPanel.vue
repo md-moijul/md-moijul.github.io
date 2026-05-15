@@ -31,7 +31,7 @@ onMounted(() => {
 			});
 			updateActiveSection();
 		},
-		{ threshold: thresholds }
+		{ threshold: thresholds },
 	);
 	sectionIds.forEach((id) => {
 		const section = document.getElementById(id);
@@ -45,12 +45,18 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<nav class="flex flex-col h-full justify-between  p-8 sm:p-12 md:p-16">
+	<nav class="flex flex-col h-full justify-between p-8 sm:p-12 md:p-16">
 		<div class="mb-16">
-			<h1 class="font-display text-4xl sm:text-5xl tracking-tight text-foreground uppercase mb-3">
+			<h1
+				class="font-display text-4xl sm:text-5xl tracking-tight text-foreground uppercase mb-3"
+			>
 				MD Moijul Islam
 			</h1>
-			<h2 class="font-sans text-lg sm:text-xl font-semibold text-foreground mb-4">Junior Software Developer</h2>
+			<h2
+				class="font-sans text-lg sm:text-xl font-semibold text-foreground mb-4"
+			>
+				Software Developer
+			</h2>
 			<p class="font-sans text-muted-foreground max-w-xs">
 				I build accessible, pixel-perfect digital experiences for the web.
 			</p>
@@ -62,20 +68,26 @@ onUnmounted(() => {
 				:key="sectionId"
 				:href="`#${sectionId}`"
 				class="font-sans font-medium tracking-widest uppercase text-xs transition-colors hover:text-foreground"
-				:class="activeSection === sectionId ? 'active-link' : 'text-muted-foreground'"
+				:class="
+					activeSection === sectionId ? 'active-link' : 'text-muted-foreground'
+				"
 			>
 				{{ sectionId }}
 			</a>
 		</nav>
 
-		<div class="flex gap-2  pt-16">
+		<div class="flex gap-2 pt-16">
 			<a
 				href="https://linkedin.com/in/md-moijul"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-muted-foreground transition-colors hover:text-foreground"
 			>
-				<img src="../assets/linkedin.svg" class="h-6 w-6" alt="LinkedIn Profile" />
+				<img
+					src="../assets/linkedin.svg"
+					class="h-6 w-6"
+					alt="LinkedIn Profile"
+				/>
 			</a>
 			<a
 				href="https://https://github.com/md-moijul"
