@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { projects } from "@/assets/data";
+import type { Project } from "@/assets/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
+defineProps<{
+	projects: Project[];
+}>();
 </script>
 
 <template>

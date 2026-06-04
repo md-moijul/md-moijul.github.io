@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { experiences } from "@/assets/data";
+import type { Experience } from "@/assets/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
+defineProps<{
+	experiences: Experience[];
+}>();
 </script>
 
 <template>

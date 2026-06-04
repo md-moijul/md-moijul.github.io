@@ -20,7 +20,7 @@ The application is structured as a single-page layout with a sticky navigation/i
     - `sections/`: Individual page sections (About, Experience, Projects, Contact).
     - `ui/`: Reusable UI components (Badge, Button, Card, Input, Textarea).
     - `NavigationPanel.vue`: The main sidebar/navigation component.
-- `src/composables/`: Vue composables, including `useLenis.ts` for scrolling logic.
+- `src/composables/`: Vue composables, including `useLenis.ts` for smooth scroll initialization, `useScrollSpy.ts` for active section tracking, and `useScrollTo.ts` for programmatic scrolling.
 - `src/lib/`: Utility functions (e.g., `utils.ts` for tailwind-merge and clsx).
 
 ## Building and Running
@@ -55,13 +55,14 @@ npm run preview
 - **Navigation:** Navigation is handled programmatically via the `scrollToSection` function in `NavigationPanel.vue`.
 - **Smooth Scrolling:** Powered by **Lenis**. A shared `lenisInstance` is exposed via `useLenis.ts` for programmatic scroll control.
 - **Cross-Page Support:** When navigating to a section from a non-home route, the application redirects to `/` and then triggers a smooth scroll to the target section.
-- **Active Highlighting:** Section highlighting in the navigation panel is managed via `IntersectionObserver`.
+- **Active Highlighting:** Section highlighting in the navigation panel is managed via the `useScrollSpy` composable, which listens to Lenis scroll events and uses viewport math for precise section detection.
 
 ## Development Conventions
 
 - **Component Pattern:** Use `<script setup lang="ts">` for all Vue components.
+- **Data Decoupling:** Page sections (e.g., `ExperienceSection`, `ProjectsSection`) should be decoupled from data sources. They should accept data as props rather than importing directly from `src/assets/data.ts`. `HomeView` acts as the orchestrator for the main landing page.
 - **Styling:** Use Tailwind CSS utility classes. Prefer the `@/` alias for imports from the `src` directory.
-- **Data Management:** Most of the portfolio content (experiences, projects) is stored in `src/assets/data.ts`. Update this file to add or modify entries.
+- **Data Management:** Most of the portfolio content (experiences, projects) is stored in `src/assets/data.ts`. Update this file to add or modify entries. Use the exported `Experience` and `Project` interfaces for type safety.
 - **UI Components:** New generic UI components should be added to `src/components/ui` following the existing pattern (typically a component file and an `index.ts` for exports).
 - **Smooth Scrolling:** Lenis is initialized in `App.vue` via the `useLenis` composable. For programmatic scrolling, use the exported `lenisInstance` from `@/composables/useLenis`. Any scroll-related interactions should be compatible with Lenis.
 

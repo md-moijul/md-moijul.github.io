@@ -5,6 +5,9 @@ import ProjectsSection from './ProjectsSection.vue';
 describe('ProjectsSection', () => {
     it('contains a link to the archive with the correct text', () => {
         const wrapper = mount(ProjectsSection, {
+            props: {
+                projects: []
+            },
             global: {
                 stubs: {
                     RouterLink: {

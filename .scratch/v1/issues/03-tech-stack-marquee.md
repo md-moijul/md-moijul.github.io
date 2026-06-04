@@ -15,3 +15,4 @@ Create a reusable `MarqueeContainer.vue` component that uses CSS `@keyframes` an
 
 ## Blocked by
 - .scratch/v1/issues/01-routing-infrastructure.md
+- .scratch/v1/issues/09-architecture-deepening-refactor.md

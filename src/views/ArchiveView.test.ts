@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import ArchiveView from '@/views/ArchiveView.vue';
 import { projects } from '@/assets/data';
-import { lenisInstance } from '@/composables/useLenis';
 
 // Mock vue-router
 vi.mock('vue-router', () => ({

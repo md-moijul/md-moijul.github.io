@@ -1,5 +1,5 @@
 
-interface Experience {
+export interface Experience {
     company: string;
     jobTitle: string;
     desc: string;
@@ -40,7 +40,7 @@ export const experiences: Experience[] = [
     },
 ]
 
-interface Project {
+export interface Project {
     name: string;
     desc: string;
     summary?: string;

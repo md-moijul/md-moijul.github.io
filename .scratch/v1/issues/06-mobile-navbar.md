@@ -23,4 +23,4 @@ On desktop (`>= md` breakpoint):
 - [ ] On desktop, the layout remains a fixed vertical sidebar.
 
 ## Blocked by
-None - can start immediately
+- .scratch/v1/issues/09-architecture-deepening-refactor.md

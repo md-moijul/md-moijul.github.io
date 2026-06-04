@@ -19,3 +19,4 @@ Modify the application's scrolling architecture to use the global window instead
 
 ## Blocked by
 - .scratch/v1/issues/06-mobile-navbar.md
+- .scratch/v1/issues/09-architecture-deepening-refactor.md
