@@ -2,10 +2,9 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import NavigationPanel from './NavigationPanel.vue';
 import { lenisInstance } from '@/composables/useLenis';
-import { useRouter, useRoute } from 'vue-router';
 
 // Mock IntersectionObserver
-global.IntersectionObserver = vi.fn().mockImplementation(function() {
+globalThis.IntersectionObserver = vi.fn().mockImplementation(function() {
     return {
         observe: vi.fn(),
         unobserve: vi.fn(),
@@ -22,6 +21,9 @@ vi.mock('vue-router', () => ({
         push: mockPush,
     })),
     useRoute: vi.fn(() => mockRoute),
+    RouterLink: {
+        template: '<a><slot /></a>',
+    },
 }));
 
 // Mock Lenis instance
@@ -51,7 +53,11 @@ describe('NavigationPanel', () => {
         
         await aboutLink.trigger('click');
         
-        expect(lenisInstance.value.scrollTo).toHaveBeenCalledWith('#about', expect.any(Object));
+        if (lenisInstance.value) {
+            expect(lenisInstance.value.scrollTo).toHaveBeenCalledWith('#about', expect.any(Object));
+        } else {
+            throw new Error('lenisInstance.value is null');
+        }
     });
 
     it('should redirect to home and then scroll when clicked from another page', async () => {
@@ -68,6 +74,10 @@ describe('NavigationPanel', () => {
         // Wait for setTimeout
         vi.advanceTimersByTime(100);
         
-        expect(lenisInstance.value.scrollTo).toHaveBeenCalledWith('#about', expect.any(Object));
+        if (lenisInstance.value) {
+            expect(lenisInstance.value.scrollTo).toHaveBeenCalledWith('#about', expect.any(Object));
+        } else {
+            throw new Error('lenisInstance.value is null');
+        }
     });
 });

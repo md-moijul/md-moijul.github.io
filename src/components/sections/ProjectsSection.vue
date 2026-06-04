@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button";
 		<div class="mt-8 flex">
 			<RouterLink to="/archive">
 				<Button variant="outline" class="bg-black/20 shadow-md shadow-white"
-					>Check Out Full Project List ...</Button
+					>View Full Project Archive</Button
 				>
 			</RouterLink>
 		</div>
