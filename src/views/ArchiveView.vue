@@ -1,97 +1,205 @@
 <script setup lang="ts">
 import { projects } from "@/assets/data";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
+import { ref, onMounted, onUnmounted } from "vue";
+import { lenisInstance } from "@/composables/useLenis";
 
 const formatDate = (date?: Date) => {
 	if (!date) return "—";
 	return date.getFullYear();
 };
+
+const expandedProjects = ref<Set<string>>(new Set());
+const toggleExpand = (name: string) => {
+	if (expandedProjects.value.has(name)) {
+		expandedProjects.value.delete(name);
+	} else {
+		expandedProjects.value.add(name);
+	}
+};
+
+onMounted(() => {
+	lenisInstance.value?.stop();
+	document.body.style.overflow = "hidden";
+});
+
+onUnmounted(() => {
+	lenisInstance.value?.start();
+	document.body.style.overflow = "";
+});
 </script>
 
 <template>
-	<div class="min-h-screen bg-background text-foreground py-24 px-6 md:px-24">
-		<div class="max-w-6xl mx-auto">
-			<RouterLink to="/" class="group flex items-center gap-2 text-primary mb-8 hover:text-primary/80 transition-colors w-fit">
-				<ArrowLeft class="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-				<span class="font-medium">Go Back</span>
-			</RouterLink>
+	<div
+		class="fixed inset-0 z-[100] backdrop-blur-md bg-background/95 flex items-center justify-center p-4 md:p-8 lg:p-12"
+	>
+		<div
+			class="w-full max-w-6xl max-h-[90vh] bg-white/5 border border-border rounded-xl flex flex-col overflow-hidden shadow-2xl"
+		>
+			<!-- Modal Header Section -->
+			<div
+				class="p-6 md:p-8 border-b border-border flex justify-between items-center gap-4 bg-background/50 shrink-0"
+			>
+				<h1 class="text-3xl md:text-4xl font-bold tracking-tight">
+					All Projects
+				</h1>
 
-			<h1 class="text-4xl md:text-5xl font-bold mb-12 tracking-tight">All Projects</h1>
+				<Button
+					as-child
+					variant="ghost"
+					class="group hover:text-primary transition-colors shrink-0"
+				>
+					<RouterLink to="/" class="flex items-center gap-2">
+						<span class="font-medium">Go Back</span>
+						<ArrowLeft
+							class="w-4 h-4 order-first group-hover:-translate-x-1 transition-transform"
+						/>
+					</RouterLink>
+				</Button>
+			</div>
 
-			<div class="overflow-x-auto table-container">
-				<table class="w-full text-left border-collapse min-w-[600px] md:min-w-0">
-					<thead>
-						<tr class="border-b border-border text-muted-foreground uppercase text-xs tracking-widest">
-							<th class="py-4 px-4 font-semibold">Year</th>
-							<th class="py-4 px-4 font-semibold">Project</th>
-							<th class="py-4 px-4 font-semibold">Stack</th>
-							<th class="py-4 px-4 font-semibold">Links</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr
+			<!-- Sticky Table Header -->
+			<div
+				class="sticky top-0 z-20 grid grid-cols-[80px_2.5fr_3.5fr_1.5fr_120px] lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-4 bg-white/20 backdrop-blur-md border-b border-border text-muted-foreground uppercase text-[10px] tracking-widest font-semibold shrink-0"
+			>
+				<div class="min-w-0">Year</div>
+				<div class="min-w-0">Project</div>
+				<div class="min-w-0 hidden lg:block">Description</div>
+				<div class="min-w-0">Stack</div>
+				<div class="min-w-0 text-right pr-4">Links</div>
+			</div>
+			<div class="flex-1 overflow-x-auto custom-scrollbar" data-lenis-prevent>
+				<div
+					class="min-w-[900px] flex flex-col h-full table-container relative overflow-y-auto"
+				>
+					<!-- Scrollable Rows Container -->
+					<div class="divide-y divide-border/30 mask-top">
+						<div
 							v-for="project in projects"
 							:key="project.name"
-							class="border-b border-border/50 hover:bg-white/5 transition-colors group"
+							class="grid grid-cols-[80px_2.5fr_3.5fr_1.5fr_120px] lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-6 hover:bg-white/5 transition-colors group items-start"
 						>
-							<td class="py-4 px-4 text-muted-foreground tabular-nums">
+							<!-- Year -->
+							<div
+								class="min-w-0 text-muted-foreground tabular-nums text-sm pt-1"
+							>
 								{{ formatDate(project.date) }}
-							</td>
-							<td class="py-4 px-4">
-								<span class="font-bold text-primary group-hover:text-primary/90">{{ project.name }}</span>
-							</td>
-							<td class="py-4 px-4">
-								<div class="flex flex-wrap gap-2 max-w-[300px] md:max-w-none">
+							</div>
+
+							<!-- Project Name -->
+							<div class="min-w-0 pr-4">
+								<span
+									class="font-bold text-primary group-hover:text-primary/90 block truncate"
+									:title="project.name"
+									>{{ project.name }}</span
+								>
+							</div>
+
+							<!-- Description -->
+							<div
+								class="min-w-0 hidden lg:block pr-8 text-muted-foreground text-sm"
+							>
+								<p
+									class="transition-all duration-300 cursor-pointer hover:text-foreground"
+									:class="
+										expandedProjects.has(project.name)
+											? 'line-clamp-none'
+											: 'line-clamp-3'
+									"
+									@click="toggleExpand(project.name)"
+								>
+									{{ project.desc }}
+								</p>
+							</div>
+
+							<!-- Stack -->
+							<div class="min-w-0 pr-4 overflow-hidden">
+								<div
+									class="flex gap-1.5 transition-all duration-300"
+									:class="
+										expandedProjects.has(project.name)
+											? 'flex-wrap'
+											: 'flex-nowrap'
+									"
+								>
 									<Badge
 										v-for="tech in project.stack"
 										:key="tech"
 										variant="outline"
-										class="bg-black/20 text-[10px] py-0 px-2"
+										class="bg-black/20 text-[10px] py-0 px-2 whitespace-nowrap border-border/50 shrink-0"
 									>
 										{{ tech }}
 									</Badge>
 								</div>
-							</td>
-							<td class="py-4 px-4">
-								<div class="flex items-center gap-4">
-									<a
-										v-if="project.sourceCode"
-										:href="project.sourceCode"
-										target="_blank"
-										rel="noopener noreferrer"
-										class="text-muted-foreground hover:text-primary transition-colors"
-										:title="`Source code for ${project.name}`"
-									>
-										<Github class="w-5 h-5" />
-									</a>
-									<a
-										v-if="project.liveUrl"
-										:href="project.liveUrl"
-										target="_blank"
-										rel="noopener noreferrer"
-										class="text-muted-foreground hover:text-primary transition-colors"
-										:title="`Live demo for ${project.name}`"
-									>
-										<ExternalLink class="w-5 h-5" />
-									</a>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+							</div>
+
+							<!-- Links -->
+							<div class="min-w-0 flex items-center justify-end gap-3 pr-4">
+								<a
+									v-if="project.sourceCode"
+									:href="project.sourceCode"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
+								>
+									<Github
+										class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+									/>
+								</a>
+								<a
+									v-if="project.liveUrl"
+									:href="project.liveUrl"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
+								>
+									<ExternalLink
+										class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+									/>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <style scoped>
+.custom-scrollbar,
 .table-container {
-	scrollbar-width: none;
-	-ms-overflow-style: none;
+	scrollbar-width: thin;
+	scrollbar-color: var(--border) transparent;
 }
+
+.custom-scrollbar::-webkit-scrollbar,
 .table-container::-webkit-scrollbar {
-	display: none;
+	width: 6px;
+	height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track,
+.table-container::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb {
+	background-color: var(--border);
+	border-radius: 10px;
+}
+
+.table-container {
+	/* Ensures alignment remains even when vertical scrollbar appears */
+	scrollbar-gutter: stable;
+}
+
+/* Mask specifically for the rows container to handle clipping at the header boundary */
+.mask-top {
+	mask-image: linear-gradient(to bottom, transparent 0, black 20px);
 }
 </style>

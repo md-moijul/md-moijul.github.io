@@ -31,6 +31,12 @@ Starts the Vite development server.
 npm run dev
 ```
 
+### Testing
+Runs unit and integration tests using **Vitest**.
+```bash
+npm test
+```
+
 ### Production Build
 Builds the application for production using `vue-tsc` for type checking and Vite for bundling.
 ```bash

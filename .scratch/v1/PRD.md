@@ -24,7 +24,7 @@ Transition the site to a polished v1 by implementing a zero-backend contact form
 - **Project Structure:** Refactor `App.vue` to act as a root layout containing a `<RouterView>`. Create `HomeView.vue` (for the main scrollable content) and `ArchiveView.vue` (for the project table).
 - **Contact Loop:** Integrate the **EmailJS** SDK. Create a submission handler that manages "Sending", "Success", and "Error" states. No custom backend or serverless functions are required.
 - **Marquee Component:** Develop a reusable `MarqueeContainer.vue`. It will use CSS `@keyframes` and a DOM-cloning strategy (multiplying the list of items) to create a seamless infinite loop. It must support a `pause-on-hover` state.
-- **Project Archive:** Implement a data-driven table using the existing `src/assets/data.ts`. The table will be styled with Tailwind CSS to be responsive (collapsing into a card-like view or horizontal scroll on mobile).
+- **Project Archive:** Refactor the archive into a full-screen modal-style overlay. It will feature a sticky header (with "Go Back", title, and table headers) and a responsive project table including descriptions and icon-based links.
 - **CI/CD:** Add a `.gitlab-ci.yml` file using a Node/Vite build image to automate the production build and deployment to the `public/` directory for GitLab Pages.
 
 ## Testing Decisions
@@ -35,7 +35,6 @@ Transition the site to a polished v1 by implementing a zero-backend contact form
 
 ## Out of Scope
 - Building a custom backend for email handling (deferred in favor of EmailJS).
-- Lenis smooth scrolling integration (deferred to v2 for final polish).
 - "Project Detail" sub-pages for individual projects.
 - Search/Filtering functionality within the Project Archive (kept to a simple table for v1).
 

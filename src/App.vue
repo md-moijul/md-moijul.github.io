@@ -22,12 +22,12 @@ watch(() => route.path, () => {
 </script>
 
 <template>
-	<div class="flex flex-col md:flex-row">
-		<div class="md:w-1/2 md:h-screen md:flex md:items-center md:justify-center">
+	<div class="flex flex-col md:flex-row min-h-screen">
+		<div v-if="route.path !== '/archive'" class="md:w-1/2 md:h-screen md:flex md:items-center md:justify-center">
 			<NavigationPanel />
 		</div>
 
-		<main class="md:w-1/2 md:h-screen overflow-y-auto scrollbar-hide">
+		<main :class="[route.path === '/archive' ? 'w-full' : 'md:w-1/2', 'md:h-screen overflow-y-auto scrollbar-hide']">
 			<div id="scroll-content">
 				<RouterView />
 			</div>
