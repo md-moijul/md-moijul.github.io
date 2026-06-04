@@ -1,90 +1,73 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { ref, onMounted, onUnmounted, watch, nextTick } from "vue";
+import { useRoute } from "vue-router";
+import { useScrollTo } from "@/composables/useScrollTo";
 import { lenisInstance } from "@/composables/useLenis";
 
-const activeSection = ref("");
+const activeSection = ref("about");
 const sectionIds = ["about", "experience", "projects", "contact"];
-const router = useRouter();
 const route = useRoute();
 
-const scrollToSection = async (id: string, e?: Event) => {
-	if (e) e.preventDefault();
+const { scrollToSection } = useScrollTo(activeSection);
 
-	const targetId = `#${id}`;
+const handleScroll = (args?: any) => {
+	const triggerPoint = window.innerHeight * 0.2;
+	let current = activeSection.value;
 
-	if (route.path !== "/") {
-		await router.push("/");
-		// Small delay to ensure the page is rendered before scrolling
-		setTimeout(() => {
-			if (lenisInstance.value) {
-				lenisInstance.value.scrollTo(targetId, {
-					offset: 0,
-					duration: 1.5,
-				});
-			}
-		}, 100);
-	} else {
-		if (lenisInstance.value) {
-			lenisInstance.value.scrollTo(targetId, {
-				offset: 0,
-				duration: 1.5,
-			});
-		}
-	}
-};
-
-// A map to store the visibility ratio of each section.
-const sectionRatios = new Map<string, number>();
-let observer: IntersectionObserver;
-
-const updateActiveSection = () => {
-	let bestMatch = { id: "", ratio: -1 };
-	sectionRatios.forEach((ratio, id) => {
-		if (ratio > bestMatch.ratio) {
-			bestMatch = { id, ratio };
-		}
-	});
-
-	// Set the active section only if there is a visible one.
-	if (bestMatch.ratio > 0) {
-		activeSection.value = bestMatch.id;
-	}
-};
-
-const observeSections = () => {
-	if (observer) observer.disconnect();
+	// Calculate which section is currently at the top
 	sectionIds.forEach((id) => {
-		const section = document.getElementById(id);
-		if (section) observer.observe(section);
+		const el = document.getElementById(id);
+		if (el) {
+			const rect = el.getBoundingClientRect();
+			if (rect.top <= triggerPoint) {
+				current = id;
+			}
+		}
 	});
+
+	// Precise bottom detection: only trigger if we are at the literal end
+	if (args) {
+		const { scroll, limit } = args;
+		if (limit > 0 && scroll >= limit - 10) {
+			current = "contact";
+		}
+	} else if (lenisInstance.value) {
+		const { scroll, limit } = lenisInstance.value;
+		if (limit > 0 && scroll >= limit - 10) {
+			current = "contact";
+		}
+	}
+
+	activeSection.value = current;
 };
 
 onMounted(() => {
-	const thresholds = Array.from(Array(101).keys(), (i) => i / 100);
-	observer = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				sectionRatios.set(entry.target.id, entry.intersectionRatio);
-			});
-			updateActiveSection();
-		},
-		{ threshold: thresholds },
-	);
-	
-	observeSections();
-});
-
-// Re-observe when returning to home page
-watch(() => route.path, (newPath) => {
-	if (newPath === "/") {
-		// Wait for next tick to ensure DOM is updated
-		setTimeout(observeSections, 100);
+	if (lenisInstance.value) {
+		lenisInstance.value.on("scroll", handleScroll);
+		// Initial check
+		handleScroll();
 	}
 });
 
+// Watch for lenisInstance initialization and route changes
+watch(
+	[lenisInstance, () => route.path],
+	([newInstance], [oldInstance]) => {
+		if (oldInstance && oldInstance !== newInstance) {
+			oldInstance.off("scroll", handleScroll);
+		}
+		if (newInstance) {
+			newInstance.on("scroll", handleScroll);
+			nextTick(() => handleScroll());
+		}
+	},
+	{ immediate: true },
+);
+
 onUnmounted(() => {
-	if (observer) observer.disconnect();
+	if (lenisInstance.value) {
+		lenisInstance.value.off("scroll", handleScroll);
+	}
 });
 </script>
 

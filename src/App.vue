@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch } from "vue";
+import { watch, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import NavigationPanel from "@/components/NavigationPanel.vue";
 import { useLenis, lenisInstance } from "@/composables/useLenis";
@@ -10,13 +10,12 @@ const route = useRoute();
 useLenis();
 
 // Reset scroll to top and resize Lenis when route changes
-watch(() => route.path, () => {
+watch(() => route.path, async () => {
 	if (lenisInstance.value) {
 		lenisInstance.value.scrollTo(0, { immediate: true });
-		// Give it a moment to render before resizing
-		setTimeout(() => {
-			lenisInstance.value?.resize();
-		}, 100);
+		// Wait for next tick to ensure DOM is rendered before resizing
+		await nextTick();
+		lenisInstance.value?.resize();
 	}
 });
 </script>

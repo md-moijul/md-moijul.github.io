@@ -17,7 +17,7 @@ export function useLenis() {
 
         if (wrapperElement && contentElement) {
             lenisInstance.value = new Lenis({
-                lerp: 0.1,
+                lerp: 0.15,
                 smoothWheel: true,
                 wrapper: wrapperElement,
                 content: contentElement,

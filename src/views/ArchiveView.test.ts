@@ -6,6 +6,12 @@ import { lenisInstance } from '@/composables/useLenis';
 
 // Mock vue-router
 vi.mock('vue-router', () => ({
+    useRouter: vi.fn(() => ({
+        push: vi.fn(),
+    })),
+    useRoute: vi.fn(() => ({
+        path: '/archive',
+    })),
     RouterLink: {
         template: '<a><slot /></a>',
     },
@@ -23,28 +29,18 @@ vi.mock('@/composables/useLenis', () => ({
 }));
 
 describe('ArchiveView', () => {
-    it('stops Lenis on mount and starts on unmount', () => {
+    it('renders as a standard page layout', () => {
         const wrapper = mount(ArchiveView);
-        expect(lenisInstance.value?.stop).toHaveBeenCalled();
-        
-        wrapper.unmount();
-        expect(lenisInstance.value?.start).toHaveBeenCalled();
+        expect(wrapper.classes()).not.toContain('fixed');
+        expect(wrapper.classes()).not.toContain('inset-0');
+        expect(wrapper.classes()).not.toContain('z-[100]');
+        expect(wrapper.classes()).toContain('p-4');
     });
 
-    it('renders as a fixed full-screen overlay', () => {
+    it('contains a container with max-width', () => {
         const wrapper = mount(ArchiveView);
-        expect(wrapper.classes()).toContain('fixed');
-        expect(wrapper.classes()).toContain('inset-0');
-        expect(wrapper.classes()).toContain('z-[100]');
-        expect(wrapper.classes()).toContain('backdrop-blur-md');
-    });
-
-    it('contains a card-styled container', () => {
-        const wrapper = mount(ArchiveView);
-        const card = wrapper.find('.bg-white\\/5');
-        expect(card.exists()).toBe(true);
-        expect(card.classes()).toContain('border');
-        expect(card.classes()).toContain('rounded-xl');
+        const container = wrapper.find('.w-full.max-w-6xl');
+        expect(container.exists()).toBe(true);
     });
 
     it('renders the "All Projects" heading', () => {
@@ -76,11 +72,17 @@ describe('ArchiveView', () => {
         expect(descHeader?.classes()).toContain('lg:block');
     });
 
+    it('does NOT have navigation links to home sections', () => {
+        const wrapper = mount(ArchiveView);
+        const links = wrapper.findAll('nav a');
+        expect(links.length).toBe(0);
+    });
+
     it('has a "Go Back" button that points to home', () => {
         const wrapper = mount(ArchiveView);
-        const backButton = wrapper.find('a');
-        expect(backButton.text()).toContain('Go Back');
-        expect(backButton.attributes('to')).toBe('/');
+        const backButton = wrapper.findAll('a').find(el => el.text().includes('Go Back'));
+        expect(backButton?.exists()).toBe(true);
+        expect(backButton?.attributes('to')).toBe('/');
     });
 
     it('uses minimalist icons for project links', () => {

@@ -4,8 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
-import { ref, onMounted, onUnmounted } from "vue";
-import { lenisInstance } from "@/composables/useLenis";
+import { ref } from "vue";
 
 const formatDate = (date?: Date) => {
 	if (!date) return "—";
@@ -20,24 +19,12 @@ const toggleExpand = (name: string) => {
 		expandedProjects.value.add(name);
 	}
 };
-
-onMounted(() => {
-	lenisInstance.value?.stop();
-	document.body.style.overflow = "hidden";
-});
-
-onUnmounted(() => {
-	lenisInstance.value?.start();
-	document.body.style.overflow = "";
-});
 </script>
 
 <template>
-	<div
-		class="fixed inset-0 z-[100] backdrop-blur-md bg-background/95 flex items-center justify-center p-4 md:p-8 lg:p-12"
-	>
+	<div class="w-full min-h-screen p-4 md:p-8 lg:p-12 flex flex-col items-center">
 		<div
-			class="w-full max-w-6xl max-h-[90vh] bg-white/5 border border-border rounded-xl flex flex-col overflow-hidden shadow-2xl"
+			class="w-full max-w-6xl bg-white/5 border border-border rounded-xl flex flex-col overflow-hidden shadow-2xl"
 		>
 			<!-- Modal Header Section -->
 			<div
