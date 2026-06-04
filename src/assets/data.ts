@@ -127,3 +127,19 @@ export const projects: Project[] = [
         stack: ['javascript', 'jquery', 'css']
     },
 ]
+
+export const contactData = {
+    title: 'Get In Touch',
+    description: "I'm currently looking for new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!",
+    successMessage: 'Message sent successfully!',
+    errorMessage: 'Failed to send message. Please try again.',
+    placeholders: {
+        email: 'your email *',
+        message: 'Say hello...',
+        name: 'Full Name *'
+    },
+    buttons: {
+        send: 'SEND',
+        sending: 'SENDING...'
+    }
+}
