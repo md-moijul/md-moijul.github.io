@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import NavigationPanel from "./components/NavigationPanel.vue";
-import AboutSection from "./components/sections/AboutSection.vue";
-import ProjectsSection from "./components/sections/ProjectsSection.vue";
-import ContactSection from "./components/sections/ContactSection.vue";
-import ExperienceSection from "./components/sections/ExperienceSection.vue";
 import { useLenis } from "./composables/useLenis";
 
-
+// Lenis smooth scrolling is enabled globally.
+// Note: Transition to multi-page might require scroll reset logic in router or here.
 useLenis();
 </script>
 
@@ -17,12 +14,7 @@ useLenis();
 		</div>
 
 		<main class="md:w-1/2 md:h-screen overflow-y-auto scrollbar-hide">
-			<div class="max-w-3xl px-8 sm:px-12 md:px-16 space-y-24 md:space-y-32">
-				<AboutSection class=" pt-8 sm:pt-12 md:pt-16 "/>
-				<ExperienceSection />
-				<ProjectsSection />
-				<ContactSection class=" pb-8 sm:pb-12 md:pb-16 "/>
-			</div>
+			<RouterView />
 		</main>
 	</div>
 </template>
