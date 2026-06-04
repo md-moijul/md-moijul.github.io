@@ -17,7 +17,7 @@ export const experiences: Experience[] = [
         desc: 'Returning back as full-time as a software developer, I focused on building an interactive, drag-and-drop email editor Software as a service using React, TypeScript, Tailwind, Storybook, Lexical, and React-Email.',
         location: 'Stroud',
         startDate: new Date("2024-05"),
-        EndDate: new Date(),
+        EndDate: new Date("2026-04"),
         projects: ['FDC Digital', 'Gym Tech', 'LCP Group', 'Badland']
     },
     {
@@ -36,7 +36,7 @@ export const experiences: Experience[] = [
         location: 'Stroud',
         startDate: new Date("2022-09"),
         EndDate: new Date("2023-09"),
-        projects: ['Shoot My Mail', 'WX-Dnd', 'The Turn', 'Server Usage Frontend', 'Sparta Health']
+        projects: ['The Turn', 'Server Usage Frontend', 'Sparta Health']
     },
 ]
 
@@ -53,80 +53,56 @@ interface Project {
 
 export const projects: Project[] = [
     {
-        name: 'FDC Digital',
-        desc: `Delivered a digital checklist application that transformed the compliance workflow for childcare providers, now actively used by over 10 schools. As the sole front-end developer responsible for new features, I built out the user-facing product from its early stages, focusing on creating an intuitive and reliable experience. This involved developing within a scalable monorepo architecture to ensure the product's successful launch, adoption, and ongoing feature development based on client feedback.`,
-        date: new Date("2024-01"),
-        sourceCode: 'https://github.com/moijul/fdc-digital',
-        liveUrl: 'https://fdcdigital.com.au/',
-        stack: ['nextjs', 'react', 'typescript', 'mongo', 'tailwind', 'shadcn', 'react-hook-form', 'zod', 'storybook', 'vitest', 'monorepo']
+        name: "FDC Digital",
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Shadcn/UI', 'Lerna', 'Feature Flags', 'React-Hook-Form', 'Storybook', 'Vitest', 'Nx'],
+        desc: "FDC Digital is a compliance management platform that digitizes paper-based audit workflows for childcare providers. As the Solo Frontend Developer, I took ownership of frontend sprint delivery and stabilized complex deployment pipelines. To solve critical 'Version Drift' across environments, I implemented Trunk-Based Development and introduced Feature Flags, which significantly reduced delivery time. This shifted us to a faster release cadence where bug patches reach Production in minutes and features can be tested safely without long-lived staging branches. The architecture includes a Next.js App Router with Zod-driven Server Actions and a proprietary 'Builder Pattern' for white-labeling."
     },
     {
-        name: 'Gym-tech',
-        desc: `This was an R&D venture for designing a wearable device which could track user training sessions and visualize the data to the coach/personal trainer. I was primarily part of data collection using Arduino and displacement calculation using IMU sensors.`,
-        date: new Date("2024-03"),
-        stack: ['python', 'arduino', 'matplotlib', 'flask', 'express']
+        name: "LCP Group / M Core Portfolio",
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Google Maps API', 'Jixaw (CMS)', 'Axios', 'React-Hook-Form', 'Shadcn/UI', 'Supercluster'],
+        desc: "A multi-tenant property portfolio platform powering three major real estate brands from a single Next.js codebase. My primary challenge was visualizing thousands of property assets without degrading performance. I engineered a high-performance interactive map handling over a thousand assets using supercluster for client-side clustering, maintaining 60fps by calculating the viewport bounding box in real-time. Additionally, I architected a URL-first state management system where every filter change synchronizes with the URL query string, ensuring instant UI feedback while making complex search results bookmarkable, shareable, and SEO-friendly."
     },
     {
-        name: 'Badland',
-        desc: `An Ecommerce site for a British electric components manufacturing company, specialized in antennas. In this site, a user is able to view a list of products, filter to their need, purchase to their liking and pay for the payment right from the site. This is another website primarily built with Jixaw.`,
-        date: new Date("2023-11"),
-        stack: ['jixaw', 'react', 'typescript', 'mongo', 'tailwind', 'shadcn']
+        name: "Badland Antennas",
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Axios', 'Google Analytics', 'Lucide React', 'Jixaw (CMS)'],
+        desc: "Badland Antennas is a B2B industrial catalog where I bridged the gap between technical implementation and business strategy. I engineered a URL-driven product filtering system utilizing Next.js Server Components to ensure search results were bookmarkable and SEO-friendly. I also developed a seamless Request a Quote workflow featuring auto-filled data for authenticated trade users and implemented high-fidelity conversion tracking for Google Ads. Uniquely for a developer role, I conducted on-site client training at their manufacturing facility where I identified a gap in their marketing workflow and successfully cross-sold an internal SaaS product to the client."
     },
     {
-        name: 'LCP Group',
-        desc: `This Real Estate company has multiple portfolio websites, where they promote their Estates and Units. This was an interesting project because we had to design 3 different websites from one data source using our internal CMS system Jixaw. Apart from this, another challenging task was to visualize the units using Google Maps API.`,
-        date: new Date("2023-08"),
-        stack: ['jixaw', 'react', 'typescript', 'mongo', 'tailwind', 'shadcn', 'react-google-maps']
+        name: "Robertson Restoration",
+        stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'Jixaw (CMS)', 'React Hooks',],
+        desc: "Robertson Restoration is a regional property recovery service requiring a fast-loading digital presence. Facing a strict MVP deadline before our internal CMS was fully operational, I adopted a modular, contract-first strategy. I built the frontend components using strict TypeScript interfaces, and once the CMS became available, I configured the data models myself to match my UI props exactly, allowing for a seamless migration without requiring backend support. Technically, I leveraged the experimental React use hook to handle asynchronous data fetching without client-side waterfalls, and engineered a highly performant, pure CSS before-and-after image slider to eliminate layout shifts and maintain excellent Core Web Vitals."
     },
     {
-        name: 'Robertson Restoration',
-        desc: `A Restoration Company website to showcase their services, previous works and testimonials. Initially built with Next.js and gradually switched to Jixaw, our internal CMS system.`,
-        date: new Date("2023-05"),
-        stack: ['jixaw', 'react', 'typescript', 'mongo', 'scss']
+        name: "Drag-and-Drop Email Builder",
+        stack: ['React', 'TypeScript', 'Tailwind', 'dnd-kit', 'Lexical', 'Zustand', 'React-Email', 'Storybook', 'Cypress', 'Vite'],
+        desc: "This project is the core framework-agnostic builder engine for the ShootMyMail SaaS platform, designed to produce table-based, email-safe HTML while offering a modern drag-and-drop experience. I architected the state using a recursive, object-oriented node structure, enabling the infinite nesting of rows and columns that standard libraries struggle to handle. To bridge this mutable class-based model with Reacts immutable lifecycle, I engineered a high-performance rendering engine using React memo and a global Zustand store, keeping drag operations under 50 milliseconds. Additionally, I solved focus-stealing conflicts by building a dedicated drag handle system for Lexical rich-text blocks, and integrated React-Email to compile the JSON state tree into responsive HTML."
     },
     {
-        name: 'Order Picking System',
-        desc: `This was a web system for warehouse employees for them to pick orders using a barcode scanner.`,
-        date: new Date("2023-12"),
-        stack: ['react', 'typescript', 'mongo', 'mui']
+        name: "Gym Tech - IMU Trajectory Analyzer",
+        stack: ['Next.js', 'TypeScript', 'Python', 'FastAPI', 'Node.js', 'React Native', 'Docker', 'SerialPort', 'Pandas', 'SciPy', 'Arduino', 'Jupyter'],
+        desc: "A distributed IoT research platform designed to capture and analyze 3D motion data from Arduino-based IMU sensors. To solve the critical issue of double integration drift in accelerometers, I prototyped Extended Kalman Filters and RK4 integration methods in Jupyter before porting them to a production Python microservice. I architected a split-brain system that decouples fragile high-frequency serial logging in Node.js from heavy mathematical processing in FastAPI, ensuring zero sensor data loss even during heavy analysis loads or algorithmic crashes. Furthermore, I built a server-driven UI engine where the Next.js frontend dynamically renders tuning controls based on JSON schemas fetched from the Python backend, allowing researchers to rapidly iterate on physics models without requiring frontend redeployments."
     },
     {
-        name: 'Email Editor',
-        desc: `Another Internal package with the primary goal being drag-and-drop email building. The reasoning was this is the package capable of lifting all the heavy stuff of email building and adding this will allow us to add the email builder to any React app. It uses dnd-kit for all the drag and drop functionality and Lexical for the rich text editor.`,
-        date: new Date("2024-02"),
-        stack: ['react', 'typescript', 'tailwind', 'shadcn', 'dndkit', 'lexical']
+        name: "The Turn (Band Site)",
+        stack: ['Next.js', 'TypeScript', 'SCSS', 'Material UI', 'Docker', 'Kubernetes', 'Next/Image'],
+        desc: "The Turn is a responsive portfolio and event tracking site for a local music band, optimized for speed and visual impact. Working under a strict deadline without a dedicated CMS backend, I engineered a mock API abstraction layer to structure static data access. This decoupled the frontend components from the hardcoded data files, making the architecture future-proof for easy CMS integration later. To handle hundreds of local high-resolution assets, I built a custom masonry layout featuring a randomized image algorithm and utilized Next.js image optimization to ensure high performance across devices. The final application was containerized with Docker and deployed to an internal Kubernetes cluster."
     },
     {
-        name: 'WX-Dnd',
-        desc: `This was an internal drag and drop library planned to be used in Shoot My Mail. It was capable of animating drag and drop behaviour within a context parent. However, it was deprecated and we used a community-built library instead for better support and features.`,
-        date: new Date("2023-02"),
-        stack: ['react', 'typescript', 'tailwind', 'redux']
+        name: "Sparta Health",
+        stack: ['JavaScript', 'jQuery', 'SCSS', 'PHP', 'FontAwesome', 'Sass Compiler', 'Chrome DevTools', 'Internal CMS'],
+        desc: "Sparta Health is an occupational health platform where I led a complete responsive retrofit during my university placement. Tasked with modernizing a rigid, desktop-only legacy PHP monolith without modifying the underlying backend logic, I engineered a custom responsive layout system using SCSS. I resolved deep-seated UI inconsistencies and safely overrode legacy global styles to ensure cross-browser compatibility. By refactoring the styling into modular components and redesigning complex health questionnaires for smaller screens, I successfully transformed the platform into a fully mobile-accessible experience for patients and clinics."
     },
     {
-        name: 'Shoot My Mail',
-        desc: `An email building and automation platform. It allows users to create, send and track email campaigns. My work involved building some dashboard features and improving existing design.`,
-        date: new Date("2022-12"),
-        stack: ['react', 'typescript', 'mui']
+        name: "Warehouse Order Picking System",
+        stack: ['Next.js', 'React', 'TypeScript', 'Material UI', 'SCSS', 'Storybook', 'LocalStorage API', 'PWA', 'Barcode Integration'],
+        desc: "The Order Picking System is a dedicated internal progressive web app built for warehouse employees to streamline the fulfillment of book orders. Focused on extreme reliability in a physical environment where devices frequently lose connection or enter sleep mode, I architected a persistent state layer using LocalStorage. This ensured workers never lost active filters or order selections during their shifts. I integrated hardware barcode scanner support via global event listeners for rapid data entry and designed a custom task-finding algorithm. This algorithm intelligently guides users through optimal shelf routes and manages missing stock through a snooze workflow, maintaining picking momentum despite inventory discrepancies."
     },
     {
-        name: 'The Turn',
-        desc: `This is a landing site for The Turn Band, where users are able to view an image gallery of previous events and a page to view upcoming gigs. This was another project built from the ground up by me.`,
-        date: new Date("2023-01"),
-        stack: ['react', 'typescript', 'tailwind', 'shadcn']
-    },
-    {
-        name: 'Server Usage Frontend',
-        desc: `This was a project which was built from the ground up by me. This project takes the server APIs and visualizes the usage and other specs of the server and namespaces in a dashboard fashion. It has search and filter functionality to see details on individual clients and their usage of resources for each month.`,
-        date: new Date("2022-10"),
-        stack: ['react', 'typescript', 'tailwind', 'shadcn']
-    },
-    {
-        name: 'Sparta Health',
-        desc: `This was my very first project as a placement student. This was a fully functioning web app which lacked responsiveness. I worked on making it compatible with different devices and browsers, and also contributed to the animations.`,
-        date: new Date("2022-09"),
-        stack: ['javascript', 'jquery', 'css']
-    },
-]
+        name: "Miniature Self-Driving Bicycle Prototype",
+        stack: ['C++', 'Arduino', 'Embedded C', 'Arduino UNO', 'L298N Motor Driver', 'Ultrasonic Sensors', 'CAD modeling', '3D Printing'],
+        desc: "This final-year university project explores autonomous navigation through a custom-built miniature bicycle prototype. As the sole engineer, I owned the entire lifecycle from designing and 3D printing a custom chassis to circuit assembly and embedded C++ programming. The core logic relies on a sensor fusion approach, utilizing infrared sensors for track following and an ultrasonic sensor for obstacle detection. I implemented a reactive state machine on an Arduino to process these inputs and drive the steering and propulsion motors in real time. Through rigorous testing, I successfully demonstrated autonomous track navigation and obstacle avoidance while identifying and documenting key hardware constraints around power distribution and real-time processing loops."
+    }
+];
 
 export const contactData = {
     title: 'Get In Touch',
