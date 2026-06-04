@@ -43,13 +43,21 @@ Previews the production build locally.
 npm run preview
 ```
 
+## Routing and Navigation
+
+- **Router:** Uses `vue-router` with `createWebHashHistory`.
+- **Navigation:** Navigation is handled programmatically via the `scrollToSection` function in `NavigationPanel.vue`.
+- **Smooth Scrolling:** Powered by **Lenis**. A shared `lenisInstance` is exposed via `useLenis.ts` for programmatic scroll control.
+- **Cross-Page Support:** When navigating to a section from a non-home route, the application redirects to `/` and then triggers a smooth scroll to the target section.
+- **Active Highlighting:** Section highlighting in the navigation panel is managed via `IntersectionObserver`.
+
 ## Development Conventions
 
 - **Component Pattern:** Use `<script setup lang="ts">` for all Vue components.
 - **Styling:** Use Tailwind CSS utility classes. Prefer the `@/` alias for imports from the `src` directory.
 - **Data Management:** Most of the portfolio content (experiences, projects) is stored in `src/assets/data.ts`. Update this file to add or modify entries.
 - **UI Components:** New generic UI components should be added to `src/components/ui` following the existing pattern (typically a component file and an `index.ts` for exports).
-- **Smooth Scrolling:** Lenis is initialized in `App.vue` via the `useLenis` composable. Any scroll-related interactions should be compatible with Lenis.
+- **Smooth Scrolling:** Lenis is initialized in `App.vue` via the `useLenis` composable. For programmatic scrolling, use the exported `lenisInstance` from `@/composables/useLenis`. Any scroll-related interactions should be compatible with Lenis.
 
 ## Key Files
 

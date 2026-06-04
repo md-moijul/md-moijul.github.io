@@ -1,10 +1,24 @@
 <script setup lang="ts">
-import NavigationPanel from "./components/NavigationPanel.vue";
-import { useLenis } from "./composables/useLenis";
+import { watch } from "vue";
+import { useRoute } from "vue-router";
+import NavigationPanel from "@/components/NavigationPanel.vue";
+import { useLenis, lenisInstance } from "@/composables/useLenis";
+
+const route = useRoute();
 
 // Lenis smooth scrolling is enabled globally.
-// Note: Transition to multi-page might require scroll reset logic in router or here.
 useLenis();
+
+// Reset scroll to top and resize Lenis when route changes
+watch(() => route.path, () => {
+	if (lenisInstance.value) {
+		lenisInstance.value.scrollTo(0, { immediate: true });
+		// Give it a moment to render before resizing
+		setTimeout(() => {
+			lenisInstance.value?.resize();
+		}, 100);
+	}
+});
 </script>
 
 <template>
@@ -14,7 +28,9 @@ useLenis();
 		</div>
 
 		<main class="md:w-1/2 md:h-screen overflow-y-auto scrollbar-hide">
-			<RouterView />
+			<div id="scroll-content">
+				<RouterView />
+			</div>
 		</main>
 	</div>
 </template>

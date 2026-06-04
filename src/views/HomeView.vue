@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AboutSection from "../components/sections/AboutSection.vue";
-import ProjectsSection from "../components/sections/ProjectsSection.vue";
-import ContactSection from "../components/sections/ContactSection.vue";
-import ExperienceSection from "../components/sections/ExperienceSection.vue";
+import AboutSection from "@/components/sections/AboutSection.vue";
+import ProjectsSection from "@/components/sections/ProjectsSection.vue";
+import ContactSection from "@/components/sections/ContactSection.vue";
+import ExperienceSection from "@/components/sections/ExperienceSection.vue";
 </script>
 
 <template>

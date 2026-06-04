@@ -1,22 +1,22 @@
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import Lenis from 'lenis';
 
-export function useLenis() {
-    let lenis: Lenis | null = null;
+export const lenisInstance = ref<Lenis | null>(null);
 
+export function useLenis() {
     const animate = (time: number) => {
-        if (lenis) {
-            lenis.raf(time);
+        if (lenisInstance.value) {
+            lenisInstance.value.raf(time);
             requestAnimationFrame(animate);
         }
     };
 
     onMounted(() => {
         const wrapperElement = document.querySelector('main');
-        const contentElement = wrapperElement?.querySelector('div');
+        const contentElement = document.querySelector('#scroll-content');
 
         if (wrapperElement && contentElement) {
-            lenis = new Lenis({
+            lenisInstance.value = new Lenis({
                 lerp: 0.1,
                 smoothWheel: true,
                 wrapper: wrapperElement,
@@ -28,9 +28,9 @@ export function useLenis() {
     });
 
     onUnmounted(() => {
-        if (lenis) {
-            lenis.destroy();
-            lenis = null;
+        if (lenisInstance.value) {
+            lenisInstance.value.destroy();
+            lenisInstance.value = null;
         }
     });
 }

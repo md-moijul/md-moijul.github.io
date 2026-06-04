@@ -1,8 +1,38 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { lenisInstance } from "@/composables/useLenis";
 
 const activeSection = ref("");
 const sectionIds = ["about", "experience", "projects", "contact"];
+const router = useRouter();
+const route = useRoute();
+
+const scrollToSection = async (id: string, e?: Event) => {
+	if (e) e.preventDefault();
+
+	const targetId = `#${id}`;
+
+	if (route.path !== "/") {
+		await router.push("/");
+		// Small delay to ensure the page is rendered before scrolling
+		setTimeout(() => {
+			if (lenisInstance.value) {
+				lenisInstance.value.scrollTo(targetId, {
+					offset: 0,
+					duration: 1.5,
+				});
+			}
+		}, 100);
+	} else {
+		if (lenisInstance.value) {
+			lenisInstance.value.scrollTo(targetId, {
+				offset: 0,
+				duration: 1.5,
+			});
+		}
+	}
+};
 
 // A map to store the visibility ratio of each section.
 const sectionRatios = new Map<string, number>();
@@ -22,6 +52,14 @@ const updateActiveSection = () => {
 	}
 };
 
+const observeSections = () => {
+	if (observer) observer.disconnect();
+	sectionIds.forEach((id) => {
+		const section = document.getElementById(id);
+		if (section) observer.observe(section);
+	});
+};
+
 onMounted(() => {
 	const thresholds = Array.from(Array(101).keys(), (i) => i / 100);
 	observer = new IntersectionObserver(
@@ -33,10 +71,16 @@ onMounted(() => {
 		},
 		{ threshold: thresholds },
 	);
-	sectionIds.forEach((id) => {
-		const section = document.getElementById(id);
-		if (section) observer.observe(section);
-	});
+	
+	observeSections();
+});
+
+// Re-observe when returning to home page
+watch(() => route.path, (newPath) => {
+	if (newPath === "/") {
+		// Wait for next tick to ensure DOM is updated
+		setTimeout(observeSections, 100);
+	}
 });
 
 onUnmounted(() => {
@@ -67,6 +111,7 @@ onUnmounted(() => {
 				v-for="sectionId in sectionIds"
 				:key="sectionId"
 				:href="`#${sectionId}`"
+				@click="scrollToSection(sectionId, $event)"
 				class="font-sans font-medium tracking-widest uppercase text-xs transition-colors hover:text-foreground"
 				:class="
 					activeSection === sectionId ? 'active-link' : 'text-muted-foreground'
@@ -90,12 +135,12 @@ onUnmounted(() => {
 				/>
 			</a>
 			<a
-				href="https://https://github.com/md-moijul"
+				href="https://github.com/md-moijul"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="text-muted-foreground transition-colors hover:text-foreground"
 			>
-				<img src="../assets/github.svg" class="h-6 w-6" alt="github Profile" />
+				<img src="../assets/github.svg" class="h-6 w-6" alt="GitHub Profile" />
 			</a>
 		</div>
 	</nav>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { experiences } from "../../assets/data";
+import { experiences } from "@/assets/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 </script>
