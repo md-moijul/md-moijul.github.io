@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { Project } from "@/assets/data";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -11,14 +17,16 @@ defineProps<{
 
 <template>
 	<section id="projects" class="scroll-m-20 min-h-screen">
-		<h2 class="text-xl font-bold uppercase tracking-widest text-primary mb-8">Projects</h2>
+		<h2 class="text-xl font-bold uppercase tracking-widest text-primary mb-8">
+			Projects
+		</h2>
 		<div class="grid grid-cols-1 gap-6">
 			<Card v-for="project in projects" :key="project.name">
 				<CardHeader>
 					<CardTitle>{{ project.name }}</CardTitle>
-					<CardDescription v-if="project.date">
+					<!-- <CardDescription v-if="project.date">
 						{{ project.date.toLocaleDateString("en-US", { year: "numeric", month: "long" }) }}
-					</CardDescription>
+					</CardDescription> -->
 				</CardHeader>
 				<CardContent>
 					<p class="text-muted-foreground">{{ project.desc }}</p>

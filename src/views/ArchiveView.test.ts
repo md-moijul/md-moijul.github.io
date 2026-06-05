@@ -34,7 +34,8 @@ const mockProjects: Project[] = [
         date: new Date('2024-01-01'),
         stack: ['Vue', 'Vitest'],
         sourceCode: 'https://github.com',
-        liveUrl: 'https://example.com'
+        liveUrl: 'https://example.com',
+        featured: true
     }
 ];
 
