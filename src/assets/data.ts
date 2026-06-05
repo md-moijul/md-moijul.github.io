@@ -1,42 +1,44 @@
 
+export interface Role {
+    title: string;
+    startDate: Date;
+    endDate: Date | 'present';
+}
+
 export interface Experience {
     company: string;
-    jobTitle: string;
-    desc: string;
+    roles: Role[];
+    desc: string[];
     location: string;
     url?: string;
-    startDate: Date;
-    EndDate: Date | 'present';
-    projects: string[];
 }
 
 export const experiences: Experience[] = [
     {
         company: 'Wilxite',
-        jobTitle: 'Software Developer',
-        desc: 'Returning back as full-time as a software developer, I focused on building an interactive, drag-and-drop email editor Software as a service using React, TypeScript, Tailwind, Storybook, Lexical, and React-Email.',
         location: 'Stroud',
-        startDate: new Date("2024-05"),
-        EndDate: new Date("2026-04"),
-        projects: ['FDC Digital', 'Gym Tech', 'LCP Group', 'Badland']
-    },
-    {
-        company: 'Wilxite',
-        jobTitle: 'Software Developer (Part-time) ',
-        desc: 'Worked part-time during my final year at university, contributing to several projects, including a Book Order Picking System for a warehouse. Focused on building fully responsive web apps.',
-        location: 'Stroud',
-        startDate: new Date("2023-09"),
-        EndDate: new Date("2024-05"),
-        projects: ['Robertson Restoration', 'Order Picking System', 'Email Editor']
-    },
-    {
-        company: 'Wilxite',
-        jobTitle: 'Software Developer (Placement Student)',
-        desc: 'Completed a one-year placement where I primarily worked on a web application using Next.js, TypeScript, SCSS and Material UI to create interactive, responsive websites.',
-        location: 'Stroud',
-        startDate: new Date("2022-09"),
-        EndDate: new Date("2023-09"),
-        projects: ['The Turn', 'Server Usage Frontend', 'Sparta Health']
+        url: 'https://wilxite.com',
+        desc: [
+            'Over my tenure at Wilxite, I progressed from a placement student to a full-time software developer, contributing to a diverse range of projects. I focused on building high-performance web applications using modern stacks like React, Next.js, and TypeScript.',
+            'Key achievements include engineering an interactive, drag-and-drop email editor and architecting multi-tenant property platforms with high-fidelity performance requirements.'
+        ],
+        roles: [
+            {
+                title: 'Software Developer (Permanent)',
+                startDate: new Date("2024-05"),
+                endDate: new Date("2026-04"),
+            },
+            {
+                title: 'Software Developer (Part-time)',
+                startDate: new Date("2023-09"),
+                endDate: new Date("2024-05"),
+            },
+            {
+                title: 'Software Developer (Placement Student)',
+                startDate: new Date("2022-09"),
+                endDate: new Date("2023-09"),
+            },
+        ]
     },
 ]
 
@@ -121,6 +123,56 @@ export const projects: Project[] = [
         date: new Date("2025-08"),
         liveUrl: '',
         desc: "This final-year university project explores autonomous navigation through a custom-built miniature bicycle prototype. As the sole engineer, I owned the entire lifecycle from designing and 3D printing a custom chassis to circuit assembly and embedded C++ programming. The core logic relies on a sensor fusion approach, utilizing infrared sensors for track following and an ultrasonic sensor for obstacle detection. I implemented a reactive state machine on an Arduino to process these inputs and drive the steering and propulsion motors in real time. Through rigorous testing, I successfully demonstrated autonomous track navigation and obstacle avoidance while identifying and documenting key hardware constraints around power distribution and real-time processing loops."
+    },
+    {
+        name: "Geospatial Route Optimization",
+        stack: ['Python', 'NetworkX', 'Pandas', 'Dijkstra', 'A* Search'],
+        desc: "Engineered a geospatial route optimization program utilizing real-world UK train station data to compute the shortest and most efficient travel routes. I modeled the national rail network as a complex weighted graph and implemented advanced pathfinding algorithms, heavily utilizing trees and advanced data structures. A core focus of the project was benchmarking algorithmic time and space complexities, comparing the efficiency of various sorting, greedy, pattern matching, and streaming algorithms against large datasets to ensure optimal performance."
+    },
+    {
+        name: "Student Accommodation Management System",
+        stack: ['Python', 'Tkinter', 'SQLite', 'UML', 'OOP'],
+        desc: "Led the frontend architecture for a multi-functional Student Accommodation Management system developed within an agile team environment. I built a unified graphical user interface using Tkinter that featured strict role-based access control, allowing managers full data manipulation rights, restricting wardens to updating cleaning statuses, and limiting students to read-only queries. The system was underpinned by a robust SQLite database for secure state management and was rigorously engineered by translating UML designs into functional code using SOLID principles."
+    },
+    {
+        name: "Unicorn Company Valuation Predictor",
+        stack: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'SVM', 'ANN', 'Jupyter'],
+        desc: "Conducted predictive modeling on a Kaggle dataset to forecast the financial valuation of Unicorn Companies. I engineered a data pipeline to train, evaluate, and benchmark multiple machine learning algorithms, exploring both regression and classification paradigms. By analyzing the underlying mathematical architectures and performance metrics of Linear Regression, Support Vector Machines, and Artificial Neural Networks, I quantitatively determined that the ANN yielded the highest predictive accuracy for real-world company valuations."
+    },
+    {
+        name: "Custom Linux Command-Line Shell",
+        stack: ['C', 'Linux/Unix', 'POSIX APIs', 'Make', 'GDB'],
+        desc: "Developed a custom Linux command-line shell capable of handling background processes, pipes, and standard I/O redirection. I engineered low-level system interactions from the ground up by implementing argument passing and custom system calls to securely interface with hardware resources. This project required a deep understanding of CPU instruction cycles, preemptive process scheduling, advanced memory management, and system security techniques, specifically mitigating buffer overflows via address space randomization."
+    },
+    {
+        name: "Full-Stack E-Commerce Store",
+        stack: ['Python', 'Flask', 'JavaScript', 'CSS', 'SQLite', 'HTML', 'Agile/Scrum'],
+        desc: "Co-developed a comprehensive, full-stack web-based e-commerce platform within a five-person agile team. I engineered the backend architecture using Python and Flask, paired with a custom frontend built using vanilla JavaScript and CSS. A major focus of my work was designing and integrating an advanced SQLite database schema to manage local inventory dynamically while seamlessly handling edge cases for external, off-platform item sales. The project emphasized professional project planning, systematic testing standards, and UI/UX design methodologies."
+    },
+    {
+        name: "Genetic Algorithm Optimizer",
+        stack: ['Python', 'Matplotlib', 'NumPy'],
+        desc: "Engineered a Genetic Algorithm entirely from scratch in pure Python to solve complex mathematical optimization problems. I simulated evolutionary mechanics including random population generation, tournament selection, mutation steps, and elitism replacement to successfully locate the global minima of highly non-linear benchmark functions like Styblinski-Tang and Dixon-Price. The project required rigorous hyperparameter tuning of mutation rates, population sizes, and life cycles, utilizing Matplotlib to visualize algorithmic convergence and fitness improvements over thousands of generations."
+    },
+    {
+        name: "LSTM Weather Forecasting Model",
+        stack: ['Python', 'TensorFlow', 'Keras', 'Pandas', 'NumPy'],
+        desc: "Engineered a deep learning predictive model utilizing a Long Short-Term Memory (LSTM) network to forecast precipitation levels based on temporal weather data. I leveraged TensorFlow and Keras to process complex sequential datasets and mitigate vanishing gradient problems using Backpropagation Through Time. The project heavily focused on the core principles of time-series forecasting and training Recurrent Neural Networks to achieve highly accurate data regression on real-world meteorological inputs."
+    },
+    {
+        name: "Distributed AI Model Hosting Platform",
+        stack: ['Python', 'Django', 'PostgreSQL', 'Celery', 'Redis'],
+        desc: "Engineered a distributed, multi-role enterprise web platform using Python and Django to host, manage, and execute AI models. Working within an Agile framework, I implemented secure role-based access control dashboards with distinct workflows for customers, AI engineers, and finance managers. The platform featured dynamic AI model uploading, on-demand image processing execution utilizing models like ResNet, and comprehensive interaction logging, all underpinned by Model-View-Template design patterns and asynchronous data pipelines."
+    },
+    {
+        name: "SpiceMunch Native Android App",
+        stack: ['Kotlin', 'Android Studio', 'Git', 'XML', 'JUnit'],
+        desc: "Co-developed a native Android food ordering application named SpiceMunch within a collaborative team. I engineered the foundational activity flow and implemented complex UI features utilizing View Binding and Fragments for maximum modularity. By rigorously applying the MVVM architectural pattern, I successfully separated application logic from the user interface. Furthermore, I managed state via in-object data storage, utilized Intents for seamless data passing between activities, and conducted comprehensive unit testing for all models and ViewModels to ensure a highly robust application lifecycle."
+    },
+    {
+        name: "Security Threat Intelligence Visualizer",
+        stack: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
+        desc: "Analyzed raw network traffic and system log datasets to identify and visualize anomalous behavior and potential cyber threats. Leveraging Python, Pandas, Matplotlib, and Seaborn within Jupyter Notebooks, I engineered a data pipeline to clean, process, and visually represent high-volume security event data. The project focused heavily on big data analytics principles and anomaly detection methodologies, successfully translating complex, high-velocity network logs into actionable visual threat intelligence."
     }
 ];
 

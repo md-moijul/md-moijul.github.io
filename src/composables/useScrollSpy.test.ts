@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { useScrollSpy } from './useScrollSpy';
-import { lenisInstance } from './useLenis';
 import { mount } from '@vue/test-utils';
 import { defineComponent } from 'vue';
 
