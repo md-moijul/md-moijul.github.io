@@ -1,16 +1,17 @@
-Status: ready-for-agent
+Status: completed
 
 ## Parent
 PRD-V1.md
 
 ## What to build
-Create a `.gitlab-ci.yml` file using a Node/Vite build image to automate deployment to GitLab Pages. This ensures every push to the repository results in a live update of the portfolio.
+Create a GitHub Actions workflow in `.github/workflows/deploy.yml` to automate deployment to GitHub Pages. This ensures every push to the `main` branch results in a live update of the portfolio.
 
 ## Acceptance criteria
-- [ ] `.gitlab-ci.yml` file exists in the root directory.
-- [ ] Configured with `pages` job and `artifacts` pointing to the `dist` (or `public`) directory.
-- [ ] Build script correctly runs `npm install` and `npm run build`.
-- [ ] Deployment triggers on every push to the default branch.
+- [x] `.github/workflows/deploy.yml` file exists.
+- [x] Configured with `deploy` job using `actions/deploy-pages`.
+- [x] Build script correctly runs `npm ci` and `npm run build`.
+- [x] Deployment triggers on every push to the `main` branch.
+- [x] `vite.config.ts` updated with `base: './'` for correct routing.
 
 ## Blocked by
 - .scratch/v1/issues/01-routing-infrastructure.md

@@ -19,8 +19,10 @@ export const experiences: Experience[] = [
         location: 'Stroud',
         url: 'https://wilxite.com',
         desc: [
-            'Over my tenure at Wilxite, I progressed from a placement student to a full-time software developer, contributing to a diverse range of projects. I focused on building high-performance web applications using modern stacks like React, Next.js, and TypeScript.',
-            'Key achievements include engineering an interactive, drag-and-drop email editor and architecting multi-tenant property platforms with high-fidelity performance requirements.'
+
+            "I initially joined Wilxite as a Junior Software Developer for my university placement year, where I was tasked with modernizing legacy healthcare platforms and building responsive architectures. Based on my performance, I was offered a part-time role to continue engineering solutions, such as a recursive drag-and-drop email builder and a PWA warehouse picking system, while I completed my final year of university.",
+            "Following my graduation, I returned full-time as a  Developer and took complete ownership of the frontend architecture and sprint delivery for this complex B2B compliance SaaS. By implementing Trunk-Based Development and Feature Flags, I successfully stabilized the deployment pipelines, resolved critical version drift, and drastically reduced our feature delivery time.",
+            "Alongside my core responsibilities on FDC Digital, I worked across a diverse portfolio of high-impact projects. This included engineering a high-performance clustered map for a multi-tenant real estate platform, architecting a distributed IoT trajectory analyzer, and engineered custom tooling like recursive drag-and-drop editors."
         ],
         roles: [
             {

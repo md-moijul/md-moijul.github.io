@@ -19,10 +19,11 @@ const { scrollToSection } = useScrollTo(activeSection);
 			<h2
 				class="font-sans text-lg sm:text-xl font-semibold text-foreground mb-4"
 			>
-				Software Developer
+				Software Engineer
 			</h2>
 			<p class="font-sans text-muted-foreground max-w-xs">
-				I build accessible, pixel-perfect digital experiences for the web.
+				I build high-performance, accessible digital experiences with
+				scalability in mind.
 			</p>
 		</div>
 
