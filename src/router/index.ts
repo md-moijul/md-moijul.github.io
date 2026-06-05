@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import ArchiveView from '@/views/ArchiveView.vue'
+import { projects } from '@/assets/data'
 
 export const routes = [
   {
@@ -11,7 +12,8 @@ export const routes = [
   {
     path: '/archive',
     name: 'archive',
-    component: ArchiveView
+    component: ArchiveView,
+    props: { projects }
   }
 ]
 
