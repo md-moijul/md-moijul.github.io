@@ -22,9 +22,11 @@ const toggleExpand = (name: string) => {
 </script>
 
 <template>
-	<div class="w-full min-h-screen p-4 md:p-8 lg:p-12 flex flex-col items-center">
+	<div
+		class="w-full min-h-screen p-4 md:p-8 lg:p-12 flex flex-col items-center"
+	>
 		<div
-			class="w-full max-w-6xl bg-white/5 border border-border rounded-xl flex flex-col overflow-hidden shadow-2xl"
+			class="w-full max-w-6xl bg-black/20 border border-border rounded-xl flex flex-col overflow-hidden shadow-2xl"
 		>
 			<!-- Modal Header Section -->
 			<div
@@ -50,36 +52,58 @@ const toggleExpand = (name: string) => {
 
 			<!-- Sticky Table Header -->
 			<div
-				class="sticky top-0 z-20 grid grid-cols-[80px_2.5fr_3.5fr_1.5fr_120px] lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-4 bg-white/20 backdrop-blur-md border-b border-border text-muted-foreground uppercase text-[10px] tracking-widest font-semibold shrink-0"
+				class="sticky top-0 z-20 hidden lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-4 bg-white/20 backdrop-blur-md border-b border-border text-muted-foreground uppercase text-[10px] tracking-widest font-semibold shrink-0"
 			>
 				<div class="min-w-0">Year</div>
 				<div class="min-w-0">Project</div>
-				<div class="min-w-0 hidden lg:block">Description</div>
+				<div class="min-w-0">Description</div>
 				<div class="min-w-0">Stack</div>
 				<div class="min-w-0 text-right pr-4">Links</div>
 			</div>
-			<div class="flex-1 overflow-x-auto custom-scrollbar" data-lenis-prevent>
+			<div class="flex-1 lg:overflow-x-auto custom-scrollbar" data-lenis-prevent>
 				<div
-					class="min-w-[900px] flex flex-col h-full table-container relative overflow-y-auto"
+					class="flex flex-col h-full table-container relative overflow-y-auto lg:min-w-[900px]"
 				>
 					<!-- Scrollable Rows Container -->
 					<div class="divide-y divide-border/30 mask-top">
 						<div
 							v-for="project in projects"
 							:key="project.name"
-							class="grid grid-cols-[80px_2.5fr_3.5fr_1.5fr_120px] lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-6 hover:bg-white/5 transition-colors group items-start"
+							class="flex flex-col gap-4 lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-8 lg:py-6 hover:bg-white/5 transition-colors group items-start"
 						>
-							<!-- Year -->
+							<!-- Year & Mobile Links -->
 							<div
-								class="min-w-0 text-muted-foreground tabular-nums text-sm pt-1"
+								class="w-full flex justify-between items-center lg:block min-w-0 text-muted-foreground tabular-nums text-sm pt-1"
 							>
-								{{ formatDate(project.date) }}
+								<span>{{ formatDate(project.date) }}</span>
+
+								<!-- Mobile Links (Hidden on LG) -->
+								<div class="flex lg:hidden items-center gap-4">
+									<a
+										v-if="project.sourceCode"
+										:href="project.sourceCode"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-muted-foreground hover:text-primary transition-colors"
+									>
+										<Github class="w-4 h-4" />
+									</a>
+									<a
+										v-if="project.liveUrl"
+										:href="project.liveUrl"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-muted-foreground hover:text-primary transition-colors"
+									>
+										<ExternalLink class="w-4 h-4" />
+									</a>
+								</div>
 							</div>
 
 							<!-- Project Name -->
 							<div class="min-w-0 pr-4">
 								<span
-									class="font-bold text-primary group-hover:text-primary/90 block truncate"
+									class="font-bold text-xl lg:text-base text-primary group-hover:text-primary/90 block truncate"
 									:title="project.name"
 									>{{ project.name }}</span
 								>
@@ -87,14 +111,14 @@ const toggleExpand = (name: string) => {
 
 							<!-- Description -->
 							<div
-								class="min-w-0 hidden lg:block pr-8 text-muted-foreground text-sm"
+								class="min-w-0 pr-8 text-muted-foreground text-sm"
 							>
 								<p
-									class="transition-all duration-300 cursor-pointer hover:text-foreground"
+									class="transition-all duration-300 cursor-pointer lg:hover:text-foreground"
 									:class="
 										expandedProjects.has(project.name)
 											? 'line-clamp-none'
-											: 'line-clamp-3'
+											: 'line-clamp-none lg:line-clamp-3'
 									"
 									@click="toggleExpand(project.name)"
 								>
@@ -105,12 +129,10 @@ const toggleExpand = (name: string) => {
 							<!-- Stack -->
 							<div class="min-w-0 pr-4 overflow-hidden">
 								<div
-									class="flex gap-1.5 transition-all duration-300"
-									:class="
-										expandedProjects.has(project.name)
-											? 'flex-wrap'
-											: 'flex-nowrap'
-									"
+									class="flex gap-1.5 transition-all duration-300 flex-wrap"
+									:class="{
+										'lg:flex-nowrap': !expandedProjects.has(project.name)
+									}"
 								>
 									<Badge
 										v-for="tech in project.stack"
@@ -123,8 +145,8 @@ const toggleExpand = (name: string) => {
 								</div>
 							</div>
 
-							<!-- Links -->
-							<div class="min-w-0 flex items-center justify-end gap-3 pr-4">
+							<!-- Desktop Links (Hidden on Mobile) -->
+							<div class="min-w-0 hidden lg:flex items-center justify-end gap-3 pr-4">
 								<a
 									v-if="project.sourceCode"
 									:href="project.sourceCode"

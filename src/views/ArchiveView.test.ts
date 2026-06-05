@@ -64,11 +64,14 @@ describe('ArchiveView', () => {
         expect(headers.text()).toContain('Links');
     });
 
-    it('Description column is hidden on small screens', () => {
+    it('Description column header is hidden on small screens', () => {
         const wrapper = mount(ArchiveView);
-        const descHeader = wrapper.findAll('.min-w-0').find(el => el.text() === 'Description');
-        expect(descHeader?.classes()).toContain('hidden');
-        expect(descHeader?.classes()).toContain('lg:block');
+        const descHeader = wrapper.find('.sticky.top-0').findAll('div').find(el => el.text() === 'Description');
+        expect(descHeader?.exists()).toBe(true);
+        // The parent header is hidden on mobile, and the header itself is part of a lg:grid
+        const headerContainer = wrapper.find('.sticky.top-0');
+        expect(headerContainer.classes()).toContain('hidden');
+        expect(headerContainer.classes()).toContain('lg:grid');
     });
 
     it('does NOT have navigation links to home sections', () => {
@@ -97,16 +100,20 @@ describe('ArchiveView', () => {
 
     it('truncates description and expands on click', async () => {
         const wrapper = mount(ArchiveView);
-        const descPara = wrapper.find('.hidden.lg\\:block p');
+        // Use a more robust selector for the description paragraph
+        const descPara = wrapper.find('.mask-top p');
         
-        expect(descPara.classes()).toContain('line-clamp-3');
+        // Initial state: should have lg:line-clamp-3
+        expect(descPara.classes()).toContain('lg:line-clamp-3');
         
         await descPara.trigger('click');
-        expect(descPara.classes()).not.toContain('line-clamp-3');
+        // When expanded, it should NOT have lg:line-clamp-3
+        expect(descPara.classes()).not.toContain('lg:line-clamp-3');
         expect(descPara.classes()).toContain('line-clamp-none');
         
         await descPara.trigger('click');
-        expect(descPara.classes()).toContain('line-clamp-3');
+        // Back to initial state
+        expect(descPara.classes()).toContain('lg:line-clamp-3');
     });
 
     it('has a sticky header section for the whole table', () => {

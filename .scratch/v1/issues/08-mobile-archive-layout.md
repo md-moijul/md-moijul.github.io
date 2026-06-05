@@ -1,4 +1,4 @@
-Status: triage/ready-for-dev
+Status: status/done
 
 ## Parent
 .scratch/v1/PRD.md
@@ -16,10 +16,10 @@ Redesign the `/archive` view layout for mobile screens so it smartly breaks down
 4.  **Desktop View (`>= lg`)**: Retain the existing 5-column tabular grid with sticky headers on larger screens. Hide the table headers on mobile.
 
 ## Acceptance criteria
-- [ ] On mobile, the archive view displays projects as a vertical list of cards.
-- [ ] On mobile, there is no horizontal scrollbar on the main content container.
-- [ ] On mobile, the table headers (Year, Project, Description, Stack, Links) are hidden.
-- [ ] On desktop (`>= lg`), the layout remains a 5-column tabular grid.
+- [x] On mobile, the archive view displays projects as a vertical list of cards.
+- [x] On mobile, there is no horizontal scrollbar on the main content container.
+- [x] On mobile, the table headers (Year, Project, Description, Stack, Links) are hidden.
+- [x] On desktop (`>= lg`), the layout remains a 5-column tabular grid.
 
 ## Blocked by
 None - can start immediately
