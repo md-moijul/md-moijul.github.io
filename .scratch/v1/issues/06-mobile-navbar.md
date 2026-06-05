@@ -1,26 +1,34 @@
-Status: triage/ready-for-dev
+Status: completed
 
 ## Parent
+
 .scratch/v1/PRD.md
 
 ## What to build
-Restructure `NavigationPanel.vue` to provide a mobile-friendly layout while preserving the desktop view. 
+
+Implement a mobile-only floating navigation menu that provides access to sections on the Home page from anywhere in the app (including the Archive page).
 
 On mobile (`< md` breakpoint):
-1. Visually separate the Header (Name, Title, Bio) and Social Icons from the Navigation Links.
-2. Render the Header and Social Icons at the top of the page in the normal document flow.
-3. Convert the Navigation Links block into a horizontal list with horizontal scrolling enabled (`overflow-x-auto`) to handle smaller screens.
-4. Apply `sticky top-0 z-50` (or similar) to the Navigation Links block so it docks to the top of the viewport when the user scrolls down.
+
+1. **Floating Action Button (FAB):** A fixed round button at the bottom right of the viewport (`fixed bottom-8 right-8`).
+2. **Bottom Sheet Menu:** Clicking the FAB opens a full-width slide-up menu from the bottom.
+3. **Merging UI Effect:** When open, the FAB loses its border/shadow to appear as part of the drawer.
+4. **Active Highlighting:** Current section highlighted with `[SECTION]` style.
+5. **Archive Integration:** FAB available on `/archive`; clicking links navigates to Home and scrolls.
+6. **Sidebar Cleanup:** Navigation links hidden in `NavigationPanel.vue` on mobile.
 
 On desktop (`>= md` breakpoint):
-1. Maintain the existing vertical sidebar layout.
+
+1. Floating menu and zoom effects are hidden.
 
 ## Acceptance criteria
-- [ ] On mobile, Name, Bio, and Social links appear at the top and scroll away naturally.
-- [ ] On mobile, Navigation links (About, Experience, etc.) form a horizontal list below the header.
-- [ ] On mobile, Navigation links stick to the top of the screen when scrolled past.
-- [ ] On mobile, the Navigation link list is horizontally scrollable if the items exceed screen width.
-- [ ] On desktop, the layout remains a fixed vertical sidebar.
+
+- [x] FAB is visible on mobile and positioned bottom-right.
+- [x] Drawer opens as a full-width bottom sheet with symmetric rounding (`rounded-t-3xl`).
+- [x] FAB "merges" into the drawer (no border/shadow) when open.
+- [x] Menu links correctly highlight active section and handle cross-page navigation.
+- [x] Original sidebar navigation links are hidden on mobile.
 
 ## Blocked by
-- .scratch/v1/issues/09-architecture-deepening-refactor.md
+
+- None

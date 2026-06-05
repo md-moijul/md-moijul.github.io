@@ -1,12 +1,16 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import App from './App.vue';
+import { ref } from 'vue';
 
 const mockRoute = { path: '/' };
 
 // Mock vue-router
 vi.mock('vue-router', () => ({
     useRoute: vi.fn(() => mockRoute),
+    useRouter: vi.fn(() => ({
+        push: vi.fn(),
+    })),
 }));
 
 // Mock Lenis composable
@@ -16,6 +20,8 @@ vi.mock('@/composables/useLenis', () => ({
         value: {
             scrollTo: vi.fn(),
             resize: vi.fn(),
+            on: vi.fn(),
+            off: vi.fn(),
         },
     },
 }));
@@ -27,12 +33,19 @@ vi.mock('@/components/NavigationPanel.vue', () => ({
     },
 }));
 
+// Mock MobileNav
+vi.mock('@/components/MobileNav.vue', () => ({
+    default: {
+        template: '<div id="mobile-nav" />',
+    },
+}));
+
 describe('App.vue', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
 
-    it('should have h-screen on the main container for smooth scrolling on the home page', () => {
+    it('should have h-screen on the main container for smooth scrolling on all pages', () => {
         mockRoute.path = '/';
         const wrapper = mount(App, {
             global: {
@@ -43,8 +56,7 @@ describe('App.vue', () => {
         });
         const main = wrapper.find('main');
         
-        expect(main.classes()).toContain('md:h-screen');
-        expect(main.classes()).not.toContain('min-h-screen');
+        expect(main.classes()).toContain('h-screen');
     });
 
     it('should use w-full and h-screen on the archive page', () => {
@@ -59,6 +71,6 @@ describe('App.vue', () => {
         const main = wrapper.find('main');
         
         expect(main.classes()).toContain('w-full');
-        expect(main.classes()).toContain('md:h-screen');
+        expect(main.classes()).toContain('h-screen');
     });
 });

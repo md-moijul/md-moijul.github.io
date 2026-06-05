@@ -2,6 +2,7 @@
 import { watch, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import NavigationPanel from "@/components/NavigationPanel.vue";
+import MobileNav from "@/components/MobileNav.vue";
 import { useLenis, lenisInstance } from "@/composables/useLenis";
 
 const route = useRoute();
@@ -22,15 +23,31 @@ watch(() => route.path, async () => {
 
 <template>
 	<div class="flex flex-col md:flex-row min-h-screen">
-		<div v-if="route.path !== '/archive'" class="md:w-1/2 md:h-screen md:flex md:items-center md:justify-center">
+		<!-- Desktop Sidebar: Only visible on md and up -->
+		<div
+			v-if="route.path !== '/archive'"
+			class="hidden md:flex md:w-1/2 md:h-screen md:items-center md:justify-center"
+		>
 			<NavigationPanel />
 		</div>
 
-		<main :class="[route.path === '/archive' ? 'w-full' : 'md:w-1/2', 'md:h-screen overflow-y-auto scrollbar-hide']">
+		<!-- Main content area: Scrollable on all screens -->
+		<main
+			:class="[
+				route.path === '/archive' ? 'w-full' : 'md:w-1/2',
+				'h-screen overflow-y-auto scrollbar-hide',
+			]"
+		>
 			<div id="scroll-content">
+				<!-- Mobile Header: Only visible on mobile -->
+				<div v-if="route.path !== '/archive'" class="md:hidden">
+					<NavigationPanel />
+				</div>
 				<RouterView />
 			</div>
 		</main>
+
+		<MobileNav />
 	</div>
 </template>
 

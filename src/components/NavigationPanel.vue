@@ -9,8 +9,8 @@ const { scrollToSection } = useScrollTo(activeSection);
 </script>
 
 <template>
-	<nav class="flex flex-col h-full justify-between p-8 sm:p-12 md:p-16">
-		<div class="mb-16">
+	<nav class="flex flex-col md:h-full justify-between p-8 sm:p-12 md:p-16">
+		<div class="mb-12 md:mb-16">
 			<h1
 				class="font-display text-4xl sm:text-5xl tracking-tight text-foreground uppercase mb-3"
 			>
@@ -26,7 +26,7 @@ const { scrollToSection } = useScrollTo(activeSection);
 			</p>
 		</div>
 
-		<nav class="flex flex-col items-start space-y-4">
+		<nav class="hidden md:flex flex-col items-start space-y-4">
 			<a
 				v-for="sectionId in sectionIds"
 				:key="sectionId"
