@@ -36,7 +36,7 @@ export const experiences: Experience[] = [
                 endDate: new Date("2024-05"),
             },
             {
-                title: 'Software Developer (Placement Student)',
+                title: 'Software Developer (Internship)',
                 startDate: new Date("2022-09"),
                 endDate: new Date("2023-09"),
             },
