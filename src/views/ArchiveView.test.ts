@@ -137,7 +137,6 @@ describe('ArchiveView', () => {
 
         it('table headers are sticky on desktop', () => {
             const wrapper = mountWithProps();
-            const tableHeader = wrapper.find('.sticky');
             // In the component, the table header is the second sticky element if we count the title section
             const stickyElements = wrapper.findAll('.sticky');
             const targetHeader = stickyElements.find(el => el.text().includes('Year'));
