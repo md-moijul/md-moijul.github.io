@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: deprecated (No longer planned)
 
 ## Parent
 PRD-V1.md

@@ -4,11 +4,20 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-defineProps<{
+const props = defineProps<{
 	projects: Project[];
 }>();
+
+const sortedProjects = computed(() => {
+	return [...props.projects].sort((a, b) => {
+		if (!a.date && !b.date) return 0;
+		if (!a.date) return 1;
+		if (!b.date) return -1;
+		return b.date.getTime() - a.date.getTime();
+	});
+});
 
 const formatDate = (date?: Date) => {
 	if (!date) return "—";
@@ -64,15 +73,17 @@ const toggleExpand = (name: string) => {
 				<div class="min-w-0">Stack</div>
 				<div class="min-w-0 text-right pr-4">Links</div>
 			</div>
-			
+
 			<!-- Scrollable Container -->
-			<div 
-				class="flex-1 overflow-y-auto lg:overflow-x-auto custom-scrollbar" 
+			<div
+				class="flex-1 overflow-y-auto lg:overflow-x-auto custom-scrollbar"
 				data-lenis-prevent
 			>
-				<div class="flex flex-col h-full lg:min-w-[900px] divide-y divide-border/30">
+				<div
+					class="flex flex-col h-full lg:min-w-[900px] divide-y divide-border/30"
+				>
 					<div
-						v-for="project in projects"
+						v-for="project in sortedProjects"
 						:key="project.name"
 						class="flex flex-col gap-4 lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-8 lg:py-6 hover:bg-white/5 transition-colors group items-start"
 					>
@@ -108,16 +119,14 @@ const toggleExpand = (name: string) => {
 						<!-- Project Name -->
 						<div class="min-w-0 pr-4">
 							<span
-								class="font-bold text-xl lg:text-base text-primary group-hover:text-primary/90 block truncate"
+								class="font-bold text-xl lg:text-base text-primary group-hover:text-primary/90 block break-normal"
 								:title="project.name"
 								>{{ project.name }}</span
 							>
 						</div>
 
 						<!-- Description -->
-						<div
-							class="min-w-0 pr-8 text-muted-foreground text-sm"
-						>
+						<div class="min-w-0 pr-8 text-muted-foreground text-sm">
 							<p
 								class="transition-all duration-300 cursor-pointer lg:hover:text-foreground"
 								:class="
@@ -153,7 +162,9 @@ const toggleExpand = (name: string) => {
 						</div>
 
 						<!-- Desktop Links (Hidden on Mobile) -->
-						<div class="min-w-0 hidden lg:flex items-center justify-end gap-3 pr-4">
+						<div
+							class="min-w-0 hidden lg:flex items-center justify-end gap-3 pr-4"
+						>
 							<a
 								v-if="project.sourceCode"
 								:href="project.sourceCode"

@@ -207,4 +207,46 @@ describe('ArchiveView', () => {
             expect(hClasses.length).toBe(0);
         });
     });
+
+    describe('Sorting Logic', () => {
+        it('sorts projects by date descending and puts projects without dates at the end', () => {
+            const projectsWithDifferentDates: Project[] = [
+                { name: 'Old Project', date: new Date('2022-01-01'), stack: [], desc: '' },
+                { name: 'New Project', date: new Date('2024-01-01'), stack: [], desc: '' },
+                { name: 'No Date Project', stack: [], desc: '' },
+                { name: 'Middle Project', date: new Date('2023-01-01'), stack: [], desc: '' },
+            ];
+            
+            const wrapper = mount(ArchiveView, {
+                props: { projects: projectsWithDifferentDates }
+            });
+
+            const projectNames = wrapper.findAll('.font-bold.text-xl').map(el => el.text());
+            
+            expect(projectNames).toEqual([
+                'New Project',
+                'Middle Project',
+                'Old Project',
+                'No Date Project'
+            ]);
+        });
+
+        it('maintains original order for projects with the same date', () => {
+             const projectsWithSameDates: Project[] = [
+                { name: 'Project A', date: new Date('2023-01-01'), stack: [], desc: '' },
+                { name: 'Project B', date: new Date('2023-01-01'), stack: [], desc: '' },
+            ];
+            
+            const wrapper = mount(ArchiveView, {
+                props: { projects: projectsWithSameDates }
+            });
+
+            const projectNames = wrapper.findAll('.font-bold.text-xl').map(el => el.text());
+            
+            expect(projectNames).toEqual([
+                'Project A',
+                'Project B'
+            ]);
+        });
+    });
 });

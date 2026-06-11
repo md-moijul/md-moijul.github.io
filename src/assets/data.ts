@@ -90,7 +90,7 @@ export const projects: Project[] = [
     {
         name: "Robertson Restoration",
         stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'Jixaw (CMS)', 'React Hooks',],
-        date: new Date("2024-01"),
+        date: new Date("2023-04"),
         liveUrl: 'https://www.robertson-restoration.com/',
         desc: "Robertson Restoration is a regional property recovery service requiring a fast-loading digital presence. Facing a strict MVP deadline before our internal CMS was fully operational, I adopted a modular, contract-first strategy. I built the frontend components using strict TypeScript interfaces, and once the CMS became available, I configured the data models myself to match my UI props exactly, allowing for a seamless migration without requiring backend support. Technically, I leveraged the experimental React use hook to handle asynchronous data fetching and engineered a highly performant, pure CSS before-and-after image slider and maintain excellent Core Web Vitals.",
 
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     {
         name: "Warehouse Order Picking System",
         stack: ['Next.js', 'React', 'TypeScript', 'Material UI', 'SCSS', 'Storybook', 'LocalStorage API', 'PWA', 'Barcode Integration'],
-        date: new Date("2024-01"),
+        date: new Date("2023-06"),
         liveUrl: 'https://peters.co.uk/',
         desc: "The Order Picking System is a dedicated internal progressive web app built for warehouse employees to streamline the fulfillment of book orders. Focused on extreme reliability in a physical environment where devices frequently lose connection or enter sleep mode, I architected a persistent state layer using LocalStorage. This ensured workers never lost active filters or order selections during their shifts. I integrated hardware barcode scanner support via global event listeners for easy and accurate data entry.",
 
@@ -165,7 +165,7 @@ export const projects: Project[] = [
 
     },
     {
-        name: "Full-Stack E-Commerce Store",
+        name: "E-Commerce Store",
         stack: ['Python', 'Flask', 'JavaScript', 'CSS', 'SQLite', 'HTML', 'Agile/Scrum'],
         date: new Date("2022-05"),
         desc: "Co-developed a comprehensive, full-stack web-based e-commerce platform within a five-person agile team. I engineered the backend architecture using Python and Flask, paired with a custom frontend built using vanilla JavaScript and CSS. A major focus of my work was designing and integrating an advanced SQLite database schema to manage local inventory dynamically while seamlessly handling edge cases for external, off-platform item sales. The project emphasized professional project planning, systematic testing standards, and UI/UX design methodologies.",
@@ -188,17 +188,21 @@ export const projects: Project[] = [
     {
         name: "Distributed AI Model Hosting Platform",
         stack: ['Python', 'Django', 'PostgreSQL'],
+        date: new Date("2024-04"),
         desc: "Engineered a distributed, multi-role enterprise web platform using Python and Django to host, manage, and execute AI models. Working within an Agile framework, I implemented secure role-based access control dashboards with distinct workflows for customers, AI engineers, and finance managers. The platform featured dynamic AI model uploading by Model-View-Template design patterns and asynchronous data pipelines.",
 
     },
     {
         name: "SpiceMunch Native Android App",
         stack: ['Kotlin', 'Android Studio', 'Git', 'XML', 'JUnit'],
+        date: new Date("2023-09"),
+
         desc: "Co-developed a native Android food ordering application named SpiceMunch within a collaborative team. I engineered the foundational activity flow and implemented complex UI features utilizing View Binding and Fragments for maximum modularity. By rigorously applying the MVVM architectural pattern, I successfully separated application logic from the user interface. Furthermore, I managed state via in-object data storage, utilized Intents for seamless data passing between activities, and conducted comprehensive unit testing for all models and ViewModels to ensure a highly robust application lifecycle.",
 
     },
     {
         name: "Security Threat Intelligence Visualizer",
+        date: new Date("2024-03"),
         stack: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
         desc: "Analyzed raw network traffic and system log datasets to identify and visualize anomalous behavior and potential cyber threats. Leveraging Python, Pandas, Matplotlib, and Seaborn within Jupyter Notebooks, I engineered a data pipeline to clean, process, and visually represent high-volume security event data. The project focused heavily on big data analytics principles and anomaly detection methodologies, successfully translating complex, high-velocity network logs into actionable visual threat intelligence.",
 

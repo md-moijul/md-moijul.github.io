@@ -1,4 +1,4 @@
-Status: triage/ready-for-dev
+Status: deprecated (No longer planned)
 
 ## Parent
 .scratch/v1/PRD.md
