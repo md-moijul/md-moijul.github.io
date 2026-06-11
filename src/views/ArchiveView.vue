@@ -149,6 +149,7 @@ const toggleExpand = (name: string) => {
 										? 'lg:max-h-none'
 										: 'lg:max-h-[72px]'
 								"
+								@click="toggleExpand(project.name)"
 							>
 								<Badge
 									v-for="tech in project.stack"
