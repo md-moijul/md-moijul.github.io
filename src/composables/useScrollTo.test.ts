@@ -21,6 +21,7 @@ vi.mock("./useLenis", () => ({
 	lenisInstance: {
 		value: {
 			scrollTo: vi.fn(),
+			resize: vi.fn(),
 		},
 	},
 }));
@@ -65,6 +66,7 @@ describe("useScrollTo", () => {
 		await scrollToSection("projects");
 
 		expect(mockPush).toHaveBeenCalledWith("/");
+		await nextTick();
 		await nextTick();
 
 		expect(lenisInstance.value?.scrollTo).toHaveBeenCalledWith(

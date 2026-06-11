@@ -4,7 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import Lenis from "lenis";
 
 const props = defineProps<{
 	projects: Project[];
@@ -32,6 +33,33 @@ const toggleExpand = (name: string) => {
 		expandedProjects.value.add(name);
 	}
 };
+
+const scrollContainer = ref<HTMLElement | null>(null);
+let localLenis: Lenis | null = null;
+
+onMounted(() => {
+	if (scrollContainer.value) {
+		localLenis = new Lenis({
+			wrapper: scrollContainer.value,
+			content: scrollContainer.value.firstElementChild as HTMLElement,
+			lerp: 0.1,
+			smoothWheel: true,
+		});
+
+		const animate = (time: number) => {
+			localLenis?.raf(time);
+			requestAnimationFrame(animate);
+		};
+		requestAnimationFrame(animate);
+	}
+});
+
+onUnmounted(() => {
+	if (localLenis) {
+		localLenis.destroy();
+		localLenis = null;
+	}
+});
 </script>
 
 <template>
@@ -65,7 +93,7 @@ const toggleExpand = (name: string) => {
 
 			<!-- Sticky Table Header -->
 			<div
-				class="sticky top-0 lg:top-[var(--header-height,104px)] z-20 hidden lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-4 bg-white/20 lg:bg-background/80 backdrop-blur-md border-b border-border text-muted-foreground uppercase text-[10px] tracking-widest font-semibold shrink-0"
+				class="sticky top-0 lg:top-0 z-20 hidden lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-4 bg-white/20 lg:bg-background/80 backdrop-blur-md border-b border-border text-muted-foreground uppercase text-[10px] tracking-widest font-semibold shrink-0"
 			>
 				<div class="min-w-0">Year</div>
 				<div class="min-w-0">Project</div>
@@ -76,6 +104,7 @@ const toggleExpand = (name: string) => {
 
 			<!-- Scrollable Container -->
 			<div
+				ref="scrollContainer"
 				class="flex-1 overflow-y-auto lg:overflow-x-auto custom-scrollbar"
 				data-lenis-prevent
 			>

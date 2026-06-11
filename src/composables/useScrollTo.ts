@@ -22,19 +22,29 @@ export function useScrollTo(activeSection?: Ref<string>) {
 
 		if (route.path !== "/") {
 			await router.push("/");
-			// Use nextTick to ensure the page is rendered before scrolling
+			
+			// Wait for multiple ticks to ensure:
+			// 1. The HomeView component is mounted and rendered.
+			// 2. The App.vue watcher has completed its scrollTo(0) and resize().
+			// 3. The DOM layout has stabilized.
 			await nextTick();
+			await nextTick();
+
 			if (lenisInstance.value) {
+				// Force a resize just in case the App.vue watcher hasn't finished or missed something
+				lenisInstance.value.resize();
+				
 				lenisInstance.value.scrollTo(targetId, {
 					offset,
-					duration: 0.8, // Optimized duration
+					duration: 0.8,
+					immediate: false, // Ensure it's a smooth scroll
 				});
 			}
 		} else {
 			if (lenisInstance.value) {
 				lenisInstance.value.scrollTo(targetId, {
 					offset,
-					duration: 0.8, // Optimized duration
+					duration: 0.8,
 				});
 			}
 		}
