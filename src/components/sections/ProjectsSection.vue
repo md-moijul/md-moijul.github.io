@@ -9,10 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useStackFilter } from "@/composables/useStackFilter";
 
 defineProps<{
 	projects: Project[];
 }>();
+
+const { isStackActive, toggleStack } = useStackFilter();
 </script>
 
 <template>
@@ -24,15 +27,18 @@ defineProps<{
 			<Card v-for="project in projects" :key="project.name">
 				<CardHeader>
 					<CardTitle>{{ project.name }}</CardTitle>
-					<!-- <CardDescription v-if="project.date">
-						{{ project.date.toLocaleDateString("en-US", { year: "numeric", month: "long" }) }}
-					</CardDescription> -->
 				</CardHeader>
 				<CardContent>
 					<p class="text-muted-foreground">{{ project.desc }}</p>
 				</CardContent>
 				<CardFooter v-if="project.stack.length > 0" class="flex-wrap gap-2">
-					<Badge v-for="tech in project.stack" :key="tech">
+					<Badge 
+						v-for="tech in project.stack" 
+						:key="tech"
+						:variant="isStackActive(tech) ? 'sparkly' : 'default'"
+						@click="toggleStack(tech)"
+						class="cursor-pointer"
+					>
 						{{ tech }}
 					</Badge>
 				</CardFooter>

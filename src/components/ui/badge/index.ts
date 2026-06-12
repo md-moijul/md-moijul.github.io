@@ -15,6 +15,8 @@ export const badgeVariants = cva(
                     'border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
                 outline:
                     'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
+                sparkly:
+                    'relative overflow-hidden bg-background text-foreground border-white/60 z-0 before:absolute before:inset-[-1000%] before:animate-[spin_4s_linear_infinite] before:bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,rgba(255,255,255,0.3)_50%,transparent_100%)] before:-z-10 after:absolute after:inset-[1px] after:rounded-full after:bg-background after:-z-10 hover:after:bg-secondary/20 transition-colors cursor-pointer',
             },
         },
         defaultVariants: {

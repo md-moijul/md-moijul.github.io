@@ -3,6 +3,18 @@ import { mount } from '@vue/test-utils';
 import ArchiveView from '@/views/ArchiveView.vue';
 import { type Project } from '@/assets/data';
 import Lenis from 'lenis';
+import * as stackFilterModule from '@/composables/useStackFilter';
+
+// Mock useStackFilter
+const mockToggleStack = vi.fn();
+const mockIsStackActive = vi.fn().mockReturnValue(false);
+
+vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
+    toggleStack: mockToggleStack,
+    isStackActive: mockIsStackActive,
+    addToStack: vi.fn(),
+    removeFromStack: vi.fn()
+});
 
 // Mock Lenis class
 vi.mock('lenis', () => {
@@ -137,7 +149,6 @@ describe('ArchiveView', () => {
 
         it('table headers are sticky on desktop', () => {
             const wrapper = mountWithProps();
-            // In the component, the table header is the second sticky element if we count the title section
             const stickyElements = wrapper.findAll('.sticky');
             const targetHeader = stickyElements.find(el => el.text().includes('Year'));
             expect(targetHeader?.exists()).toBe(true);
@@ -166,6 +177,30 @@ describe('ArchiveView', () => {
             expect(stackContainer.classes()).toContain('flex-wrap');
             expect(stackContainer.classes()).toContain('lg:max-h-[72px]');
             expect(stackContainer.classes()).toContain('overflow-hidden');
+        });
+    });
+
+    describe('Interactive Stack Badges', () => {
+        it('renders project stack badges with correct variant based on isStackActive', () => {
+            mockIsStackActive.mockImplementation((stack) => stack === 'Vue');
+            const wrapper = mountWithProps();
+            const badges = wrapper.findAll('[data-slot="badge"]');
+            
+            const vueBadge = badges[0];
+            const vitestBadge = badges[1];
+            
+            expect(vueBadge.text()).toBe('Vue');
+            expect(vueBadge.classes()).toContain('overflow-hidden'); // From sparkly variant
+            
+            expect(mockIsStackActive).toHaveBeenCalledWith('Vue');
+            expect(mockIsStackActive).toHaveBeenCalledWith('Vitest');
+        });
+
+        it('calls toggleStack when a badge is clicked', async () => {
+            const wrapper = mountWithProps();
+            const badge = wrapper.find('[data-slot="badge"]');
+            await badge.trigger('click');
+            expect(mockToggleStack).toHaveBeenCalledWith('Vue');
         });
     });
 

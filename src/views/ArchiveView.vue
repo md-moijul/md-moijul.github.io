@@ -6,10 +6,13 @@ import { Github, ExternalLink, ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import Lenis from "lenis";
+import { useStackFilter } from "@/composables/useStackFilter";
 
 const props = defineProps<{
 	projects: Project[];
 }>();
+
+const { isStackActive, toggleStack } = useStackFilter();
 
 const sortedProjects = computed(() => {
 	return [...props.projects].sort((a, b) => {
@@ -178,12 +181,13 @@ onUnmounted(() => {
 										? 'lg:max-h-none'
 										: 'lg:max-h-[72px]'
 								"
-								@click="toggleExpand(project.name)"
 							>
 								<Badge
 									v-for="tech in project.stack"
 									:key="tech"
-									class="text-xs py-0 px-2 whitespace-nowrap shrink-0"
+									class="text-xs py-0 px-2 whitespace-nowrap shrink-0 cursor-pointer"
+									:variant="isStackActive(tech) ? 'sparkly' : 'default'"
+									@click="toggleStack(tech)"
 								>
 									{{ tech }}
 								</Badge>
@@ -246,3 +250,4 @@ onUnmounted(() => {
 	border-radius: 10px;
 }
 </style>
+tyle>

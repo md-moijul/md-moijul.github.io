@@ -7,7 +7,6 @@
 
 ## Functional Enhancements
 
-5. [ ] Stack based filtering for Project Archive/Projects Section.
 6. [ ] App analysis review: implement SEO best practices, etc.
 
 ## Visual Polish & Research
@@ -17,6 +16,7 @@
 
 ## Completed
 
+- [x] Stack based highlight for Project Archive/Projects Section. (Issue 16)
 - [x] add analytics to check whos visiting and which pages, from ? query (Issue 14, 15)
 - [x] Implement 404 page not found page. (Redirected to home)
 - [x] Fix smooth scroll behavior when navigating from `/archive` back to homepage sections (Issue 12).
