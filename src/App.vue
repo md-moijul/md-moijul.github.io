@@ -35,7 +35,7 @@ watch(() => route.path, async () => {
 		<main
 			:class="[
 				route.path === '/archive' ? 'w-full' : 'md:w-1/2',
-				'h-screen overflow-y-auto scrollbar-hide',
+				'h-screen overflow-hidden scrollbar-hide relative',
 			]"
 		>
 			<div id="scroll-content">
