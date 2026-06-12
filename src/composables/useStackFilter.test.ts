@@ -17,13 +17,14 @@ describe('useStackFilter', () => {
     });
 
     it('should identify if a stack is active', () => {
-        mockQuery.stack = 'Vue';
+        mockQuery.stack = 'Vue,TypeScript';
         const { isStackActive } = useStackFilter();
         expect(isStackActive('Vue')).toBe(true);
+        expect(isStackActive('TypeScript')).toBe(true);
         expect(isStackActive('Next.js')).toBe(false);
     });
 
-    it('should identify active stacks when multiple exist', () => {
+    it('should identify active stacks when legacy array exists', () => {
         mockQuery.stack = ['Vue', 'Next.js'];
         const { isStackActive } = useStackFilter();
         expect(isStackActive('Vue')).toBe(true);
@@ -39,21 +40,39 @@ describe('useStackFilter', () => {
         });
     });
 
-    it('should append stack to existing query array when toggled', () => {
+    it('should append stack to existing query string when toggled', () => {
         mockQuery.stack = 'Vue';
         const { toggleStack } = useStackFilter();
         toggleStack('Next.js');
         expect(mockPush).toHaveBeenCalledWith({
-            query: { stack: ['Vue', 'Next.js'] }
+            query: { stack: 'Vue,Next.js' }
         });
     });
 
-    it('should remove stack from query when toggled and already present', () => {
+    it('should normalize legacy array and append when toggled', () => {
+        mockQuery.stack = ['Vue', 'TypeScript'];
+        const { toggleStack } = useStackFilter();
+        toggleStack('Next.js');
+        expect(mockPush).toHaveBeenCalledWith({
+            query: { stack: 'Vue,TypeScript,Next.js' }
+        });
+    });
+
+    it('should remove stack from query string when toggled and already present', () => {
+        mockQuery.stack = 'Vue,Next.js';
+        const { toggleStack } = useStackFilter();
+        toggleStack('Vue');
+        expect(mockPush).toHaveBeenCalledWith({
+            query: { stack: 'Next.js' }
+        });
+    });
+
+    it('should remove stack from legacy array and convert to string when toggled', () => {
         mockQuery.stack = ['Vue', 'Next.js'];
         const { toggleStack } = useStackFilter();
         toggleStack('Vue');
         expect(mockPush).toHaveBeenCalledWith({
-            query: { stack: ['Next.js'] }
+            query: { stack: 'Next.js' }
         });
     });
 
@@ -63,6 +82,17 @@ describe('useStackFilter', () => {
         toggleStack('Vue');
         expect(mockPush).toHaveBeenCalledWith({
             query: {}
+        });
+    });
+
+    it('should handle special characters correctly', () => {
+        mockQuery.stack = 'C++,Vue';
+        const { isStackActive, toggleStack } = useStackFilter();
+        expect(isStackActive('C++')).toBe(true);
+        
+        toggleStack('C++');
+        expect(mockPush).toHaveBeenCalledWith({
+            query: { stack: 'Vue' }
         });
     });
 

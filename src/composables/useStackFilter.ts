@@ -4,64 +4,40 @@ export function useStackFilter() {
     const router = useRouter();
     const route = useRoute();
 
-    const isStackActive = (stackName: string): boolean => {
+    const getStackArray = (): string[] => {
         const stackQuery = route.query.stack;
-        if (!stackQuery) return false;
+        if (!stackQuery) return [];
         
         if (Array.isArray(stackQuery)) {
-            return stackQuery.includes(stackName);
+            // Normalize legacy array format
+            return stackQuery.filter(Boolean) as string[];
         }
         
-        return stackQuery === stackName;
+        return (stackQuery as string).split(',').map(s => s.trim()).filter(Boolean);
+    };
+
+    const isStackActive = (stackName: string): boolean => {
+        return getStackArray().includes(stackName);
     };
 
     const addToStack = (stackName: string) => {
-        const stackQuery = route.query.stack;
-        let newStack: string | string[] | undefined;
-
-        if (!stackQuery) {
-            newStack = stackName;
-        } else if (Array.isArray(stackQuery)) {
-            if (!stackQuery.includes(stackName)) {
-                newStack = [...stackQuery, stackName];
-            } else {
-                newStack = stackQuery;
-            }
-        } else {
-            if (stackQuery !== stackName) {
-                newStack = [stackQuery as string, stackName];
-            } else {
-                newStack = stackQuery;
-            }
+        const currentStack = getStackArray();
+        if (!currentStack.includes(stackName)) {
+            const newStack = [...currentStack, stackName].join(',');
+            const newQuery = { ...route.query, stack: newStack };
+            router.push({ query: newQuery });
         }
-
-        const newQuery = { ...route.query };
-        newQuery.stack = newStack;
-        router.push({ query: newQuery });
     };
 
     const removeFromStack = (stackName: string) => {
-        const stackQuery = route.query.stack;
-        if (!stackQuery) return;
-
-        let newStack: string | string[] | undefined;
-
-        if (Array.isArray(stackQuery)) {
-            newStack = stackQuery.filter(s => s !== stackName);
-            if (newStack.length === 0) newStack = undefined;
-        } else {
-            if (stackQuery === stackName) {
-                newStack = undefined;
-            } else {
-                newStack = stackQuery;
-            }
-        }
-
+        const currentStack = getStackArray();
+        const newStackArray = currentStack.filter(s => s !== stackName);
+        
         const newQuery = { ...route.query };
-        if (newStack === undefined) {
+        if (newStackArray.length === 0) {
             delete newQuery.stack;
         } else {
-            newQuery.stack = newStack;
+            newQuery.stack = newStackArray.join(',');
         }
 
         router.push({ query: newQuery });
