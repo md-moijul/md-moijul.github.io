@@ -11,13 +11,13 @@
 
 5. [ ] Stack based filtering for Project Archive/Projects Section.
 6. [ ] App analysis review: implement SEO best practices, etc.
+7. [ ] add analytics to check whos visiting and which pages, from ? query
 
 ## Visual Polish & Research
 
-7. [ ] Background basic SVG movement.
-8. [ ] Research and planning for advanced background animations.
-9. [ ] update the badges style inside `/archive` to be same as homepage projects badges
-
+8. [ ] Background basic SVG movement.
+9. [ ] Research and planning for advanced background animations.
 ## Completed
 
+- [x] update the badges style inside `/archive` to be same as homepage projects badges (Issue 13)
 - [x] Order the archive project view by date.

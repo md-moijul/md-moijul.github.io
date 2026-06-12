@@ -183,8 +183,7 @@ onUnmounted(() => {
 								<Badge
 									v-for="tech in project.stack"
 									:key="tech"
-									variant="outline"
-									class="bg-black/20 text-[10px] py-0 px-2 whitespace-nowrap border-border/50 shrink-0"
+									class="text-xs py-0 px-2 whitespace-nowrap shrink-0"
 								>
 									{{ tech }}
 								</Badge>
