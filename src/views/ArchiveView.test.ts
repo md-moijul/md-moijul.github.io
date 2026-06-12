@@ -3,15 +3,18 @@ import { mount } from '@vue/test-utils';
 import ArchiveView from '@/views/ArchiveView.vue';
 import { type Project } from '@/assets/data';
 import Lenis from 'lenis';
+import { ref } from 'vue';
 import * as stackFilterModule from '@/composables/useStackFilter';
 
 // Mock useStackFilter
 const mockToggleStack = vi.fn();
 const mockIsStackActive = vi.fn().mockReturnValue(false);
+const mockActiveStacks = ref<string[]>([]);
 
 vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
     toggleStack: mockToggleStack,
     isStackActive: mockIsStackActive,
+    activeStacks: mockActiveStacks,
     addToStack: vi.fn(),
     removeFromStack: vi.fn()
 });
@@ -223,13 +226,14 @@ describe('ArchiveView', () => {
     });
 
     describe('Sorting Logic', () => {
-        it('sorts projects by date descending', () => {
+        it('sorts projects by date descending by default', () => {
             const projectsWithDifferentDates: Project[] = [
                 { name: 'Old Project', date: new Date('2022-01-01'), stack: [], desc: '' },
                 { name: 'New Project', date: new Date('2024-01-01'), stack: [], desc: '' },
                 { name: 'No Date Project', stack: [], desc: '' },
             ];
             
+            mockActiveStacks.value = [];
             const wrapper = mount(ArchiveView, {
                 props: { projects: projectsWithDifferentDates },
                 global: { stubs: { RouterLink: true } }
@@ -237,7 +241,30 @@ describe('ArchiveView', () => {
 
             const projectNames = wrapper.findAll('.font-bold.text-xl').map(el => el.text());
             expect(projectNames[0]).toBe('New Project');
+            expect(projectNames[1]).toBe('Old Project');
             expect(projectNames[projectNames.length - 1]).toBe('No Date Project');
+        });
+
+        it('moves matching projects to the top when a stack is active', () => {
+            const projects: Project[] = [
+                { name: 'Recent Non-Match', date: new Date('2024-01-01'), stack: ['React'], desc: '' },
+                { name: 'Old Match', date: new Date('2022-01-01'), stack: ['Vue'], desc: '' },
+                { name: 'Recent Match', date: new Date('2024-06-01'), stack: ['Vue', 'TypeScript'], desc: '' },
+            ];
+
+            mockActiveStacks.value = ['Vue'];
+            const wrapper = mount(ArchiveView, {
+                props: { projects },
+                global: { stubs: { RouterLink: true } }
+            });
+
+            const projectNames = wrapper.findAll('.font-bold.text-xl').map(el => el.text());
+            // Recent Match should be first (match + newer)
+            // Old Match should be second (match + older)
+            // Recent Non-Match should be last
+            expect(projectNames[0]).toBe('Recent Match');
+            expect(projectNames[1]).toBe('Old Match');
+            expect(projectNames[2]).toBe('Recent Non-Match');
         });
     });
 });

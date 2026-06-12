@@ -1,10 +1,11 @@
 import { useRouter, useRoute } from 'vue-router';
+import { computed } from 'vue';
 
 export function useStackFilter() {
     const router = useRouter();
     const route = useRoute();
 
-    const getStackArray = (): string[] => {
+    const activeStacks = computed((): string[] => {
         const stackQuery = route.query.stack;
         if (!stackQuery) return [];
         
@@ -14,14 +15,14 @@ export function useStackFilter() {
         }
         
         return (stackQuery as string).split(',').map(s => s.trim()).filter(Boolean);
-    };
+    });
 
     const isStackActive = (stackName: string): boolean => {
-        return getStackArray().includes(stackName);
+        return activeStacks.value.includes(stackName);
     };
 
     const addToStack = (stackName: string) => {
-        const currentStack = getStackArray();
+        const currentStack = activeStacks.value;
         if (!currentStack.includes(stackName)) {
             const newStack = [...currentStack, stackName].join(',');
             const newQuery = { ...route.query, stack: newStack };
@@ -30,7 +31,7 @@ export function useStackFilter() {
     };
 
     const removeFromStack = (stackName: string) => {
-        const currentStack = getStackArray();
+        const currentStack = activeStacks.value;
         const newStackArray = currentStack.filter(s => s !== stackName);
         
         const newQuery = { ...route.query };
@@ -52,6 +53,7 @@ export function useStackFilter() {
     };
 
     return {
+        activeStacks,
         isStackActive,
         toggleStack,
         addToStack,

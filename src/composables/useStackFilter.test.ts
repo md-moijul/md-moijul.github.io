@@ -18,10 +18,11 @@ describe('useStackFilter', () => {
 
     it('should identify if a stack is active', () => {
         mockQuery.stack = 'Vue,TypeScript';
-        const { isStackActive } = useStackFilter();
+        const { isStackActive, activeStacks } = useStackFilter();
         expect(isStackActive('Vue')).toBe(true);
         expect(isStackActive('TypeScript')).toBe(true);
         expect(isStackActive('Next.js')).toBe(false);
+        expect(activeStacks.value).toEqual(['Vue', 'TypeScript']);
     });
 
     it('should identify active stacks when legacy array exists', () => {

@@ -12,10 +12,18 @@ const props = defineProps<{
 	projects: Project[];
 }>();
 
-const { isStackActive, toggleStack } = useStackFilter();
+const { isStackActive, toggleStack, activeStacks } = useStackFilter();
 
 const sortedProjects = computed(() => {
 	return [...props.projects].sort((a, b) => {
+		// Tier 1: Stack Match (Any match to top)
+		const aHasMatch = a.stack.some((tech) => activeStacks.value.includes(tech));
+		const bHasMatch = b.stack.some((tech) => activeStacks.value.includes(tech));
+
+		if (aHasMatch && !bHasMatch) return -1;
+		if (!aHasMatch && bHasMatch) return 1;
+
+		// Tier 2: Date
 		if (!a.date && !b.date) return 0;
 		if (!a.date) return 1;
 		if (!b.date) return -1;

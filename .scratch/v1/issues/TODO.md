@@ -16,6 +16,7 @@
 
 ## Completed
 
+- [x] Implement stack-based re-ordering on Archive page (Issue 17)
 - [x] Stack based highlight for Project Archive/Projects Section. (Issue 16)
 - [x] add analytics to check whos visiting and which pages, from ? query (Issue 14, 15)
 - [x] Implement 404 page not found page. (Redirected to home)
