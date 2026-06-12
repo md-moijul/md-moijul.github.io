@@ -25,3 +25,14 @@ export const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+router.afterEach((to) => {
+  if (to.query.from) {
+    const { from, ...otherQuery } = to.query
+    router.replace({ 
+      path: to.path,
+      query: otherQuery,
+      hash: to.hash 
+    })
+  }
+})
