@@ -11,7 +11,7 @@ description: Takes a raw todo, gathers context, grills the user, and generates a
 
 ## Quick Start
 
-1. User points you to a raw todo (e.g., in a `RAW_TODO.md` file or just text in the chat).
+1. User points you to a raw todo (e.g., in a `TODO.md` file or just text in the chat).
 2. Follow the 4-step workflow below to process it.
 
 ## Workflows

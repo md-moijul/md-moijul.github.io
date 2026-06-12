@@ -1,10 +1,10 @@
 ## Parent
 
-RAW_TODO Item 10: "update the badges style inside /archive to be same as homepage projects badges"
+TODO Item 10: "update the badges style inside /archive to be same as homepage projects badges"
 
 ## What to build
 
-Align the styling of the badges in the Project Archive (`ArchiveView.vue`) with the homepage projects (`ProjectsSection.vue`). 
+Align the styling of the badges in the Project Archive (`ArchiveView.vue`) with the homepage projects (`ProjectsSection.vue`).
 
 The homepage badges use the default `Badge` variant which has a `bg-white/20` background and transparent border. The archive badges currently use `variant="outline"` with `bg-black/20` and `border-border/50`.
 

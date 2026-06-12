@@ -14,6 +14,10 @@ export const routes = [
     name: 'archive',
     component: ArchiveView,
     props: { projects }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/'
   }
 ]
 
