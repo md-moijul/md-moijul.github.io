@@ -63,6 +63,14 @@ const { scrollToSection } = useScrollTo(activeSection);
 			>
 				<img src="../assets/github.svg" class="h-6 w-6" alt="GitHub Profile" />
 			</a>
+			<a
+				href="https://www.strava.com/athletes/1521359377"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-muted-foreground transition-colors hover:text-foreground"
+			>
+				<img src="../assets/strava.png" class="h-6 w-6" alt="Strava Profile" />
+			</a>
 		</div>
 	</nav>
 </template>
