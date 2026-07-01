@@ -41,7 +41,6 @@ describe('ProjectCard', () => {
 			props: { project }
 		})
 		
-		const badges = wrapper.findAll('.cursor-pointer') // Using class or looking for text
 		expect(wrapper.text()).toContain('Vue')
 		expect(wrapper.text()).toContain('TypeScript')
 	})
@@ -79,7 +78,6 @@ describe('ProjectCard', () => {
 		// we can check if the Vue badge has the sparkly class, or we can find the Badge component directly.
         // Let's just test it via the component's rendered output or class. 
         // Sparkly badge has specific classes, but finding the component is safer.
-        const badgeElements = wrapper.findAll('.cursor-pointer')
         // We know Vue is active so it should be sparkly. We might not have access to the props of a deeply rendered component unless we use findAllComponents.
         // Let's just assert that mockIsStackActive was called.
         expect(mockIsStackActive).toHaveBeenCalledWith('Vue')

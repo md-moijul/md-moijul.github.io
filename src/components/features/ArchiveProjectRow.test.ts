@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import ArchiveProjectRow from './ArchiveProjectRow.vue';
 import { type Project } from '@/assets/data';
 import * as stackFilterModule from '@/composables/useStackFilter';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const mockToggleStack = vi.fn();
 const mockIsStackActive = vi.fn().mockReturnValue(false);
@@ -12,7 +12,7 @@ const mockActiveStacks = ref<string[]>([]);
 vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
     toggleStack: mockToggleStack,
     isStackActive: mockIsStackActive,
-    activeStacks: mockActiveStacks,
+    activeStacks: computed(() => mockActiveStacks.value),
     addToStack: vi.fn(),
     removeFromStack: vi.fn()
 });
@@ -69,7 +69,6 @@ describe('ArchiveProjectRow', () => {
         expect(badges.length).toBe(2);
         
         const vueBadge = badges[0];
-        const vitestBadge = badges[1];
         
         expect(vueBadge.text()).toBe('Vue');
         expect(vueBadge.classes()).toContain('overflow-hidden'); // From sparkly variant

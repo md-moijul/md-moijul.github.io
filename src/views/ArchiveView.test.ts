@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import ArchiveView from '@/views/ArchiveView.vue';
 import { type Project } from '@/assets/data';
 import Lenis from 'lenis';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import * as stackFilterModule from '@/composables/useStackFilter';
 
 // Mock useStackFilter
@@ -14,7 +14,7 @@ const mockActiveStacks = ref<string[]>([]);
 vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
     toggleStack: mockToggleStack,
     isStackActive: mockIsStackActive,
-    activeStacks: mockActiveStacks,
+    activeStacks: computed(() => mockActiveStacks.value),
     addToStack: vi.fn(),
     removeFromStack: vi.fn()
 });
@@ -190,7 +190,6 @@ describe('ArchiveView', () => {
             const badges = wrapper.findAll('[data-slot="badge"]');
             
             const vueBadge = badges[0];
-            const vitestBadge = badges[1];
             
             expect(vueBadge.text()).toBe('Vue');
             expect(vueBadge.classes()).toContain('overflow-hidden'); // From sparkly variant

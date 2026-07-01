@@ -3,6 +3,8 @@ import { mount } from '@vue/test-utils';
 import ProjectsSection from './ProjectsSection.vue';
 import * as stackFilterModule from '@/composables/useStackFilter';
 
+import { computed } from 'vue';
+
 // Mock useStackFilter
 const mockToggleStack = vi.fn();
 const mockIsStackActive = vi.fn().mockReturnValue(false);
@@ -10,6 +12,7 @@ const mockIsStackActive = vi.fn().mockReturnValue(false);
 vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
     toggleStack: mockToggleStack,
     isStackActive: mockIsStackActive,
+    activeStacks: computed(() => []),
     addToStack: vi.fn(),
     removeFromStack: vi.fn()
 });
@@ -51,7 +54,6 @@ describe('ProjectsSection', () => {
 
         const badges = wrapper.findAll('[data-slot="badge"]');
         const vueBadge = badges[0];
-        const reactBadge = badges[1];
 
         expect(vueBadge.text()).toBe('Vue');
         expect(vueBadge.classes()).toContain('overflow-hidden'); 

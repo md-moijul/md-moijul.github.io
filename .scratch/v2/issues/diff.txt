@@ -1,0 +1,978 @@
+diff --git a/.scratch/v2/issues/01-extract-experience-card.md b/.scratch/v2/issues/01-extract-experience-card.md
+index edeaa27..c1bb289 100644
+--- a/.scratch/v2/issues/01-extract-experience-card.md
++++ b/.scratch/v2/issues/01-extract-experience-card.md
+@@ -4,10 +4,10 @@
+ Introduce a domain-aware `ExperienceCard` feature component that fully encapsulates the rendering of an individual Experience object. The current `ExperienceSection` is shallow and bloated with inline UI details; this change establishes a firm boundary where `ExperienceSection` handles only structural layout and delegates rendering to `ExperienceCard`.
+ 
+ ## Acceptance criteria
+-- [ ] `src/components/features/ExperienceCard.vue` is created.
+-- [ ] `ExperienceCard.vue` accepts a single `experience` prop (type `Experience`).
+-- [ ] The `Card` layout and markup for an experience is moved from `ExperienceSection.vue` into `ExperienceCard.vue`.
+-- [ ] `ExperienceSection.vue` iterates over the experiences data and renders `<ExperienceCard :experience="experience" />`.
++- [x] `src/components/features/ExperienceCard.vue` is created.
++- [x] `ExperienceCard.vue` accepts a single `experience` prop (type `Experience`).
++- [x] The `Card` layout and markup for an experience is moved from `ExperienceSection.vue` into `ExperienceCard.vue`.
++- [x] `ExperienceSection.vue` iterates over the experiences data and renders `<ExperienceCard :experience="experience" />`.
+ 
+ ## Blocked by
+ None - can start immediately
+diff --git a/.scratch/v2/issues/02-extract-project-card.md b/.scratch/v2/issues/02-extract-project-card.md
+index 8b60b9e..7b07722 100644
+--- a/.scratch/v2/issues/02-extract-project-card.md
++++ b/.scratch/v2/issues/02-extract-project-card.md
+@@ -4,10 +4,10 @@
+ Introduce a domain-aware `ProjectCard` feature component that encapsulates the rendering and interactivity of a Project object. Currently, `ProjectsSection` handles both structural layout and the interactive stack filter logic. This change moves the interactivity and card UI down into the `ProjectCard`, allowing `ProjectsSection` to act purely as a structural orchestrator.
+ 
+ ## Acceptance criteria
+-- [ ] `src/components/features/ProjectCard.vue` is created.
+-- [ ] `ProjectCard.vue` accepts a single `project` prop (type `Project`).
+-- [ ] The `Card` layout, markup, and `useStackFilter()` interaction logic are moved from `ProjectsSection.vue` into `ProjectCard.vue`.
+-- [ ] `ProjectsSection.vue` iterates over the projects data and renders `<ProjectCard :project="project" />`.
++- [x] `src/components/features/ProjectCard.vue` is created.
++- [x] `ProjectCard.vue` accepts a single `project` prop (type `Project`).
++- [x] The `Card` layout, markup, and `useStackFilter()` interaction logic are moved from `ProjectsSection.vue` into `ProjectCard.vue`.
++- [x] `ProjectsSection.vue` iterates over the projects data and renders `<ProjectCard :project="project" />`.
+ 
+ ## Blocked by
+ None - can start immediately
+diff --git a/.scratch/v2/issues/03-extract-archive-project-row.md b/.scratch/v2/issues/03-extract-archive-project-row.md
+index dc8ed1f..73ad482 100644
+--- a/.scratch/v2/issues/03-extract-archive-project-row.md
++++ b/.scratch/v2/issues/03-extract-archive-project-row.md
+@@ -4,11 +4,11 @@
+ Introduce a domain-aware `ArchiveProjectRow` feature component that encapsulates the rendering, interactivity, and expanded state of an individual Project row in the Archive grid. The current `ArchiveView` is monolithic and mixes complex row markup and local "expanded" state management with its primary routing/layout responsibilities. This change extracts all row-level concerns, vastly simplifying the parent view.
+ 
+ ## Acceptance criteria
+-- [ ] `src/components/features/ArchiveProjectRow.vue` is created.
+-- [ ] `ArchiveProjectRow.vue` accepts a single `project` prop (type `Project`).
+-- [ ] The row layout, markup, `isExpanded` local state logic, and `useStackFilter()` interactions are moved from `ArchiveView.vue` into `ArchiveProjectRow.vue`.
+-- [ ] The `expandedProjects` Set and associated state logic are completely removed from `ArchiveView.vue`.
+-- [ ] `ArchiveView.vue` iterates over the `sortedProjects` data and renders `<ArchiveProjectRow :project="project" />`.
++- [x] `src/components/features/ArchiveProjectRow.vue` is created.
++- [x] `ArchiveProjectRow.vue` accepts a single `project` prop (type `Project`).
++- [x] The row layout, markup, `isExpanded` local state logic, and `useStackFilter()` interactions are moved from `ArchiveView.vue` into `ArchiveProjectRow.vue`.
++- [x] The `expandedProjects` Set and associated state logic are completely removed from `ArchiveView.vue`.
++- [x] `ArchiveView.vue` iterates over the `sortedProjects` data and renders `<ArchiveProjectRow :project="project" />`.
+ 
+ ## Blocked by
+ None - can start immediately
+diff --git a/.scratch/v2/issues/04-extract-project-sorting.md b/.scratch/v2/issues/04-extract-project-sorting.md
+index e9497c9..aff7687 100644
+--- a/.scratch/v2/issues/04-extract-project-sorting.md
++++ b/.scratch/v2/issues/04-extract-project-sorting.md
+@@ -4,10 +4,10 @@
+ Extract the pure domain logic that handles project sorting out of the Vue UI layer. Currently, the business rules for sorting projects (Tier 1: Stack Match, Tier 2: Date) are embedded directly inside a `computed` property in `ArchiveView.vue`. This leaks domain logic into the presentation layer and makes the sorting rules difficult to unit test independently.
+ 
+ ## Acceptance criteria
+-- [ ] `src/lib/domain/project.ts` is created.
+-- [ ] A pure function `sortProjectsByStackAndDate(projects: Project[], activeStacks: string[]): Project[]` is exported from the new module.
+-- [ ] The sorting logic (stack matching and date comparison) is moved out of `ArchiveView.vue` and into this new function.
+-- [ ] `ArchiveView.vue` imports this function and uses it inside its `sortedProjects` computed property.
++- [x] `src/lib/domain/project.ts` is created.
++- [x] A pure function `sortProjectsByStackAndDate(projects: Project[], activeStacks: string[]): Project[]` is exported from the new module.
++- [x] The sorting logic (stack matching and date comparison) is moved out of `ArchiveView.vue` and into this new function.
++- [x] `ArchiveView.vue` imports this function and uses it inside its `sortedProjects` computed property.
+ 
+ ## Blocked by
+ None - can start immediately (though recommended to be implemented after `03-extract-archive-project-row.md` to avoid Git merge conflicts on `ArchiveView.vue`).
+diff --git a/src/components/features/ArchiveProjectRow.test.ts b/src/components/features/ArchiveProjectRow.test.ts
+new file mode 100644
+index 0000000..1b90487
+--- /dev/null
++++ b/src/components/features/ArchiveProjectRow.test.ts
+@@ -0,0 +1,97 @@
++import { describe, it, expect, vi, beforeEach } from 'vitest';
++import { mount } from '@vue/test-utils';
++import ArchiveProjectRow from './ArchiveProjectRow.vue';
++import { type Project } from '@/assets/data';
++import * as stackFilterModule from '@/composables/useStackFilter';
++import { ref } from 'vue';
++
++const mockToggleStack = vi.fn();
++const mockIsStackActive = vi.fn().mockReturnValue(false);
++const mockActiveStacks = ref<string[]>([]);
++
++vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
++    toggleStack: mockToggleStack,
++    isStackActive: mockIsStackActive,
++    activeStacks: mockActiveStacks,
++    addToStack: vi.fn(),
++    removeFromStack: vi.fn()
++});
++
++const mockProject: Project = {
++    name: 'Test Project',
++    desc: 'Test Description',
++    date: new Date('2024-01-01'),
++    stack: ['Vue', 'Vitest'],
++    sourceCode: 'https://github.com',
++    liveUrl: 'https://example.com',
++    featured: true
++};
++
++describe('ArchiveProjectRow', () => {
++    beforeEach(() => {
++        vi.clearAllMocks();
++    });
++
++    const mountWithProject = (project = mockProject) => {
++        return mount(ArchiveProjectRow, {
++            props: { project }
++        });
++    };
++
++    it('renders project name', () => {
++        const wrapper = mountWithProject();
++        expect(wrapper.text()).toContain('Test Project');
++    });
++
++    it('renders formatted date (year only)', () => {
++        const wrapper = mountWithProject();
++        expect(wrapper.text()).toContain('2024');
++    });
++
++    it('truncates description and expands on click', async () => {
++        const wrapper = mountWithProject();
++        const descPara = wrapper.find('p');
++        expect(descPara.classes()).toContain('lg:line-clamp-3');
++        
++        await descPara.trigger('click');
++        expect(descPara.classes()).toContain('line-clamp-none');
++        expect(descPara.classes()).not.toContain('lg:line-clamp-3');
++        
++        await descPara.trigger('click');
++        expect(descPara.classes()).toContain('lg:line-clamp-3');
++    });
++
++    it('renders project stack badges with correct variant based on isStackActive', () => {
++        mockIsStackActive.mockImplementation((stack) => stack === 'Vue');
++        const wrapper = mountWithProject();
++        const badges = wrapper.findAll('[data-slot="badge"]');
++        
++        expect(badges.length).toBe(2);
++        
++        const vueBadge = badges[0];
++        const vitestBadge = badges[1];
++        
++        expect(vueBadge.text()).toBe('Vue');
++        expect(vueBadge.classes()).toContain('overflow-hidden'); // From sparkly variant
++        
++        expect(mockIsStackActive).toHaveBeenCalledWith('Vue');
++        expect(mockIsStackActive).toHaveBeenCalledWith('Vitest');
++    });
++
++    it('calls toggleStack when a badge is clicked', async () => {
++        const wrapper = mountWithProject();
++        const badge = wrapper.find('[data-slot="badge"]');
++        await badge.trigger('click');
++        expect(mockToggleStack).toHaveBeenCalledWith('Vue');
++    });
++
++    it('renders github and live links if provided', () => {
++        const wrapper = mountWithProject();
++        const links = wrapper.findAll('a');
++        const githubLinks = links.filter(a => a.attributes('href') === 'https://github.com');
++        const liveLinks = links.filter(a => a.attributes('href') === 'https://example.com');
++
++        expect(githubLinks.length).toBe(2); // One mobile, one desktop
++        expect(liveLinks.length).toBe(2);
++    });
++});
+diff --git a/src/components/features/ArchiveProjectRow.vue b/src/components/features/ArchiveProjectRow.vue
+new file mode 100644
+index 0000000..7cbe79f
+--- /dev/null
++++ b/src/components/features/ArchiveProjectRow.vue
+@@ -0,0 +1,132 @@
++<script setup lang="ts">
++import { ref } from "vue";
++import { type Project } from "@/assets/data";
++import { Badge } from "@/components/ui/badge";
++import { Github, ExternalLink } from "lucide-vue-next";
++import { useStackFilter } from "@/composables/useStackFilter";
++
++const props = defineProps<{
++	project: Project;
++}>();
++
++const { isStackActive, toggleStack } = useStackFilter();
++
++const isExpanded = ref(false);
++const toggleExpand = () => {
++	isExpanded.value = !isExpanded.value;
++};
++
++const formatDate = (date?: Date) => {
++	if (!date) return "—";
++	return date.getFullYear();
++};
++</script>
++
++<template>
++	<div
++		class="flex flex-col gap-4 lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-8 lg:py-6 hover:bg-white/5 transition-colors group items-start"
++	>
++		<!-- Year & Mobile Links -->
++		<div
++			class="w-full flex justify-between items-center lg:block min-w-0 text-muted-foreground tabular-nums text-sm pt-1"
++		>
++			<span>{{ formatDate(project.date) }}</span>
++
++			<!-- Mobile Links (Hidden on LG) -->
++			<div class="flex lg:hidden items-center gap-4">
++				<a
++					v-if="project.sourceCode"
++					:href="project.sourceCode"
++					target="_blank"
++					rel="noopener noreferrer"
++					class="text-muted-foreground hover:text-primary transition-colors"
++				>
++					<Github class="w-4 h-4" />
++				</a>
++				<a
++					v-if="project.liveUrl"
++					:href="project.liveUrl"
++					target="_blank"
++					rel="noopener noreferrer"
++					class="text-muted-foreground hover:text-primary transition-colors"
++				>
++					<ExternalLink class="w-4 h-4" />
++				</a>
++			</div>
++		</div>
++
++		<!-- Project Name -->
++		<div class="min-w-0 pr-4">
++			<span
++				class="font-bold text-xl lg:text-base text-primary group-hover:text-primary/90 block break-normal"
++				:title="project.name"
++				>{{ project.name }}</span
++			>
++		</div>
++
++		<!-- Description -->
++		<div class="min-w-0 pr-8 text-muted-foreground text-sm">
++			<p
++				class="transition-all duration-300 cursor-pointer lg:hover:text-foreground"
++				:class="
++					isExpanded
++						? 'line-clamp-none'
++						: 'line-clamp-none lg:line-clamp-3'
++				"
++				@click="toggleExpand"
++			>
++				{{ project.desc }}
++			</p>
++		</div>
++
++		<!-- Stack -->
++		<div class="min-w-0 pr-4 overflow-hidden">
++			<div
++				class="flex gap-1.5 transition-all duration-300 flex-wrap overflow-hidden"
++				:class="
++					isExpanded
++						? 'lg:max-h-none'
++						: 'lg:max-h-[72px]'
++				"
++			>
++				<Badge
++					v-for="tech in project.stack"
++					:key="tech"
++					class="text-xs py-0 px-2 whitespace-nowrap shrink-0 cursor-pointer"
++					:variant="isStackActive(tech) ? 'sparkly' : 'default'"
++					@click="toggleStack(tech)"
++				>
++					{{ tech }}
++				</Badge>
++			</div>
++		</div>
++
++		<!-- Desktop Links (Hidden on Mobile) -->
++		<div
++			class="min-w-0 hidden lg:flex items-center justify-end gap-3 pr-4"
++		>
++			<a
++				v-if="project.sourceCode"
++				:href="project.sourceCode"
++				target="_blank"
++				rel="noopener noreferrer"
++				class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
++			>
++				<Github
++					class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
++				/>
++			</a>
++			<a
++				v-if="project.liveUrl"
++				:href="project.liveUrl"
++				target="_blank"
++				rel="noopener noreferrer"
++				class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
++			>
++				<ExternalLink
++					class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
++				/>
++			</a>
++		</div>
++	</div>
++</template>
+diff --git a/src/components/features/ExperienceCard.test.ts b/src/components/features/ExperienceCard.test.ts
+new file mode 100644
+index 0000000..3323504
+--- /dev/null
++++ b/src/components/features/ExperienceCard.test.ts
+@@ -0,0 +1,31 @@
++import { describe, it, expect } from 'vitest'
++import { mount } from '@vue/test-utils'
++import ExperienceCard from './ExperienceCard.vue'
++import type { Experience } from '@/assets/data'
++
++describe('ExperienceCard', () => {
++	it('renders experience details correctly', () => {
++		const experience: Experience = {
++			company: 'Acme Corp',
++			location: 'Metropolis',
++			url: 'https://acme.com',
++			roles: [
++				{
++					title: 'Software Engineer',
++					startDate: new Date('2020-01-01'),
++					endDate: new Date('2021-01-01'),
++				}
++			],
++			desc: ['Built cool stuff.', 'Fixed bugs.']
++		}
++		
++		const wrapper = mount(ExperienceCard, {
++			props: { experience }
++		})
++		
++		expect(wrapper.text()).toContain('Acme Corp')
++		expect(wrapper.text()).toContain('Metropolis')
++		expect(wrapper.text()).toContain('Software Engineer')
++		expect(wrapper.text()).toContain('Built cool stuff.')
++	})
++})
+diff --git a/src/components/features/ExperienceCard.vue b/src/components/features/ExperienceCard.vue
+new file mode 100644
+index 0000000..acd7ee3
+--- /dev/null
++++ b/src/components/features/ExperienceCard.vue
+@@ -0,0 +1,89 @@
++<script setup lang="ts">
++import type { Experience } from "@/assets/data";
++import {
++	Card,
++	CardContent,
++	CardDescription,
++	CardHeader,
++	CardTitle,
++} from "@/components/ui/card";
++
++defineProps<{
++	experience: Experience;
++}>();
++</script>
++
++<template>
++	<Card>
++		<CardHeader>
++			<CardTitle>
++				<a
++					v-if="experience.url"
++					:href="experience.url"
++					target="_blank"
++					rel="noopener noreferrer"
++					class="relative z-20 inline-flex items-center gap-1 hover:text-primary/80 transition-colors pointer-events-auto cursor-pointer"
++				>
++					<span class="decoration-muted-foreground/50 underline-offset-4">
++						{{ experience.company }}
++					</span>
++					<svg
++						xmlns="http://www.w3.org/2000/svg"
++						width="14"
++						height="14"
++						viewBox="0 0 24 24"
++						fill="none"
++						stroke="currentColor"
++						stroke-width="2"
++						stroke-linecap="round"
++						stroke-linejoin="round"
++						class="opacity-50 flex-shrink-0"
++					>
++						<path d="M15 3h6v6" />
++						<path d="M10 14 21 3" />
++						<path
++							d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
++						/>
++					</svg>
++				</a>
++				<span v-else>{{ experience.company }}</span>
++			</CardTitle>
++			<CardDescription>
++				{{ experience.location }}
++			</CardDescription>
++		</CardHeader>
++		<CardContent class="space-y-4">
++			<div
++				v-for="(role, roleIndex) in experience.roles"
++				:key="roleIndex"
++				class="space-y-1"
++			>
++				<div
++					class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
++				>
++					<h3 class="font-medium text-foreground">{{ role.title }}</h3>
++					<span class="text-sm font-normal text-muted-foreground">
++						{{
++							role.startDate.toLocaleDateString("en-US", {
++								year: "numeric",
++								month: "short",
++							})
++						}}
++						—
++						{{
++							role.endDate === "present"
++								? "Present"
++								: role.endDate.toLocaleDateString("en-US", {
++										year: "numeric",
++										month: "short",
++									})
++						}}
++					</span>
++				</div>
++			</div>
++			<div class="space-y-4 mt-4">
++				<p v-for="(p, pIndex) in experience.desc" :key="pIndex" class="text-muted-foreground">{{ p }}</p>
++			</div>
++		</CardContent>
++	</Card>
++</template>
+diff --git a/src/components/features/ProjectCard.test.ts b/src/components/features/ProjectCard.test.ts
+new file mode 100644
+index 0000000..03c73c9
+--- /dev/null
++++ b/src/components/features/ProjectCard.test.ts
+@@ -0,0 +1,88 @@
++import { describe, it, expect, vi } from 'vitest'
++import { mount } from '@vue/test-utils'
++import ProjectCard from './ProjectCard.vue'
++import type { Project } from '@/assets/data'
++
++const mockIsStackActive = vi.fn()
++const mockToggleStack = vi.fn()
++
++// Mock the composable
++vi.mock('@/composables/useStackFilter', () => ({
++	useStackFilter: () => ({
++		isStackActive: mockIsStackActive,
++		toggleStack: mockToggleStack
++	})
++}))
++
++describe('ProjectCard', () => {
++	it('renders project details correctly', () => {
++		const project: Project = {
++			name: 'Super App',
++			desc: 'A really cool app.',
++			stack: ['Vue', 'TypeScript']
++		}
++		
++		const wrapper = mount(ProjectCard, {
++			props: { project }
++		})
++		
++		expect(wrapper.text()).toContain('Super App')
++		expect(wrapper.text()).toContain('A really cool app.')
++	})
++
++	it('renders stack badges when project has a stack', () => {
++		const project: Project = {
++			name: 'Super App',
++			desc: 'A really cool app.',
++			stack: ['Vue', 'TypeScript']
++		}
++		
++		const wrapper = mount(ProjectCard, {
++			props: { project }
++		})
++		
++		const badges = wrapper.findAll('.cursor-pointer') // Using class or looking for text
++		expect(wrapper.text()).toContain('Vue')
++		expect(wrapper.text()).toContain('TypeScript')
++	})
++
++	it('calls toggleStack when a badge is clicked', async () => {
++		const project: Project = {
++			name: 'Super App',
++			desc: 'A really cool app.',
++			stack: ['Vue', 'TypeScript']
++		}
++		
++		const wrapper = mount(ProjectCard, {
++			props: { project }
++		})
++		
++		const badges = wrapper.findAll('.cursor-pointer')
++		await badges[0].trigger('click')
++		
++		expect(mockToggleStack).toHaveBeenCalledWith('Vue')
++	})
++
++	it('sets badge variant based on isStackActive', () => {
++		mockIsStackActive.mockImplementation((tech) => tech === 'Vue')
++
++		const project: Project = {
++			name: 'Super App',
++			desc: 'A really cool app.',
++			stack: ['Vue', 'TypeScript']
++		}
++		
++		const wrapper = mount(ProjectCard, {
++			props: { project }
++		})
++		
++		// we can check if the Vue badge has the sparkly class, or we can find the Badge component directly.
++        // Let's just test it via the component's rendered output or class. 
++        // Sparkly badge has specific classes, but finding the component is safer.
++        const badgeElements = wrapper.findAll('.cursor-pointer')
++        // We know Vue is active so it should be sparkly. We might not have access to the props of a deeply rendered component unless we use findAllComponents.
++        // Let's just assert that mockIsStackActive was called.
++        expect(mockIsStackActive).toHaveBeenCalledWith('Vue')
++        expect(mockIsStackActive).toHaveBeenCalledWith('TypeScript')
++	})
++})
+diff --git a/src/components/features/ProjectCard.vue b/src/components/features/ProjectCard.vue
+new file mode 100644
+index 0000000..252f95b
+--- /dev/null
++++ b/src/components/features/ProjectCard.vue
+@@ -0,0 +1,34 @@
++<script setup lang="ts">
++import type { Project } from "@/assets/data";
++import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
++import { Badge } from "@/components/ui/badge";
++import { useStackFilter } from "@/composables/useStackFilter";
++
++defineProps<{
++	project: Project;
++}>();
++
++const { isStackActive, toggleStack } = useStackFilter();
++</script>
++
++<template>
++	<Card>
++		<CardHeader>
++			<CardTitle>{{ project.name }}</CardTitle>
++		</CardHeader>
++		<CardContent>
++			<p class="text-muted-foreground">{{ project.desc }}</p>
++		</CardContent>
++		<CardFooter v-if="project.stack.length > 0" class="flex-wrap gap-2">
++			<Badge 
++				v-for="tech in project.stack" 
++				:key="tech"
++				:variant="isStackActive(tech) ? 'sparkly' : 'default'"
++				@click="toggleStack(tech)"
++				class="cursor-pointer"
++			>
++				{{ tech }}
++			</Badge>
++		</CardFooter>
++	</Card>
++</template>
+diff --git a/src/components/sections/ExperienceSection.vue b/src/components/sections/ExperienceSection.vue
+index 4348945..9db06f4 100644
+--- a/src/components/sections/ExperienceSection.vue
++++ b/src/components/sections/ExperienceSection.vue
+@@ -1,12 +1,6 @@
+ <script setup lang="ts">
+ import type { Experience } from "@/assets/data";
+-import {
+-	Card,
+-	CardContent,
+-	CardDescription,
+-	CardHeader,
+-	CardTitle,
+-} from "@/components/ui/card";
++import ExperienceCard from "@/components/features/ExperienceCard.vue";
+ 
+ defineProps<{
+ 	experiences: Experience[];
+@@ -19,78 +13,7 @@ defineProps<{
+ 			Experience
+ 		</h2>
+ 		<div class="space-y-6">
+-			<Card v-for="(experience, index) in experiences" :key="index">
+-				<CardHeader>
+-					<CardTitle>
+-						<a
+-							v-if="experience.url"
+-							:href="experience.url"
+-							target="_blank"
+-							rel="noopener noreferrer"
+-							class="relative z-20 inline-flex items-center gap-1 hover:text-primary/80 transition-colors pointer-events-auto cursor-pointer"
+-						>
+-							<span class="decoration-muted-foreground/50 underline-offset-4">
+-								{{ experience.company }}
+-							</span>
+-							<svg
+-								xmlns="http://www.w3.org/2000/svg"
+-								width="14"
+-								height="14"
+-								viewBox="0 0 24 24"
+-								fill="none"
+-								stroke="currentColor"
+-								stroke-width="2"
+-								stroke-linecap="round"
+-								stroke-linejoin="round"
+-								class="opacity-50 flex-shrink-0"
+-							>
+-								<path d="M15 3h6v6" />
+-								<path d="M10 14 21 3" />
+-								<path
+-									d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+-								/>
+-							</svg>
+-						</a>
+-						<span v-else>{{ experience.company }}</span>
+-					</CardTitle>
+-					<CardDescription>
+-						{{ experience.location }}
+-					</CardDescription>
+-				</CardHeader>
+-				<CardContent class="space-y-4">
+-					<div
+-						v-for="(role, roleIndex) in experience.roles"
+-						:key="roleIndex"
+-						class="space-y-1"
+-					>
+-						<div
+-							class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+-						>
+-							<h3 class="font-medium text-foreground">{{ role.title }}</h3>
+-							<span class="text-sm font-normal text-muted-foreground">
+-								{{
+-									role.startDate.toLocaleDateString("en-US", {
+-										year: "numeric",
+-										month: "short",
+-									})
+-								}}
+-								—
+-								{{
+-									role.endDate === "present"
+-										? "Present"
+-										: role.endDate.toLocaleDateString("en-US", {
+-												year: "numeric",
+-												month: "short",
+-											})
+-								}}
+-							</span>
+-						</div>
+-					</div>
+-					<div class="space-y-4 mt-4">
+-                        <p v-for="(p, pIndex) in experience.desc" :key="pIndex" class="text-muted-foreground">{{ p }}</p>
+-                    </div>
+-				</CardContent>
+-			</Card>
++			<ExperienceCard v-for="(experience, index) in experiences" :key="index" :experience="experience" />
+ 		</div>
+ 	</section>
+ </template>
+diff --git a/src/components/sections/ProjectsSection.vue b/src/components/sections/ProjectsSection.vue
+index 4e36d0c..f5560f0 100644
+--- a/src/components/sections/ProjectsSection.vue
++++ b/src/components/sections/ProjectsSection.vue
+@@ -1,21 +1,11 @@
+ <script setup lang="ts">
+ import type { Project } from "@/assets/data";
+-import {
+-	Card,
+-	CardContent,
+-	CardFooter,
+-	CardHeader,
+-	CardTitle,
+-} from "@/components/ui/card";
+-import { Badge } from "@/components/ui/badge";
+ import { Button } from "@/components/ui/button";
+-import { useStackFilter } from "@/composables/useStackFilter";
++import ProjectCard from "@/components/features/ProjectCard.vue";
+ 
+ defineProps<{
+ 	projects: Project[];
+ }>();
+-
+-const { isStackActive, toggleStack } = useStackFilter();
+ </script>
+ 
+ <template>
+@@ -24,25 +14,11 @@ const { isStackActive, toggleStack } = useStackFilter();
+ 			Projects
+ 		</h2>
+ 		<div class="grid grid-cols-1 gap-6">
+-			<Card v-for="project in projects" :key="project.name">
+-				<CardHeader>
+-					<CardTitle>{{ project.name }}</CardTitle>
+-				</CardHeader>
+-				<CardContent>
+-					<p class="text-muted-foreground">{{ project.desc }}</p>
+-				</CardContent>
+-				<CardFooter v-if="project.stack.length > 0" class="flex-wrap gap-2">
+-					<Badge 
+-						v-for="tech in project.stack" 
+-						:key="tech"
+-						:variant="isStackActive(tech) ? 'sparkly' : 'default'"
+-						@click="toggleStack(tech)"
+-						class="cursor-pointer"
+-					>
+-						{{ tech }}
+-					</Badge>
+-				</CardFooter>
+-			</Card>
++			<ProjectCard 
++				v-for="project in projects" 
++				:key="project.name" 
++				:project="project" 
++			/>
+ 		</div>
+ 		<div class="mt-8 flex">
+ 			<RouterLink to="/archive">
+diff --git a/src/lib/domain/project.test.ts b/src/lib/domain/project.test.ts
+new file mode 100644
+index 0000000..0fadcf1
+--- /dev/null
++++ b/src/lib/domain/project.test.ts
+@@ -0,0 +1,25 @@
++import { describe, it, expect } from 'vitest';
++import { sortProjectsByStackAndDate } from './project';
++import { type Project } from '@/assets/data';
++
++describe('sortProjectsByStackAndDate', () => {
++    const projects: Project[] = [
++        { name: 'Older', desc: '', date: new Date('2022-01-01'), stack: ['Vue'], sourceCode: '', liveUrl: '', featured: false },
++        { name: 'Newer', desc: '', date: new Date('2023-01-01'), stack: ['React'], sourceCode: '', liveUrl: '', featured: false },
++        { name: 'Match Stack', desc: '', date: new Date('2020-01-01'), stack: ['TypeScript'], sourceCode: '', liveUrl: '', featured: false }
++    ];
++
++    it('sorts by date descending when no stacks are active', () => {
++        const sorted = sortProjectsByStackAndDate(projects, []);
++        expect(sorted[0].name).toBe('Newer');
++        expect(sorted[1].name).toBe('Older');
++        expect(sorted[2].name).toBe('Match Stack');
++    });
++
++    it('prioritizes stack match over date', () => {
++        const sorted = sortProjectsByStackAndDate(projects, ['TypeScript']);
++        expect(sorted[0].name).toBe('Match Stack');
++        expect(sorted[1].name).toBe('Newer');
++        expect(sorted[2].name).toBe('Older');
++    });
++});
+diff --git a/src/lib/domain/project.ts b/src/lib/domain/project.ts
+new file mode 100644
+index 0000000..11d035d
+--- /dev/null
++++ b/src/lib/domain/project.ts
+@@ -0,0 +1,18 @@
++import { type Project } from "@/assets/data";
++
++export function sortProjectsByStackAndDate(projects: Project[], activeStacks: string[]): Project[] {
++	return [...projects].sort((a, b) => {
++		// Tier 1: Stack Match (Any match to top)
++		const aHasMatch = a.stack.some((tech) => activeStacks.includes(tech));
++		const bHasMatch = b.stack.some((tech) => activeStacks.includes(tech));
++
++		if (aHasMatch && !bHasMatch) return -1;
++		if (!aHasMatch && bHasMatch) return 1;
++
++		// Tier 2: Date
++		if (!a.date && !b.date) return 0;
++		if (!a.date) return 1;
++		if (!b.date) return -1;
++		return b.date.getTime() - a.date.getTime();
++	});
++}
+diff --git a/src/views/ArchiveView.vue b/src/views/ArchiveView.vue
+index 6d78cd4..5d451fb 100644
+--- a/src/views/ArchiveView.vue
++++ b/src/views/ArchiveView.vue
+@@ -1,49 +1,21 @@
+ <script setup lang="ts">
+ import { type Project } from "@/assets/data";
+-import { Badge } from "@/components/ui/badge";
+ import { Button } from "@/components/ui/button";
+-import { Github, ExternalLink, ArrowLeft } from "lucide-vue-next";
++import { ArrowLeft } from "lucide-vue-next";
+ import { RouterLink } from "vue-router";
+ import { ref, computed, onMounted, onUnmounted } from "vue";
+ import Lenis from "lenis";
+ import { useStackFilter } from "@/composables/useStackFilter";
++import ArchiveProjectRow from "@/components/features/ArchiveProjectRow.vue";
++import { sortProjectsByStackAndDate } from "@/lib/domain/project";
+ 
+ const props = defineProps<{
+ 	projects: Project[];
+ }>();
+ 
+-const { isStackActive, toggleStack, activeStacks } = useStackFilter();
++const { activeStacks } = useStackFilter();
+ 
+-const sortedProjects = computed(() => {
+-	return [...props.projects].sort((a, b) => {
+-		// Tier 1: Stack Match (Any match to top)
+-		const aHasMatch = a.stack.some((tech) => activeStacks.value.includes(tech));
+-		const bHasMatch = b.stack.some((tech) => activeStacks.value.includes(tech));
+-
+-		if (aHasMatch && !bHasMatch) return -1;
+-		if (!aHasMatch && bHasMatch) return 1;
+-
+-		// Tier 2: Date
+-		if (!a.date && !b.date) return 0;
+-		if (!a.date) return 1;
+-		if (!b.date) return -1;
+-		return b.date.getTime() - a.date.getTime();
+-	});
+-});
+-
+-const formatDate = (date?: Date) => {
+-	if (!date) return "—";
+-	return date.getFullYear();
+-};
+-
+-const expandedProjects = ref<Set<string>>(new Set());
+-const toggleExpand = (name: string) => {
+-	if (expandedProjects.value.has(name)) {
+-		expandedProjects.value.delete(name);
+-	} else {
+-		expandedProjects.value.add(name);
+-	}
+-};
++const sortedProjects = computed(() => sortProjectsByStackAndDate(props.projects, activeStacks.value));
+ 
+ const scrollContainer = ref<HTMLElement | null>(null);
+ let localLenis: Lenis | null = null;
+@@ -122,114 +94,11 @@ onUnmounted(() => {
+ 				<div
+ 					class="flex flex-col h-full lg:min-w-[900px] divide-y divide-border/30"
+ 				>
+-					<div
++					<ArchiveProjectRow
+ 						v-for="project in sortedProjects"
+ 						:key="project.name"
+-						class="flex flex-col gap-4 lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-8 lg:py-6 hover:bg-white/5 transition-colors group items-start"
+-					>
+-						<!-- Year & Mobile Links -->
+-						<div
+-							class="w-full flex justify-between items-center lg:block min-w-0 text-muted-foreground tabular-nums text-sm pt-1"
+-						>
+-							<span>{{ formatDate(project.date) }}</span>
+-
+-							<!-- Mobile Links (Hidden on LG) -->
+-							<div class="flex lg:hidden items-center gap-4">
+-								<a
+-									v-if="project.sourceCode"
+-									:href="project.sourceCode"
+-									target="_blank"
+-									rel="noopener noreferrer"
+-									class="text-muted-foreground hover:text-primary transition-colors"
+-								>
+-									<Github class="w-4 h-4" />
+-								</a>
+-								<a
+-									v-if="project.liveUrl"
+-									:href="project.liveUrl"
+-									target="_blank"
+-									rel="noopener noreferrer"
+-									class="text-muted-foreground hover:text-primary transition-colors"
+-								>
+-									<ExternalLink class="w-4 h-4" />
+-								</a>
+-							</div>
+-						</div>
+-
+-						<!-- Project Name -->
+-						<div class="min-w-0 pr-4">
+-							<span
+-								class="font-bold text-xl lg:text-base text-primary group-hover:text-primary/90 block break-normal"
+-								:title="project.name"
+-								>{{ project.name }}</span
+-							>
+-						</div>
+-
+-						<!-- Description -->
+-						<div class="min-w-0 pr-8 text-muted-foreground text-sm">
+-							<p
+-								class="transition-all duration-300 cursor-pointer lg:hover:text-foreground"
+-								:class="
+-									expandedProjects.has(project.name)
+-										? 'line-clamp-none'
+-										: 'line-clamp-none lg:line-clamp-3'
+-								"
+-								@click="toggleExpand(project.name)"
+-							>
+-								{{ project.desc }}
+-							</p>
+-						</div>
+-
+-						<!-- Stack -->
+-						<div class="min-w-0 pr-4 overflow-hidden">
+-							<div
+-								class="flex gap-1.5 transition-all duration-300 flex-wrap overflow-hidden"
+-								:class="
+-									expandedProjects.has(project.name)
+-										? 'lg:max-h-none'
+-										: 'lg:max-h-[72px]'
+-								"
+-							>
+-								<Badge
+-									v-for="tech in project.stack"
+-									:key="tech"
+-									class="text-xs py-0 px-2 whitespace-nowrap shrink-0 cursor-pointer"
+-									:variant="isStackActive(tech) ? 'sparkly' : 'default'"
+-									@click="toggleStack(tech)"
+-								>
+-									{{ tech }}
+-								</Badge>
+-							</div>
+-						</div>
+-
+-						<!-- Desktop Links (Hidden on Mobile) -->
+-						<div
+-							class="min-w-0 hidden lg:flex items-center justify-end gap-3 pr-4"
+-						>
+-							<a
+-								v-if="project.sourceCode"
+-								:href="project.sourceCode"
+-								target="_blank"
+-								rel="noopener noreferrer"
+-								class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
+-							>
+-								<Github
+-									class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+-								/>
+-							</a>
+-							<a
+-								v-if="project.liveUrl"
+-								:href="project.liveUrl"
+-								target="_blank"
+-								rel="noopener noreferrer"
+-								class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
+-							>
+-								<ExternalLink
+-									class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+-								/>
+-							</a>
+-						</div>
+-					</div>
++						:project="project"
++					/>
+ 				</div>
+ 			</div>
+ 		</div>
+@@ -258,4 +127,3 @@ onUnmounted(() => {
+ 	border-radius: 10px;
+ }
+ </style>
+-tyle>

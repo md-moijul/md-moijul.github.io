@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Github, ExternalLink } from "lucide-vue-next";
 import { useStackFilter } from "@/composables/useStackFilter";
 
-const props = defineProps<{
+defineProps<{
 	project: Project;
 }>();
 
