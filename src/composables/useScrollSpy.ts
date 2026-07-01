@@ -1,12 +1,13 @@
 import { ref, onMounted, onUnmounted, watch, nextTick } from "vue";
 import { useRoute } from "vue-router";
+import { useThrottleFn } from "@vueuse/core";
 import { lenisInstance } from "@/composables/useLenis";
 
 export function useScrollSpy(sectionIds: string[]) {
     const activeSection = ref(sectionIds[0] || "about");
     const route = useRoute();
 
-    const handleScroll = (args?: any) => {
+    const checkScrollPosition = (args?: any) => {
         const triggerPoint = window.innerHeight * 0.2;
         let current = activeSection.value;
 
@@ -36,6 +37,8 @@ export function useScrollSpy(sectionIds: string[]) {
 
         activeSection.value = current;
     };
+
+    const handleScroll = useThrottleFn(checkScrollPosition, 100);
 
     onMounted(() => {
         if (lenisInstance.value) {

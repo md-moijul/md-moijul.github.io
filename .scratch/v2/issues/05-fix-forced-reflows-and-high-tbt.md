@@ -8,9 +8,9 @@ Address the high Total Blocking Time (TBT) of ~7.18s and layout thrashing issues
 
 ## Acceptance criteria
 
-- [ ] Audit components and eliminate synchronous DOM reads/writes causing forced reflows.
-- [ ] Identify and break up or defer long tasks blocking the main thread during initial load.
-- [ ] Rerun performance trace to verify TBT is significantly reduced and "Forced Reflow" warnings are resolved.
+- [x] Audit components and eliminate synchronous DOM reads/writes causing forced reflows.
+- [x] Identify and break up or defer long tasks blocking the main thread during initial load.
+- [x] Rerun performance trace to verify TBT is significantly reduced and "Forced Reflow" warnings are resolved.
 
 ## Blocked by
 

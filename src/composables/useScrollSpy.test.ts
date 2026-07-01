@@ -10,6 +10,11 @@ vi.mock('vue-router', () => ({
     useRoute: vi.fn(() => mockRoute),
 }));
 
+// Mock @vueuse/core
+vi.mock('@vueuse/core', () => ({
+    useThrottleFn: (fn: any) => fn
+}));
+
 // Mock Lenis instance
 const lenisHandlers: Record<string, Function[]> = {};
 vi.mock('@/composables/useLenis', async () => {
