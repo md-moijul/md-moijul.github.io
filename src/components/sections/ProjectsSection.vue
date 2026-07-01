@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import type { Project } from "@/assets/data";
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useStackFilter } from "@/composables/useStackFilter";
+import ProjectCard from "@/components/features/ProjectCard.vue";
 
 defineProps<{
 	projects: Project[];
 }>();
-
-const { isStackActive, toggleStack } = useStackFilter();
 </script>
 
 <template>
@@ -24,25 +14,11 @@ const { isStackActive, toggleStack } = useStackFilter();
 			Projects
 		</h2>
 		<div class="grid grid-cols-1 gap-6">
-			<Card v-for="project in projects" :key="project.name">
-				<CardHeader>
-					<CardTitle>{{ project.name }}</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<p class="text-muted-foreground">{{ project.desc }}</p>
-				</CardContent>
-				<CardFooter v-if="project.stack.length > 0" class="flex-wrap gap-2">
-					<Badge 
-						v-for="tech in project.stack" 
-						:key="tech"
-						:variant="isStackActive(tech) ? 'sparkly' : 'default'"
-						@click="toggleStack(tech)"
-						class="cursor-pointer"
-					>
-						{{ tech }}
-					</Badge>
-				</CardFooter>
-			</Card>
+			<ProjectCard 
+				v-for="project in projects" 
+				:key="project.name" 
+				:project="project" 
+			/>
 		</div>
 		<div class="mt-8 flex">
 			<RouterLink to="/archive">
