@@ -1,49 +1,21 @@
 <script setup lang="ts">
 import { type Project } from "@/assets/data";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Github, ExternalLink, ArrowLeft } from "lucide-vue-next";
+import { ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import Lenis from "lenis";
 import { useStackFilter } from "@/composables/useStackFilter";
+import ArchiveProjectRow from "@/components/features/ArchiveProjectRow.vue";
+import { sortProjectsByStackAndDate } from "@/lib/domain/project";
 
 const props = defineProps<{
 	projects: Project[];
 }>();
 
-const { isStackActive, toggleStack, activeStacks } = useStackFilter();
+const { activeStacks } = useStackFilter();
 
-const sortedProjects = computed(() => {
-	return [...props.projects].sort((a, b) => {
-		// Tier 1: Stack Match (Any match to top)
-		const aHasMatch = a.stack.some((tech) => activeStacks.value.includes(tech));
-		const bHasMatch = b.stack.some((tech) => activeStacks.value.includes(tech));
-
-		if (aHasMatch && !bHasMatch) return -1;
-		if (!aHasMatch && bHasMatch) return 1;
-
-		// Tier 2: Date
-		if (!a.date && !b.date) return 0;
-		if (!a.date) return 1;
-		if (!b.date) return -1;
-		return b.date.getTime() - a.date.getTime();
-	});
-});
-
-const formatDate = (date?: Date) => {
-	if (!date) return "—";
-	return date.getFullYear();
-};
-
-const expandedProjects = ref<Set<string>>(new Set());
-const toggleExpand = (name: string) => {
-	if (expandedProjects.value.has(name)) {
-		expandedProjects.value.delete(name);
-	} else {
-		expandedProjects.value.add(name);
-	}
-};
+const sortedProjects = computed(() => sortProjectsByStackAndDate(props.projects, activeStacks.value));
 
 const scrollContainer = ref<HTMLElement | null>(null);
 let localLenis: Lenis | null = null;
@@ -122,114 +94,11 @@ onUnmounted(() => {
 				<div
 					class="flex flex-col h-full lg:min-w-[900px] divide-y divide-border/30"
 				>
-					<div
+					<ArchiveProjectRow
 						v-for="project in sortedProjects"
 						:key="project.name"
-						class="flex flex-col gap-4 lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-8 lg:py-6 hover:bg-white/5 transition-colors group items-start"
-					>
-						<!-- Year & Mobile Links -->
-						<div
-							class="w-full flex justify-between items-center lg:block min-w-0 text-muted-foreground tabular-nums text-sm pt-1"
-						>
-							<span>{{ formatDate(project.date) }}</span>
-
-							<!-- Mobile Links (Hidden on LG) -->
-							<div class="flex lg:hidden items-center gap-4">
-								<a
-									v-if="project.sourceCode"
-									:href="project.sourceCode"
-									target="_blank"
-									rel="noopener noreferrer"
-									class="text-muted-foreground hover:text-primary transition-colors"
-								>
-									<Github class="w-4 h-4" />
-								</a>
-								<a
-									v-if="project.liveUrl"
-									:href="project.liveUrl"
-									target="_blank"
-									rel="noopener noreferrer"
-									class="text-muted-foreground hover:text-primary transition-colors"
-								>
-									<ExternalLink class="w-4 h-4" />
-								</a>
-							</div>
-						</div>
-
-						<!-- Project Name -->
-						<div class="min-w-0 pr-4">
-							<span
-								class="font-bold text-xl lg:text-base text-primary group-hover:text-primary/90 block break-normal"
-								:title="project.name"
-								>{{ project.name }}</span
-							>
-						</div>
-
-						<!-- Description -->
-						<div class="min-w-0 pr-8 text-muted-foreground text-sm">
-							<p
-								class="transition-all duration-300 cursor-pointer lg:hover:text-foreground"
-								:class="
-									expandedProjects.has(project.name)
-										? 'line-clamp-none'
-										: 'line-clamp-none lg:line-clamp-3'
-								"
-								@click="toggleExpand(project.name)"
-							>
-								{{ project.desc }}
-							</p>
-						</div>
-
-						<!-- Stack -->
-						<div class="min-w-0 pr-4 overflow-hidden">
-							<div
-								class="flex gap-1.5 transition-all duration-300 flex-wrap overflow-hidden"
-								:class="
-									expandedProjects.has(project.name)
-										? 'lg:max-h-none'
-										: 'lg:max-h-[72px]'
-								"
-							>
-								<Badge
-									v-for="tech in project.stack"
-									:key="tech"
-									class="text-xs py-0 px-2 whitespace-nowrap shrink-0 cursor-pointer"
-									:variant="isStackActive(tech) ? 'sparkly' : 'default'"
-									@click="toggleStack(tech)"
-								>
-									{{ tech }}
-								</Badge>
-							</div>
-						</div>
-
-						<!-- Desktop Links (Hidden on Mobile) -->
-						<div
-							class="min-w-0 hidden lg:flex items-center justify-end gap-3 pr-4"
-						>
-							<a
-								v-if="project.sourceCode"
-								:href="project.sourceCode"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
-							>
-								<Github
-									class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
-								/>
-							</a>
-							<a
-								v-if="project.liveUrl"
-								:href="project.liveUrl"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-[11px] font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 group/link"
-							>
-								<ExternalLink
-									class="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
-								/>
-							</a>
-						</div>
-					</div>
+						:project="project"
+					/>
 				</div>
 			</div>
 		</div>
@@ -258,4 +127,3 @@ onUnmounted(() => {
 	border-radius: 10px;
 }
 </style>
-tyle>
