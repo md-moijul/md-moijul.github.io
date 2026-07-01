@@ -8,9 +8,9 @@ Resolve the severe Largest Contentful Paint (LCP) delay of 22.4s. The performanc
 
 ## Acceptance criteria
 
-- [ ] Identify the main LCP element for the page.
-- [ ] Ensure the LCP element's rendering is not blocked by client-side logic or delayed main-thread tasks.
-- [ ] Rerun performance trace to verify LCP time is drastically improved and Render Delay is minimized.
+- [x] Identify the main LCP element for the page.
+- [x] Ensure the LCP element's rendering is not blocked by client-side logic or delayed main-thread tasks.
+- [x] Rerun performance trace to verify LCP time is drastically improved and Render Delay is minimized.
 
 ## Blocked by
 

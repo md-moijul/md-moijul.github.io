@@ -11,9 +11,16 @@ const isLoaded = ref(false);
 
 onMounted(() => {
     // Defer rendering of below-the-fold content to break up long tasks on initial load
-    setTimeout(() => {
-        isLoaded.value = true;
-    }, 50);
+    // Wait for the browser to become idle after LCP to prevent blocking the main thread
+    if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+            isLoaded.value = true;
+        });
+    } else {
+        setTimeout(() => {
+            isLoaded.value = true;
+        }, 500);
+    }
 });
 </script>
 
