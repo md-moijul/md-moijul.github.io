@@ -4,10 +4,10 @@
 Introduce a domain-aware `ExperienceCard` feature component that fully encapsulates the rendering of an individual Experience object. The current `ExperienceSection` is shallow and bloated with inline UI details; this change establishes a firm boundary where `ExperienceSection` handles only structural layout and delegates rendering to `ExperienceCard`.
 
 ## Acceptance criteria
-- [ ] `src/components/features/ExperienceCard.vue` is created.
-- [ ] `ExperienceCard.vue` accepts a single `experience` prop (type `Experience`).
-- [ ] The `Card` layout and markup for an experience is moved from `ExperienceSection.vue` into `ExperienceCard.vue`.
-- [ ] `ExperienceSection.vue` iterates over the experiences data and renders `<ExperienceCard :experience="experience" />`.
+- [x] `src/components/features/ExperienceCard.vue` is created.
+- [x] `ExperienceCard.vue` accepts a single `experience` prop (type `Experience`).
+- [x] The `Card` layout and markup for an experience is moved from `ExperienceSection.vue` into `ExperienceCard.vue`.
+- [x] `ExperienceSection.vue` iterates over the experiences data and renders `<ExperienceCard :experience="experience" />`.
 
 ## Blocked by
 None - can start immediately
