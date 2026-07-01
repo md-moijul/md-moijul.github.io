@@ -8,10 +8,10 @@ Improve overall page network performance and cross-page navigation by addressing
 
 ## Acceptance criteria
 
-- [ ] Remove `unload` event listeners and ensure the page is eligible for bfcache.
-- [ ] Defer non-critical CSS and JS to unblock the initial page render.
-- [ ] Flatten deep network import chains and review payload sizes.
-- [ ] Verify bfcache restoration works correctly via DevTools Application panel.
+- [x] Remove `unload` event listeners and ensure the page is eligible for bfcache.
+- [x] Defer non-critical CSS and JS to unblock the initial page render.
+- [x] Flatten deep network import chains and review payload sizes.
+- [x] Verify bfcache restoration works correctly via DevTools Application panel.
 
 ## Blocked by
 
