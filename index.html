@@ -9,9 +9,14 @@
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Plaster&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Plaster&display=swap" /></noscript>
 		
+		<!-- Preload critical fonts -->
+		<link rel="preload" href="https://fonts.gstatic.com/s/plaster/v25/DdTm79QatW80eRh4IilDOw.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="https://fonts.gstatic.com/s/play/v21/6aez4K2oVqwIvtU2Hw.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="https://fonts.gstatic.com/s/play/v21/6ae84K2oVqwItm4TCpAy2g.woff2" as="font" type="font/woff2" crossorigin />
+		
+		<!-- Synchronous font loading -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Plaster&display=swap" />
 		<!-- Preload critical background images -->
 		<link rel="preload" as="image" href="/src/assets/Ellipses.svg" type="image/svg+xml" fetchpriority="high" />
 
