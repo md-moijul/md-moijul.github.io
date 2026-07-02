@@ -69,7 +69,7 @@ const { scrollToSection } = useScrollTo(activeSection);
 				rel="noopener noreferrer"
 				class="text-muted-foreground transition-colors hover:text-foreground"
 			>
-				<img src="../assets/strava.png" class="h-6 w-6" alt="Strava Profile" />
+				<img src="../assets/strava.svg" class="h-6 w-6" alt="Strava Profile" />
 			</a>
 		</div>
 	</nav>
