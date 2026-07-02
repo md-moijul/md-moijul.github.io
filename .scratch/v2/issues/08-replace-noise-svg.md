@@ -8,10 +8,10 @@ Replace the massive 4.2MB network payload caused by the `Noise.png` background i
 
 ## Acceptance criteria
 
-- [ ] `Noise.png` is deleted from the repository.
-- [ ] `src/style.css` uses the inline SVG data URL for the `body::before` background image.
-- [ ] The global background noise aesthetic remains visually identical.
-- [ ] The network payload for the background noise effectively drops to 0 bytes.
+- [x] `Noise.png` is deleted from the repository.
+- [x] `src/style.css` uses the inline SVG data URL for the `body::before` background image.
+- [x] The global background noise aesthetic remains visually identical.
+- [x] The network payload for the background noise effectively drops to 0 bytes.
 
 ## Blocked by
 
