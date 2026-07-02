@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import { useScrollSpy } from "@/composables/useScrollSpy";
-import { useScrollTo } from "@/composables/useScrollTo";
+import { useScrollController } from "@/composables/useScrollController";
 import { LayoutGrid, X } from "lucide-vue-next";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
 const route = useRoute();
-const { activeSection } = useScrollSpy(sectionIds);
-const { scrollToSection } = useScrollTo(activeSection);
+const { scrollToSection, activeSection } = useScrollController({ spySections: sectionIds });
 
 const isOpen = ref(false);
 

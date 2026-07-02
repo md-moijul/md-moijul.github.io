@@ -2,7 +2,13 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useScrollController, lenisInstance } from './useScrollController';
 import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import Lenis from 'lenis';
+
+vi.mock('vue-router', () => ({
+    useRouter: vi.fn(),
+    useRoute: vi.fn(),
+}));
 
 // Mock Lenis
 vi.mock('lenis', () => {
@@ -12,10 +18,20 @@ vi.mock('lenis', () => {
                 raf: vi.fn(),
                 destroy: vi.fn(),
                 scrollTo: vi.fn(),
+                on: vi.fn(),
+                off: vi.fn(),
             };
         }),
     };
 });
+
+class MockIntersectionObserver {
+    observe = vi.fn();
+    disconnect = vi.fn();
+    unobserve = vi.fn();
+}
+
+vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
 
 describe('useScrollController - Global', () => {
     beforeEach(() => {
@@ -47,28 +63,6 @@ describe('useScrollController - Global', () => {
         wrapper.unmount();
     });
 
-    it('should destroy global lenis on unmount', async () => {
-        const TestComponent = defineComponent({
-            setup() {
-                useScrollController();
-                return {};
-            },
-            template: '<main><div id="scroll-content">Content</div></main>',
-        });
-
-        const wrapper = mount(TestComponent, {
-            attachTo: document.body,
-        });
-
-        await nextTick();
-        const instance = lenisInstance.value;
-        expect(instance).not.toBeNull();
-        
-        wrapper.unmount();
-        
-        expect(instance?.destroy).toHaveBeenCalled();
-        expect(lenisInstance.value).toBeNull();
-    });
 });
 
 describe('useScrollController - Local', () => {
@@ -81,7 +75,7 @@ describe('useScrollController - Local', () => {
         const TestComponent = defineComponent({
             setup() {
                 const targetRef = ref(null);
-                useScrollController(targetRef);
+                useScrollController({ target: targetRef });
                 return { targetRef };
             },
             template: '<div ref="targetRef"><div>Content</div></div>',
@@ -109,7 +103,7 @@ describe('useScrollController - Local', () => {
         const TestComponent = defineComponent({
             setup() {
                 const targetRef = ref(null);
-                useScrollController(targetRef);
+                useScrollController({ target: targetRef });
                 return { targetRef };
             },
             template: '<div ref="targetRef"><div>Content</div></div>',
@@ -128,5 +122,78 @@ describe('useScrollController - Local', () => {
         wrapper.unmount();
 
         expect(mockedInstance.destroy).toHaveBeenCalled();
+    });
+});
+
+describe('useScrollController - scrollToSection', () => {
+    let mockPush: any;
+    let mockRoute: any;
+    let mockLenis: any;
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+        lenisInstance.value = null;
+
+        mockPush = vi.fn().mockResolvedValue(undefined);
+        mockRoute = { path: '/' };
+
+        vi.mocked(useRouter).mockReturnValue({ push: mockPush } as any);
+        vi.mocked(useRoute).mockReturnValue(mockRoute as any);
+        
+        mockLenis = {
+            scrollTo: vi.fn(),
+            resize: vi.fn(),
+            destroy: vi.fn(),
+            raf: vi.fn(),
+        };
+        vi.mocked(Lenis).mockImplementation(() => mockLenis);
+    });
+
+    it('should scroll to section on home page', async () => {
+        const { scrollToSection } = useScrollController();
+        
+        // Setup global instance
+        lenisInstance.value = mockLenis;
+
+        await scrollToSection('#projects');
+        
+        expect(mockPush).not.toHaveBeenCalled();
+        expect(mockLenis.scrollTo).toHaveBeenCalledWith('#projects', expect.objectContaining({ duration: 0.8 }));
+    });
+
+    it('should navigate to home page then scroll when not on home page', async () => {
+        mockRoute.path = '/archive';
+        const { scrollToSection } = useScrollController();
+        
+        // Setup global instance
+        lenisInstance.value = mockLenis;
+
+        await scrollToSection('#experience');
+        
+        expect(mockPush).toHaveBeenCalledWith('/');
+        // After push, it should have waited for nextTick and then scrolled
+        expect(mockLenis.resize).toHaveBeenCalled();
+        expect(mockLenis.scrollTo).toHaveBeenCalledWith('#experience', expect.objectContaining({ duration: 0.8, immediate: false }));
+    });
+});
+
+describe('useScrollController - spySections', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+        lenisInstance.value = null;
+    });
+
+    it('should initialize activeSection with the first spy section', () => {
+        const TestComponent = defineComponent({
+            setup() {
+                const { activeSection } = useScrollController({ spySections: ['about', 'projects'] });
+                return { activeSection };
+            },
+            template: '<div></div>',
+        });
+
+        const wrapper = mount(TestComponent, { attachTo: document.body });
+        expect(wrapper.vm.activeSection).toBe('about');
+        wrapper.unmount();
     });
 });

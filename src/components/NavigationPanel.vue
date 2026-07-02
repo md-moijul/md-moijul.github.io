@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { useScrollTo } from "@/composables/useScrollTo";
-import { useScrollSpy } from "@/composables/useScrollSpy";
+import { useScrollController } from "@/composables/useScrollController";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
-const { activeSection } = useScrollSpy(sectionIds);
-
-const { scrollToSection } = useScrollTo(activeSection);
+const { scrollToSection, activeSection } = useScrollController({ spySections: sectionIds });
 </script>
 
 <template>

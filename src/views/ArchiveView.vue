@@ -19,7 +19,7 @@ const sortedProjects = computed(() => sortProjectsByStackAndDate(props.projects,
 
 const scrollContainer = ref<HTMLElement | null>(null);
 
-useScrollController(scrollContainer);
+useScrollController({ target: scrollContainer });
 </script>
 
 <template>

@@ -20,7 +20,7 @@ The application is structured as a single-page layout with a sticky navigation/i
     - `sections/`: Individual page sections (About, Experience, Projects, Contact).
     - `ui/`: Reusable UI components (Badge, Button, Card, Input, Textarea).
     - `NavigationPanel.vue`: The main sidebar/navigation component.
-- `src/composables/`: Vue composables, including `useLenis.ts` for smooth scroll initialization, `useScrollSpy.ts` for active section tracking, and `useScrollTo.ts` for programmatic scrolling.
+- `src/composables/`: Vue composables, including `useScrollController.ts` for smooth scroll initialization, programmatic scrolling, and active section tracking via IntersectionObserver.
 - `src/lib/`: Utility functions (e.g., `utils.ts` for tailwind-merge and clsx).
 
 ## Building and Running
@@ -52,10 +52,10 @@ npm run preview
 ## Routing and Navigation
 
 - **Router:** Uses `vue-router` with `createWebHashHistory`.
-- **Navigation:** Navigation is handled programmatically via the `scrollToSection` function in `NavigationPanel.vue`.
-- **Smooth Scrolling:** Powered by **Lenis**. A shared `lenisInstance` is exposed via `useScrollController.ts` for programmatic scroll control.
-- **Cross-Page Support:** When navigating to a section from a non-home route, the application redirects to `/` and then triggers a smooth scroll to the target section.
-- **Active Highlighting:** Section highlighting in the navigation panel is managed via the `useScrollSpy` composable, which listens to Lenis scroll events and uses viewport math for precise section detection.
+- **Navigation:** Navigation is handled programmatically via the `scrollToSection` function from the `useScrollController` composable.
+- **Smooth Scrolling:** Powered by **Lenis**. A shared `lenisInstance` is managed and exposed via `useScrollController.ts`. For local scrolling contexts (like Archive), `useScrollController({ target })` can be used to isolate smooth scrolling.
+- **Cross-Page Support:** When navigating to a section from a non-home route, the `scrollToSection` logic redirects to `/` and then triggers a smooth scroll to the target section after the DOM stabilizes.
+- **Active Highlighting:** Section highlighting in the navigation panel is managed via the `useScrollController` composable by passing `{ spySections: [...] }`, which uses an IntersectionObserver to detect the active section.
 
 ## Development Conventions
 
@@ -64,7 +64,7 @@ npm run preview
 - **Styling:** Use Tailwind CSS utility classes. Prefer the `@/` alias for imports from the `src` directory.
 - **Data Management:** Most of the portfolio content (experiences, projects) is stored in `src/assets/data.ts`. Update this file to add or modify entries. Use the exported `Experience` and `Project` interfaces for type safety.
 - **UI Components:** New generic UI components should be added to `src/components/ui` following the existing pattern (typically a component file and an `index.ts` for exports).
-- **Smooth Scrolling:** Lenis is initialized globally in `App.vue` via the `useScrollController` composable. For programmatic scrolling, use the exported `lenisInstance` from `@/composables/useScrollController`. For local scrolling contexts, `useScrollController(target)` can be used to isolate smooth scrolling. Any scroll-related interactions should be compatible with Lenis.
+- **Smooth Scrolling:** Lenis is initialized globally via the `useScrollController` composable. For programmatic scrolling and active section tracking, use `useScrollController({ spySections })`. For local scrolling contexts, use `useScrollController({ target })` to isolate smooth scrolling. Any scroll-related interactions should be compatible with Lenis.
 
 ## Key Files
 

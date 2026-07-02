@@ -13,15 +13,13 @@ vi.mock('vue-router', () => ({
 }));
 
 const mockActiveSection = ref('about');
-vi.mock('@/composables/useScrollSpy', () => ({
-    useScrollSpy: vi.fn(() => ({
-        activeSection: mockActiveSection,
-        checkScroll: vi.fn()
-    }))
-}));
+const mockScrollToSection = vi.fn();
 
 vi.mock('@/composables/useScrollController', () => ({
-    useScrollController: vi.fn(),
+    useScrollController: vi.fn(() => ({
+        activeSection: mockActiveSection,
+        scrollToSection: mockScrollToSection,
+    })),
     lenisInstance: {
         value: {
             scrollTo: vi.fn(),
@@ -59,6 +57,6 @@ describe('NavigationPanel', () => {
         
         await aboutLink.trigger('click');
         
-        expect(lenisInstance.value?.scrollTo).toHaveBeenCalledWith('#about', expect.any(Object));
+        expect(mockScrollToSection).toHaveBeenCalledWith('about', expect.any(Object));
     });
 });
