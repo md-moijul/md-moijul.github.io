@@ -9,11 +9,18 @@ Refactor `useScrollSpy.ts` to use `IntersectionObserver` instead of the layout-t
 
 ## Acceptance criteria
 
-- [ ] `getBoundingClientRect()` is removed from `useScrollSpy.ts`.
-- [ ] Side-navigation active state updates precisely when scrolling sections past the 20% viewport mark.
-- [ ] Side-navigation updates correctly when a link is clicked to jump programmatically.
-- [ ] When scrolling to the absolute bottom of the page, the last section (e.g. Contact) correctly becomes active, even if it is too short to reach the 20% mark.
-- [ ] Zero "Forced Reflow" or "Layout Thrashing" warnings appear in the Chrome DevTools Performance trace during scrolling.
+- [x] `getBoundingClientRect()` is removed from `useScrollSpy.ts`.
+- [x] Side-navigation active state updates precisely when scrolling sections past the 20% viewport mark.
+- [x] Side-navigation updates correctly when a link is clicked to jump programmatically.
+- [x] When scrolling to the absolute bottom of the page, the last section (e.g. Contact) correctly becomes active, even if it is too short to reach the 20% mark.
+- [x] Zero "Forced Reflow" or "Layout Thrashing" warnings appear in the Chrome DevTools Performance trace during scrolling.
+
+## Notes on Failed Implementation
+
+**Attempt:** We previously tried using `IntersectionObserver` with `rootMargin: "-20% 0px -79% 0px"`. 
+**Why it failed:** 
+- It caused a bug where scrolling up from "Contact" completely skipped the "Projects" section and highlighted "Experience" instead. This happened because the observer only tracked when boundaries crossed a 1% height line, failing to account for sections that were already fully occupying the screen below the line. 
+- It did not satisfy the requirement of "highlighting the section that occupies the maximum part of the screen".
 
 ## Blocked by
 

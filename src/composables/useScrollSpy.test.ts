@@ -5,6 +5,20 @@ import { defineComponent } from 'vue';
 
 const mockRoute = { path: '/' };
 
+let mockIntersectionObserverCallback: IntersectionObserverCallback | null = null;
+const mockObserve = vi.fn();
+const mockDisconnect = vi.fn();
+
+class MockIntersectionObserver {
+    constructor(callback: IntersectionObserverCallback) {
+        mockIntersectionObserverCallback = callback;
+    }
+    observe = mockObserve;
+    disconnect = mockDisconnect;
+    unobserve = vi.fn();
+}
+
+
 // Mock vue-router
 vi.mock('vue-router', () => ({
     useRoute: vi.fn(() => mockRoute),
@@ -54,16 +68,13 @@ describe('useScrollSpy', () => {
         vi.clearAllMocks();
         mockRoute.path = '/';
         Object.keys(lenisHandlers).forEach(key => delete lenisHandlers[key]);
+        mockIntersectionObserverCallback = null;
         
         document.getElementById = vi.fn().mockImplementation((id) => {
-            return {
-                id,
-                getBoundingClientRect: () => ({
-                    top: id === 'about' ? 0 : 2000,
-                })
-            };
+            return { id };
         });
 
+        vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
         vi.stubGlobal('innerHeight', 1000);
     });
 
@@ -74,43 +85,61 @@ describe('useScrollSpy', () => {
     it('initializes with the first section', () => {
         const wrapper = mount(TestComponent, { props: { sections: ['about', 'contact'] } });
         expect(wrapper.vm.activeSection).toBe('about');
+        expect(mockObserve).toHaveBeenCalled();
     });
 
-    it('updates active section when scrolling past trigger point', () => {
+    it('updates active section to the one with highest intersection height', () => {
         const wrapper = mount(TestComponent, { props: { sections: ['about', 'experience', 'contact'] } });
         
-        document.getElementById = vi.fn().mockImplementation((id) => {
-            const positions: Record<string, number> = {
-                about: -500,
-                experience: 100, // Inside trigger zone
-                contact: 2500
-            };
-            return {
-                id,
-                getBoundingClientRect: () => ({ top: positions[id] })
-            };
-        });
+        expect(mockIntersectionObserverCallback).toBeDefined();
+        
+        if (mockIntersectionObserverCallback) {
+            // Trigger intersections with different heights
+            mockIntersectionObserverCallback([
+                {
+                    isIntersecting: true,
+                    intersectionRect: { height: 200 } as DOMRectReadOnly,
+                    target: { id: 'about' } as any
+                } as IntersectionObserverEntry,
+                {
+                    isIntersecting: true,
+                    intersectionRect: { height: 800 } as DOMRectReadOnly,
+                    target: { id: 'experience' } as any
+                } as IntersectionObserverEntry
+            ], {} as IntersectionObserver);
+        }
 
-        wrapper.vm.checkScroll();
         expect(wrapper.vm.activeSection).toBe('experience');
+
+        // Now 'about' overtakes 'experience'
+        if (mockIntersectionObserverCallback) {
+            mockIntersectionObserverCallback([
+                {
+                    isIntersecting: true,
+                    intersectionRect: { height: 900 } as DOMRectReadOnly,
+                    target: { id: 'about' } as any
+                } as IntersectionObserverEntry,
+                {
+                    isIntersecting: true,
+                    intersectionRect: { height: 100 } as DOMRectReadOnly,
+                    target: { id: 'experience' } as any
+                } as IntersectionObserverEntry
+            ], {} as IntersectionObserver);
+        }
+        
+        expect(wrapper.vm.activeSection).toBe('about');
     });
 
     it('forces last section active when at bottom', () => {
         const wrapper = mount(TestComponent, { props: { sections: ['about', 'experience', 'contact'] } });
-        
-        document.getElementById = vi.fn().mockImplementation((id) => {
-            const positions: Record<string, number> = {
-                about: -2000,
-                experience: -1000,
-                contact: 600  // Not at top, but scroll limit reached
-            };
-            return {
-                id,
-                getBoundingClientRect: () => ({ top: positions[id] })
-            };
-        });
 
         triggerLenisScroll({ scroll: 4995, limit: 5000 });
         expect(wrapper.vm.activeSection).toBe('contact');
+    });
+
+    it('disconnects observer on unmount', () => {
+        const wrapper = mount(TestComponent, { props: { sections: ['about', 'experience', 'contact'] } });
+        wrapper.unmount();
+        expect(mockDisconnect).toHaveBeenCalled();
     });
 });
