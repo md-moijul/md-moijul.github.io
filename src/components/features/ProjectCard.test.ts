@@ -1,18 +1,7 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ProjectCard from './ProjectCard.vue'
 import type { Project } from '@/assets/data'
-
-const mockIsStackActive = vi.fn()
-const mockToggleStack = vi.fn()
-
-// Mock the composable
-vi.mock('@/composables/useStackFilter', () => ({
-	useStackFilter: () => ({
-		isStackActive: mockIsStackActive,
-		toggleStack: mockToggleStack
-	})
-}))
 
 describe('ProjectCard', () => {
 	it('renders project details correctly', () => {
@@ -23,7 +12,7 @@ describe('ProjectCard', () => {
 		}
 		
 		const wrapper = mount(ProjectCard, {
-			props: { project }
+			props: { project, activeStacks: [] }
 		})
 		
 		expect(wrapper.text()).toContain('Super App')
@@ -38,14 +27,14 @@ describe('ProjectCard', () => {
 		}
 		
 		const wrapper = mount(ProjectCard, {
-			props: { project }
+			props: { project, activeStacks: [] }
 		})
 		
 		expect(wrapper.text()).toContain('Vue')
 		expect(wrapper.text()).toContain('TypeScript')
 	})
 
-	it('calls toggleStack when a badge is clicked', async () => {
+	it('emits toggle-stack when a badge is clicked', async () => {
 		const project: Project = {
 			name: 'Super App',
 			desc: 'A really cool app.',
@@ -53,18 +42,17 @@ describe('ProjectCard', () => {
 		}
 		
 		const wrapper = mount(ProjectCard, {
-			props: { project }
+			props: { project, activeStacks: [] }
 		})
 		
 		const badges = wrapper.findAll('.cursor-pointer')
 		await badges[0].trigger('click')
 		
-		expect(mockToggleStack).toHaveBeenCalledWith('Vue')
+		expect(wrapper.emitted('toggle-stack')).toBeTruthy()
+		expect(wrapper.emitted('toggle-stack')?.[0]).toEqual(['Vue'])
 	})
 
-	it('sets badge variant based on isStackActive', () => {
-		mockIsStackActive.mockImplementation((tech) => tech === 'Vue')
-
+	it('sets badge variant based on activeStacks prop', () => {
 		const project: Project = {
 			name: 'Super App',
 			desc: 'A really cool app.',
@@ -72,15 +60,13 @@ describe('ProjectCard', () => {
 		}
 		
 		const wrapper = mount(ProjectCard, {
-			props: { project }
+			props: { project, activeStacks: ['Vue'] }
 		})
 		
-		// we can check if the Vue badge has the sparkly class, or we can find the Badge component directly.
-        // Let's just test it via the component's rendered output or class. 
-        // Sparkly badge has specific classes, but finding the component is safer.
-        // We know Vue is active so it should be sparkly. We might not have access to the props of a deeply rendered component unless we use findAllComponents.
-        // Let's just assert that mockIsStackActive was called.
-        expect(mockIsStackActive).toHaveBeenCalledWith('Vue')
-        expect(mockIsStackActive).toHaveBeenCalledWith('TypeScript')
+		// Use component finding to check props
+		const badges = wrapper.findAllComponents({ name: 'Badge' })
+		
+		expect(badges[0].props('variant')).toBe('sparkly')
+		expect(badges[1].props('variant')).toBe('default')
 	})
 })

@@ -3,13 +3,15 @@ import { ref } from "vue";
 import { type Project } from "@/assets/data";
 import { Badge } from "@/components/ui/badge";
 import { Github, ExternalLink } from "lucide-vue-next";
-import { useStackFilter } from "@/composables/useStackFilter";
 
 defineProps<{
 	project: Project;
+	activeStacks: string[];
 }>();
 
-const { isStackActive, toggleStack } = useStackFilter();
+defineEmits<{
+	'toggle-stack': [tech: string]
+}>();
 
 const isExpanded = ref(false);
 const toggleExpand = () => {
@@ -93,8 +95,8 @@ const formatDate = (date?: Date) => {
 					v-for="tech in project.stack"
 					:key="tech"
 					class="text-xs py-0 px-2 whitespace-nowrap shrink-0 cursor-pointer"
-					:variant="isStackActive(tech) ? 'sparkly' : 'default'"
-					@click="toggleStack(tech)"
+					:variant="activeStacks.includes(tech) ? 'sparkly' : 'default'"
+					@click="$emit('toggle-stack', tech)"
 				>
 					{{ tech }}
 				</Badge>

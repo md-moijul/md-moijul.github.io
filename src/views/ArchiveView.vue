@@ -13,7 +13,7 @@ const props = defineProps<{
 	projects: Project[];
 }>();
 
-const { activeStacks } = useStackFilter();
+const { activeStacks, toggleStack } = useStackFilter();
 
 const sortedProjects = computed(() => sortProjectsByStackAndDate(props.projects, activeStacks.value));
 
@@ -75,6 +75,8 @@ useScrollController({ target: scrollContainer });
 						v-for="project in sortedProjects"
 						:key="project.name"
 						:project="project"
+						:activeStacks="activeStacks"
+						@toggle-stack="toggleStack"
 					/>
 				</div>
 			</div>

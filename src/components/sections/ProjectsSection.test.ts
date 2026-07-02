@@ -1,23 +1,27 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import ProjectsSection from './ProjectsSection.vue';
 import * as stackFilterModule from '@/composables/useStackFilter';
 
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
-// Mock useStackFilter
 const mockToggleStack = vi.fn();
-const mockIsStackActive = vi.fn().mockReturnValue(false);
+const mockActiveStacks = ref<string[]>([]);
 
 vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
     toggleStack: mockToggleStack,
-    isStackActive: mockIsStackActive,
-    activeStacks: computed(() => []),
+    isStackActive: vi.fn(),
+    activeStacks: computed(() => mockActiveStacks.value),
     addToStack: vi.fn(),
     removeFromStack: vi.fn()
 });
 
 describe('ProjectsSection', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+        mockActiveStacks.value = [];
+    });
+
     it('contains a link to the archive with the correct text', () => {
         const wrapper = mount(ProjectsSection, {
             props: {
@@ -37,9 +41,8 @@ describe('ProjectsSection', () => {
         expect(archiveLink.text()).toBe('View Full Project Archive');
     });
 
-    it('renders project stack badges with correct variant based on isStackActive', async () => {
-        // Mock Vue active for this test
-        mockIsStackActive.mockImplementation((stack) => stack === 'Vue');
+    it('renders project stack badges with correct variant based on activeStacks', async () => {
+        mockActiveStacks.value = ['Vue'];
         
         const wrapper = mount(ProjectsSection, {
             props: {
@@ -52,13 +55,15 @@ describe('ProjectsSection', () => {
             }
         });
 
-        const badges = wrapper.findAll('[data-slot="badge"]');
+        const badges = wrapper.findAllComponents({ name: 'Badge' });
         const vueBadge = badges[0];
+        const reactBadge = badges[1];
 
         expect(vueBadge.text()).toBe('Vue');
-        expect(vueBadge.classes()).toContain('overflow-hidden'); 
-        expect(mockIsStackActive).toHaveBeenCalledWith('Vue');
-        expect(mockIsStackActive).toHaveBeenCalledWith('React');
+        expect(vueBadge.props('variant')).toBe('sparkly');
+        
+        expect(reactBadge.text()).toBe('React');
+        expect(reactBadge.props('variant')).toBe('default');
     });
 
     it('calls toggleStack when a badge is clicked', async () => {
@@ -73,7 +78,7 @@ describe('ProjectsSection', () => {
             }
         });
 
-        const badge = wrapper.find('[data-slot="badge"]');
+        const badge = wrapper.findComponent({ name: 'Badge' });
         await badge.trigger('click');
         expect(mockToggleStack).toHaveBeenCalledWith('Vue');
     });

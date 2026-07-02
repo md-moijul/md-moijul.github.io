@@ -2,10 +2,13 @@
 import type { Project } from "@/assets/data";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/features/ProjectCard.vue";
+import { useStackFilter } from "@/composables/useStackFilter";
 
 defineProps<{
 	projects: Project[];
 }>();
+
+const { activeStacks, toggleStack } = useStackFilter();
 </script>
 
 <template>
@@ -17,7 +20,9 @@ defineProps<{
 			<ProjectCard 
 				v-for="project in projects" 
 				:key="project.name" 
-				:project="project" 
+				:project="project"
+				:activeStacks="activeStacks"
+				@toggle-stack="toggleStack"
 			/>
 		</div>
 		<div class="mt-8 flex">
@@ -29,3 +34,4 @@ defineProps<{
 		</div>
 	</section>
 </template>
+

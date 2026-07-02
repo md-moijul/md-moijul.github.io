@@ -1,21 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import ArchiveProjectRow from './ArchiveProjectRow.vue';
 import { type Project } from '@/assets/data';
-import * as stackFilterModule from '@/composables/useStackFilter';
-import { ref, computed } from 'vue';
-
-const mockToggleStack = vi.fn();
-const mockIsStackActive = vi.fn().mockReturnValue(false);
-const mockActiveStacks = ref<string[]>([]);
-
-vi.spyOn(stackFilterModule, 'useStackFilter').mockReturnValue({
-    toggleStack: mockToggleStack,
-    isStackActive: mockIsStackActive,
-    activeStacks: computed(() => mockActiveStacks.value),
-    addToStack: vi.fn(),
-    removeFromStack: vi.fn()
-});
 
 const mockProject: Project = {
     name: 'Test Project',
@@ -28,13 +14,9 @@ const mockProject: Project = {
 };
 
 describe('ArchiveProjectRow', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
-
-    const mountWithProject = (project = mockProject) => {
+    const mountWithProject = (project = mockProject, activeStacks: string[] = []) => {
         return mount(ArchiveProjectRow, {
-            props: { project }
+            props: { project, activeStacks }
         });
     };
 
@@ -61,27 +43,26 @@ describe('ArchiveProjectRow', () => {
         expect(descPara.classes()).toContain('lg:line-clamp-3');
     });
 
-    it('renders project stack badges with correct variant based on isStackActive', () => {
-        mockIsStackActive.mockImplementation((stack) => stack === 'Vue');
-        const wrapper = mountWithProject();
-        const badges = wrapper.findAll('[data-slot="badge"]');
+    it('renders project stack badges with correct variant based on activeStacks prop', () => {
+        const wrapper = mountWithProject(mockProject, ['Vue']);
+        const badges = wrapper.findAllComponents({ name: 'Badge' });
         
         expect(badges.length).toBe(2);
         
-        const vueBadge = badges[0];
+        expect(badges[0].text()).toBe('Vue');
+        expect(badges[0].props('variant')).toBe('sparkly');
         
-        expect(vueBadge.text()).toBe('Vue');
-        expect(vueBadge.classes()).toContain('overflow-hidden'); // From sparkly variant
-        
-        expect(mockIsStackActive).toHaveBeenCalledWith('Vue');
-        expect(mockIsStackActive).toHaveBeenCalledWith('Vitest');
+        expect(badges[1].text()).toBe('Vitest');
+        expect(badges[1].props('variant')).toBe('default');
     });
 
-    it('calls toggleStack when a badge is clicked', async () => {
+    it('emits toggle-stack when a badge is clicked', async () => {
         const wrapper = mountWithProject();
-        const badge = wrapper.find('[data-slot="badge"]');
-        await badge.trigger('click');
-        expect(mockToggleStack).toHaveBeenCalledWith('Vue');
+        const badges = wrapper.findAllComponents({ name: 'Badge' });
+        
+        await badges[0].trigger('click');
+        expect(wrapper.emitted('toggle-stack')).toBeTruthy();
+        expect(wrapper.emitted('toggle-stack')?.[0]).toEqual(['Vue']);
     });
 
     it('renders github and live links if provided', () => {

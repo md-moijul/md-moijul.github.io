@@ -183,23 +183,26 @@ describe('ArchiveView', () => {
     });
 
     describe('Interactive Stack Badges', () => {
-        it('renders project stack badges with correct variant based on isStackActive', () => {
-            mockIsStackActive.mockImplementation((stack) => stack === 'Vue');
+        it('renders project stack badges with correct variant based on activeStacks', () => {
+            mockActiveStacks.value = ['Vue'];
             const wrapper = mountWithProps();
-            const badges = wrapper.findAll('[data-slot="badge"]');
+            
+            // We use component finding
+            const badges = wrapper.findAllComponents({ name: 'Badge' });
             
             const vueBadge = badges[0];
+            const vitestBadge = badges[1];
             
             expect(vueBadge.text()).toBe('Vue');
-            expect(vueBadge.classes()).toContain('overflow-hidden'); // From sparkly variant
+            expect(vueBadge.props('variant')).toBe('sparkly');
             
-            expect(mockIsStackActive).toHaveBeenCalledWith('Vue');
-            expect(mockIsStackActive).toHaveBeenCalledWith('Vitest');
+            expect(vitestBadge.text()).toBe('Vitest');
+            expect(vitestBadge.props('variant')).toBe('default');
         });
 
         it('calls toggleStack when a badge is clicked', async () => {
             const wrapper = mountWithProps();
-            const badge = wrapper.find('[data-slot="badge"]');
+            const badge = wrapper.findComponent({ name: 'Badge' });
             await badge.trigger('click');
             expect(mockToggleStack).toHaveBeenCalledWith('Vue');
         });
