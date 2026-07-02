@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import MobileNav from './MobileNav.vue';
-import { lenisInstance } from '@/composables/useLenis';
+import { lenisInstance } from '@/composables/useScrollController';
 import { ref } from 'vue';
 
 const mockPush = vi.fn();
@@ -20,8 +20,8 @@ vi.mock('@/composables/useScrollSpy', () => ({
     }))
 }));
 
-vi.mock('@/composables/useLenis', () => ({
-    useLenis: vi.fn(),
+vi.mock('@/composables/useScrollController', () => ({
+    useScrollController: vi.fn(),
     lenisInstance: {
         value: {
             scrollTo: vi.fn(),

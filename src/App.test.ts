@@ -13,8 +13,8 @@ vi.mock('vue-router', () => ({
 }));
 
 // Mock Lenis composable
-vi.mock('@/composables/useLenis', () => ({
-    useLenis: vi.fn(),
+vi.mock('@/composables/useScrollController', () => ({
+    useScrollController: vi.fn(),
     lenisInstance: {
         value: {
             scrollTo: vi.fn(),

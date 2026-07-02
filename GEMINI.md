@@ -8,7 +8,7 @@ This project is a personal portfolio website built with **Vue 3**, **TypeScript*
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
 - **Icons:** Lucide Vue Next
-- **Smooth Scrolling:** Lenis (via a custom composable `useLenis`)
+- **Smooth Scrolling:** Lenis (via a custom composable `useScrollController`)
 - **Build Tool:** Vite
 
 The application is structured as a single-page layout with a sticky navigation/info panel on the left (on desktop) and a scrollable content area on the right containing various sections.
@@ -53,7 +53,7 @@ npm run preview
 
 - **Router:** Uses `vue-router` with `createWebHashHistory`.
 - **Navigation:** Navigation is handled programmatically via the `scrollToSection` function in `NavigationPanel.vue`.
-- **Smooth Scrolling:** Powered by **Lenis**. A shared `lenisInstance` is exposed via `useLenis.ts` for programmatic scroll control.
+- **Smooth Scrolling:** Powered by **Lenis**. A shared `lenisInstance` is exposed via `useScrollController.ts` for programmatic scroll control.
 - **Cross-Page Support:** When navigating to a section from a non-home route, the application redirects to `/` and then triggers a smooth scroll to the target section.
 - **Active Highlighting:** Section highlighting in the navigation panel is managed via the `useScrollSpy` composable, which listens to Lenis scroll events and uses viewport math for precise section detection.
 
@@ -64,7 +64,7 @@ npm run preview
 - **Styling:** Use Tailwind CSS utility classes. Prefer the `@/` alias for imports from the `src` directory.
 - **Data Management:** Most of the portfolio content (experiences, projects) is stored in `src/assets/data.ts`. Update this file to add or modify entries. Use the exported `Experience` and `Project` interfaces for type safety.
 - **UI Components:** New generic UI components should be added to `src/components/ui` following the existing pattern (typically a component file and an `index.ts` for exports).
-- **Smooth Scrolling:** Lenis is initialized in `App.vue` via the `useLenis` composable. For programmatic scrolling, use the exported `lenisInstance` from `@/composables/useLenis`. Any scroll-related interactions should be compatible with Lenis.
+- **Smooth Scrolling:** Lenis is initialized globally in `App.vue` via the `useScrollController` composable. For programmatic scrolling, use the exported `lenisInstance` from `@/composables/useScrollController`. For local scrolling contexts, `useScrollController(target)` can be used to isolate smooth scrolling. Any scroll-related interactions should be compatible with Lenis.
 
 ## Key Files
 

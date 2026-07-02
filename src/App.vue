@@ -3,12 +3,12 @@ import { watch, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import NavigationPanel from "@/components/NavigationPanel.vue";
 import MobileNav from "@/components/MobileNav.vue";
-import { useLenis, lenisInstance } from "@/composables/useLenis";
+import { useScrollController, lenisInstance } from "@/composables/useScrollController";
 
 const route = useRoute();
 
 // Lenis smooth scrolling is enabled globally.
-useLenis();
+useScrollController();
 
 // Reset scroll to top and resize Lenis when route changes
 watch(() => route.path, async () => {

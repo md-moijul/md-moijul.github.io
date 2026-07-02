@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useScrollTo } from "./useScrollTo";
-import { lenisInstance } from "./useLenis";
+import { lenisInstance } from "./useScrollController";
 import { nextTick } from "vue";
 
 const mockPush = vi.fn();
@@ -17,7 +17,7 @@ vi.mock("vue-router", () => ({
 	}),
 }));
 
-vi.mock("./useLenis", () => ({
+vi.mock("./useScrollController", () => ({
 	lenisInstance: {
 		value: {
 			scrollTo: vi.fn(),

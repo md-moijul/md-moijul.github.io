@@ -3,8 +3,8 @@ import { type Project } from "@/assets/data";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
-import { ref, computed, onMounted, onUnmounted } from "vue";
-import Lenis from "lenis";
+import { ref, computed } from "vue";
+import { useScrollController } from "@/composables/useScrollController";
 import { useStackFilter } from "@/composables/useStackFilter";
 import ArchiveProjectRow from "@/components/features/ArchiveProjectRow.vue";
 import { sortProjectsByStackAndDate } from "@/lib/domain/project";
@@ -18,31 +18,8 @@ const { activeStacks } = useStackFilter();
 const sortedProjects = computed(() => sortProjectsByStackAndDate(props.projects, activeStacks.value));
 
 const scrollContainer = ref<HTMLElement | null>(null);
-let localLenis: Lenis | null = null;
 
-onMounted(() => {
-	if (scrollContainer.value) {
-		localLenis = new Lenis({
-			wrapper: scrollContainer.value,
-			content: scrollContainer.value.firstElementChild as HTMLElement,
-			lerp: 0.1,
-			smoothWheel: true,
-		});
-
-		const animate = (time: number) => {
-			localLenis?.raf(time);
-			requestAnimationFrame(animate);
-		};
-		requestAnimationFrame(animate);
-	}
-});
-
-onUnmounted(() => {
-	if (localLenis) {
-		localLenis.destroy();
-		localLenis = null;
-	}
-});
+useScrollController(scrollContainer);
 </script>
 
 <template>

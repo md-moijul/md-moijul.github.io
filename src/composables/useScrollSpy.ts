@@ -1,7 +1,7 @@
 import { ref, onMounted, onUnmounted, watch, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import { useThrottleFn } from "@vueuse/core";
-import { lenisInstance } from "@/composables/useLenis";
+import { lenisInstance } from "@/composables/useScrollController";
 
 export function useScrollSpy(sectionIds: string[]) {
     const activeSection = ref(sectionIds[0] || "about");

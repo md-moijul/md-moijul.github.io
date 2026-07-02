@@ -31,7 +31,7 @@ vi.mock('@vueuse/core', () => ({
 
 // Mock Lenis instance
 const lenisHandlers: Record<string, Function[]> = {};
-vi.mock('@/composables/useLenis', async () => {
+vi.mock('@/composables/useScrollController', async () => {
     const { ref } = await import('vue');
     return {
         lenisInstance: ref({

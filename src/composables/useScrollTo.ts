@@ -1,6 +1,6 @@
 import { type Ref, nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { lenisInstance } from "@/composables/useLenis";
+import { lenisInstance } from "@/composables/useScrollController";
 
 export function useScrollTo(activeSection?: Ref<string>) {
 	const router = useRouter();
