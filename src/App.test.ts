@@ -37,6 +37,8 @@ vi.mock('@/components/MobileNav.vue', () => ({
     default: {
         template: '<div id="mobile-nav" />',
     },
+    __esModule: true,
+    __isTeleport: false,
 }));
 
 describe('App.vue', () => {

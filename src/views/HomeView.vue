@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, defineAsyncComponent } from "vue";
 import AboutSection from "@/components/sections/AboutSection.vue";
-import ProjectsSection from "@/components/sections/ProjectsSection.vue";
-import ContactSection from "@/components/sections/ContactSection.vue";
-import ExperienceSection from "@/components/sections/ExperienceSection.vue";
+const ProjectsSection = defineAsyncComponent(() => import("@/components/sections/ProjectsSection.vue"));
+const ContactSection = defineAsyncComponent(() => import("@/components/sections/ContactSection.vue"));
+const ExperienceSection = defineAsyncComponent(() => import("@/components/sections/ExperienceSection.vue"));
 import { projects, experiences } from "@/assets/data";
 
 const featuredProjects = computed(() => projects.filter(p => p.featured));
