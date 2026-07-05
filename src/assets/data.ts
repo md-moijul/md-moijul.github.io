@@ -56,9 +56,33 @@ export interface Project {
 
 export const projects: Project[] = [
     {
+        name: "OweMe",
+        stack: ['React', 'TypeScript', 'TDD', 'CDD', 'Replit AI'],
+        date: new Date("2026-07"),
+        liveUrl: 'https://oweme.replit.app/',
+        desc: "OweMe is a web-based financial tool created to track personal loans and facilitate group cost-splitting. Built as a solo project during the Shared Futures Foundation Buildathon, I utilized Context-Driven Development and Replit AI to ship the fully functional MVP in under 7 hours. The platform features frictionless 1-on-1 loan logging and utilizes shareable URLs for automatic balance settlements and borrower confirmations, entirely removing the barrier of native app downloads.",
+        featured: false
+    },
+    {
+        name: "Portfolio Website",
+        stack: ['Vue 3', 'TypeScript', 'Tailwind CSS', 'Vite', 'Lenis', 'Vitest', 'Lucide', 'Umami', 'Antigravity', 'Claude Code', 'TDD', 'CDD'],
+        date: new Date("2026-04"),
+        liveUrl: 'https://md-moijul.github.io/',
+        desc: "A modern, performance-optimized personal portfolio engineered with Vue 3 and Tailwind CSS v4. I prioritized a premium user experience by implementing physics-based scroll animations via Lenis and setting up privacy-first tracking with Umami. To ensure long-term maintainability, I abstracted the structural content into a centralized data layer, decoupling it from the UI. Notably, the entire platform was built using a Spec-Driven AI development workflow, where complex features were implemented and tested by agentic models directly from written specifications.",
+        featured: false
+    },
+    {
+        name: "PrognosAI",
+        stack: ['System Design', 'Technical Specification', 'GTM Strategy', 'MIMIC Dataset', 'Gemini'],
+        date: new Date("2026-04"),
+        liveUrl: 'https://drive.google.com/file/d/1ipqxhL4rvDdEBNSeZwMuKM-GkrDTmqyX/view?usp=sharing',
+        desc: "An AI-powered clinical decision support concept developed at the Harvard Health Systems Innovation Lab Hackathon to predict severe chronic complications like CKD and CVD. I designed a multi-center clinical validation pipeline using the MIMIC dataset for initial AI model training. Collaborating with medical doctors and MBAs, we formulated a B2B SaaS business model targeting public hospitals and insurers in Southeast Asia, successfully pitching a $500K pre-seed strategy to achieve MVP deployment within 3 months.",
+        featured: false
+    },
+    {
         name: "FDC Digital",
-        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Shadcn/UI', 'Lerna', 'Feature Flags', 'React-Hook-Form', 'Storybook', 'Vitest', 'Nx'],
-        date: new Date("2025-08"),
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Shadcn/UI', 'Lerna', 'Feature Flags', 'React-Hook-Form', 'Storybook', 'Vitest', 'Nx', 'Claude Code'],
+        date: new Date("2026-01"),
         liveUrl: 'https://fdcdigital.com/',
         desc: "FDC Digital is a compliance management platform that digitizes paper-based audit workflows for childcare providers. I took ownership of frontend sprint delivery and stabilized complex deployment pipelines. To solve critical 'Version Drift' across environments, I implemented Trunk-Based Development and introduced Feature Flags, which significantly reduced delivery time. This shifted us to a faster release cadence where bug patches reach Production in minutes and features can be tested safely without long-lived staging branches. The architecture includes a Next.js App Router with Zod-driven Server Actions and a proprietary 'Builder Pattern' for white-labeling.",
         featured: true
@@ -94,7 +118,7 @@ export const projects: Project[] = [
     },
     {
         name: "Gym Tech - IMU Trajectory Analyzer",
-        stack: ['React Native', 'Python', 'FastAPI', 'Node.js', 'Docker', 'SerialPort', 'Pandas', 'SciPy', 'Arduino', 'Jupyter'],
+        stack: ['React Native', 'Python', 'FastAPI', 'Node.js', 'Docker', 'SerialPort', 'Pandas', 'SciPy', 'Arduino', 'Jupyter', 'Gemini', 'Claude Code'],
         date: new Date("2025-04"),
         liveUrl: '',
         desc: "A distributed IoT research platform designed to capture and analyze 3D motion data from Arduino-based IMU sensors. To solve the critical issue of double integration drift in accelerometers, I prototyped Extended Kalman Filters and RK4 integration methods in Jupyter before porting them to a production Python microservice. I designed a split-brain system that decouples fragile high-frequency serial logging in Node.js from heavy mathematical processing in FastAPI, ensuring zero sensor data loss even during heavy analysis loads or algorithmic crashes. I also built a server-driven UI engine where the Next.js frontend dynamically renders tuning controls based on JSON schemas fetched from the Python backend, allowing researchers to rapidly iterate on physics models without requiring frontend redeployments.",
