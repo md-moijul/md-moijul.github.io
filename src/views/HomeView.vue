@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, defineAsyncComponent } from "vue";
 import AboutSection from "@/components/sections/AboutSection.vue";
-import ProjectsSection from "@/components/sections/ProjectsSection.vue";
-import ContactSection from "@/components/sections/ContactSection.vue";
-import ExperienceSection from "@/components/sections/ExperienceSection.vue";
 import { projects, experiences } from "@/assets/data";
+
+// Eagerly preload async chunks
+const expPromise = import("@/components/sections/ExperienceSection.vue");
+const projPromise = import("@/components/sections/ProjectsSection.vue");
+const contactPromise = import("@/components/sections/ContactSection.vue");
+
+const ExperienceSection = defineAsyncComponent(() => expPromise);
+const ProjectsSection = defineAsyncComponent(() => projPromise);
+const ContactSection = defineAsyncComponent(() => contactPromise);
 
 const featuredProjects = computed(() => projects.filter(p => p.featured));
 </script>

@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { watch, nextTick } from "vue";
+import { watch, nextTick, defineAsyncComponent } from "vue";
 import { useRoute } from "vue-router";
 import NavigationPanel from "@/components/NavigationPanel.vue";
-import MobileNav from "@/components/MobileNav.vue";
 import { useScrollController, lenisInstance } from "@/composables/useScrollController";
+
+// Eagerly preload the async chunk
+const mobileNavPromise = import("@/components/MobileNav.vue");
+const MobileNav = defineAsyncComponent(() => mobileNavPromise);
 
 const route = useRoute();
 
