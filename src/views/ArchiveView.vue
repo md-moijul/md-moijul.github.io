@@ -27,7 +27,7 @@ useScrollController({ target: scrollContainer });
 		class="w-full min-h-screen p-4 md:p-8 lg:p-12 flex flex-col items-center"
 	>
 		<div
-			class="w-full max-w-6xl bg-black/20 border border-border rounded-xl flex flex-col overflow-hidden shadow-2xl lg:h-[calc(100vh-6rem)]"
+			class="w-full max-w-6xl bg-black/20 border border-border rounded-xl flex flex-col overflow-hidden shadow-2xl h-[calc(100vh-2rem)] lg:h-[calc(100vh-6rem)]"
 		>
 			<!-- Modal Header Section -->
 			<div
@@ -62,7 +62,6 @@ useScrollController({ target: scrollContainer });
 				<div class="min-w-0 text-right pr-4">Links</div>
 			</div>
 
-			<!-- Scrollable Container -->
 			<div
 				ref="scrollContainer"
 				class="flex-1 overflow-y-auto lg:overflow-x-auto custom-scrollbar"

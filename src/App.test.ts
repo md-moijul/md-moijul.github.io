@@ -60,6 +60,21 @@ describe('App.vue', () => {
         expect(main.classes()).toContain('h-screen');
     });
 
+    it('should use overflow-y-auto on the main container to enable mobile touch scrolling', () => {
+        mockRoute.path = '/';
+        const wrapper = mount(App, {
+            global: {
+                stubs: {
+                    RouterView: true
+                }
+            }
+        });
+        const main = wrapper.find('main');
+        
+        expect(main.classes()).toContain('overflow-y-auto');
+        expect(main.classes()).not.toContain('overflow-hidden');
+    });
+
     it('should use w-full and h-screen on the archive page', () => {
         mockRoute.path = '/archive';
         const wrapper = mount(App, {

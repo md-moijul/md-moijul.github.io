@@ -19,15 +19,9 @@ describe('index.html infrastructure', () => {
         // Should not use the onload hack
         expect(htmlContent).not.toContain('onload="this.onload=null;this.rel=\'stylesheet\'"');
         
-        // Should use standard stylesheet
-        expect(htmlContent).toMatch(/<link rel="stylesheet"[^>]*href="https:\/\/fonts\.googleapis\.com\/css2\?[^"]*"/);
+        // Should have preload tags for the self-hosted fonts
+        const hasFontPreload = /<link[^>]*rel="preload"[^>]*href="\/fonts\/[^"]*\.woff2"[^>]*as="font"[^>]*crossorigin/i.test(htmlContent);
         
-        // Should have preload tags for the fonts or stylesheet
-        // The issue specifies <link rel="preload" as="font" crossorigin> OR standard stylesheet.
-        // We will just check for at least one preload font tag or a preload style tag for Google Fonts.
-        const hasFontPreload = /<link[^>]*rel="preload"[^>]*as="font"[^>]*crossorigin/i.test(htmlContent);
-        const hasStylePreload = /<link[^>]*rel="preload"[^>]*as="style"[^>]*href="https:\/\/fonts\.googleapis\.com\/css2[^"]*"/i.test(htmlContent);
-        
-        expect(hasFontPreload || hasStylePreload).toBe(true);
+        expect(hasFontPreload).toBe(true);
     });
 });
