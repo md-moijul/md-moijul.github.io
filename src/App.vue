@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { watch, nextTick, defineAsyncComponent } from "vue";
+import { watch, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import NavigationPanel from "@/components/NavigationPanel.vue";
-
-const MobileNav = defineAsyncComponent(() => import("@/components/MobileNav.vue"));
+import MobileNav from "@/components/MobileNav.vue";
 import { useScrollController, lenisInstance } from "@/composables/useScrollController";
 
 const route = useRoute();

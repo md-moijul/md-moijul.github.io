@@ -1,34 +1,61 @@
 [
   {"type":"directory","name":".","contents":[
     {"type":"file","name":"components.json"},
+    {"type":"file","name":"CONTEXT.md"},
     {"type":"file","name":"directory_tree.json"},
+    {"type":"directory","name":"docs","contents":[
+      {"type":"directory","name":"adr","contents":[
+        {"type":"file","name":"0001-hybrid-routing-architecture.md"}
+      ]}
+    ]},
+    {"type":"file","name":"GEMINI.md"},
     {"type":"file","name":"index.html"},
+    {"type":"file","name":"lighthouse-results.json"},
+    {"type":"file","name":"md.svg"},
     {"type":"file","name":"package.json"},
     {"type":"file","name":"package-lock.json"},
     {"type":"directory","name":"public","contents":[
-      {"type":"file","name":"vite.svg"}
+      {"type":"file","name":"llms.txt"},
+      {"type":"file","name":"robots.txt"}
     ]},
     {"type":"file","name":"README.md"},
+    {"type":"file","name":"skills-lock.json"},
     {"type":"directory","name":"src","contents":[
+      {"type":"file","name":"App.test.ts"},
       {"type":"file","name":"App.vue"},
       {"type":"directory","name":"assets","contents":[
         {"type":"file","name":"data.ts"},
         {"type":"file","name":"Ellipses.svg"},
         {"type":"file","name":"github.svg"},
         {"type":"file","name":"linkedin.svg"},
-        {"type":"file","name":"Noise.png"},
+        {"type":"file","name":"strava.svg"},
         {"type":"file","name":"vue.svg"}
       ]},
       {"type":"directory","name":"components","contents":[
+        {"type":"directory","name":"features","contents":[
+          {"type":"file","name":"ArchiveProjectRow.test.ts"},
+          {"type":"file","name":"ArchiveProjectRow.vue"},
+          {"type":"file","name":"ExperienceCard.test.ts"},
+          {"type":"file","name":"ExperienceCard.vue"},
+          {"type":"file","name":"ProjectCard.test.ts"},
+          {"type":"file","name":"ProjectCard.vue"}
+        ]},
+        {"type":"file","name":"MobileNav.test.ts"},
+        {"type":"file","name":"MobileNav.vue"},
+        {"type":"file","name":"NavigationPanel.test.ts"},
         {"type":"file","name":"NavigationPanel.vue"},
         {"type":"directory","name":"sections","contents":[
           {"type":"file","name":"AboutSection.vue"},
+          {"type":"file","name":"ContactSection.test.ts"},
           {"type":"file","name":"ContactSection.vue"},
+          {"type":"file","name":"ExperienceSection.test.ts"},
           {"type":"file","name":"ExperienceSection.vue"},
+          {"type":"file","name":"ProjectsSection.test.ts"},
           {"type":"file","name":"ProjectsSection.vue"}
         ]},
         {"type":"directory","name":"ui","contents":[
           {"type":"directory","name":"badge","contents":[
+            {"type":"file","name":"Badge.test.ts"},
             {"type":"file","name":"Badge.vue"},
             {"type":"file","name":"index.ts"}
           ]},
@@ -42,6 +69,7 @@
             {"type":"file","name":"CardDescription.vue"},
             {"type":"file","name":"CardFooter.vue"},
             {"type":"file","name":"CardHeader.vue"},
+            {"type":"file","name":"Card.test.ts"},
             {"type":"file","name":"CardTitle.vue"},
             {"type":"file","name":"Card.vue"},
             {"type":"file","name":"index.ts"}
@@ -57,22 +85,39 @@
         ]}
       ]},
       {"type":"directory","name":"composables","contents":[
-        {"type":"file","name":"useLenis.ts"}
+        {"type":"file","name":"useScrollController.test.ts"},
+        {"type":"file","name":"useScrollController.ts"},
+        {"type":"file","name":"useStackFilter.test.ts"},
+        {"type":"file","name":"useStackFilter.ts"}
       ]},
+      {"type":"file","name":"Infrastructure.test.ts"},
       {"type":"directory","name":"lib","contents":[
+        {"type":"directory","name":"domain","contents":[
+          {"type":"file","name":"project.test.ts"},
+          {"type":"file","name":"project.ts"}
+        ]},
         {"type":"file","name":"utils.ts"}
       ]},
       {"type":"file","name":"main.ts"},
+      {"type":"directory","name":"router","contents":[
+        {"type":"file","name":"index.ts"},
+        {"type":"file","name":"router.test.ts"}
+      ]},
       {"type":"file","name":"shims-vue.d.ts"},
       {"type":"file","name":"style.css"},
+      {"type":"directory","name":"views","contents":[
+        {"type":"file","name":"ArchiveView.test.ts"},
+        {"type":"file","name":"ArchiveView.vue"},
+        {"type":"file","name":"HomeView.vue"}
+      ]},
       {"type":"file","name":"vite-env.d.ts"}
     ]},
     {"type":"file","name":"tsconfig.app.json"},
     {"type":"file","name":"tsconfig.json"},
     {"type":"file","name":"tsconfig.node.json"},
-    {"type":"file","name":"vite.config.ts"},
-    {"type":"file","name":"vite.svg"}
+    {"type":"file","name":"tsconfig.vitest.json"},
+    {"type":"file","name":"vite.config.ts"}
   ]}
 ,
-  {"type":"report","directories":14,"files":46}
+  {"type":"report","directories":20,"files":79}
 ]
