@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import ArchiveProjectRow from './ArchiveProjectRow.vue';
 import { type Project } from '@/assets/data';

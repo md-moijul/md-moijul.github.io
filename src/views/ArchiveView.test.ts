@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import ArchiveView from '@/views/ArchiveView.vue';
 import { type Project } from '@/assets/data';
-import Lenis from 'lenis';
+
 import { ref, computed } from 'vue';
 import * as stackFilterModule from '@/composables/useStackFilter';
 import { useScrollController } from '@/composables/useScrollController';

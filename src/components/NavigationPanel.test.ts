@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import NavigationPanel from './NavigationPanel.vue';
-import { lenisInstance } from '@/composables/useScrollController';
+
 import { ref } from 'vue';
 
 const mockPush = vi.fn();

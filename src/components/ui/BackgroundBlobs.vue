@@ -149,7 +149,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineAsyncComponent, CSSProperties } from 'vue';
+import { ref, watch, defineAsyncComponent, type CSSProperties } from 'vue';
 
 const EllipsesOverlay = defineAsyncComponent(() => import('./EllipsesOverlay.vue'));
 
@@ -258,7 +258,7 @@ const logConfig = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('@/assets/Noise.png');
+  /* background-image: url('@/assets/Noise.png'); (File deleted in v3) */
   pointer-events: none;
   z-index: -1;
 }

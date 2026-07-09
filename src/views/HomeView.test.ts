@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import HomeView from './HomeView.vue';
-import { projects, experiences } from '@/assets/data';
+
 
 // Mock components so we can easily test if they are rendered
 vi.mock('@/components/sections/AboutSection.vue', () => ({
