@@ -4,10 +4,10 @@ Implement preloaded async components for the main page sections (`ExperienceSect
 
 ## Acceptance criteria
 
-- [ ] `ExperienceSection`, `ProjectsSection`, and `ContactSection` in `HomeView.vue` are imported using `defineAsyncComponent`.
-- [ ] `MobileNav` in `App.vue` is imported using `defineAsyncComponent`.
-- [ ] The async chunks are eagerly preloaded so they do not cause a network waterfall.
-- [ ] A Lighthouse audit confirms TBT is significantly reduced and LCP remains >90.
+- [x] `ExperienceSection`, `ProjectsSection`, and `ContactSection` in `HomeView.vue` are imported using `defineAsyncComponent`.
+- [x] `MobileNav` in `App.vue` is imported using `defineAsyncComponent`.
+- [x] The async chunks are eagerly preloaded so they do not cause a network waterfall.
+- [x] A Lighthouse audit confirms TBT is significantly reduced and LCP remains >90.
 
 ## Blocked by
 

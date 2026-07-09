@@ -8,9 +8,9 @@ Establish the core `useScrollController` module that supports both a global (sin
 
 ## Acceptance criteria
 
-- [ ] `useScrollController` correctly maintains a global singleton when no target is passed.
-- [ ] `ArchiveView.vue` uses `useScrollController` to handle its scrolling and no longer has a custom `requestAnimationFrame` loop.
-- [ ] The global scroll behaves exactly as it did before.
+- [x] `useScrollController` correctly maintains a global singleton when no target is passed.
+- [x] `ArchiveView.vue` uses `useScrollController` to handle its scrolling and no longer has a custom `requestAnimationFrame` loop.
+- [x] The global scroll behaves exactly as it did before.
 
 ## Blocked by
 
