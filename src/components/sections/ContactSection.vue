@@ -70,7 +70,7 @@ const handleSubmit = async () => {
 				:placeholder="contactData.placeholders.email"
 				required
 				aria-label="Your Email"
-				class="h-10 bg-black/20 md:row-start-1 md:col-start-1"
+				class="h-10 bg-black/30 md:row-start-1 md:col-start-1"
 			/>
 			<Input
 				v-model="name"
@@ -78,7 +78,7 @@ const handleSubmit = async () => {
 				:placeholder="contactData.placeholders.name"
 				required
 				aria-label="Full Name"
-				class="h-10 bg-black/20 md:row-start-1 md:col-start-2"
+				class="h-10 bg-black/30 md:row-start-1 md:col-start-2"
 			/>
 
 			<Textarea
@@ -87,7 +87,7 @@ const handleSubmit = async () => {
 				aria-label="Your Message"
 				rows="5"
 				required
-				class="md:col-span-3 bg-black/20"
+				class="md:col-span-3 bg-black/30"
 			/>
 
 			<Button

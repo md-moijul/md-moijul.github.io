@@ -27,7 +27,7 @@ const { activeStacks, toggleStack } = useStackFilter();
 		</div>
 		<div class="mt-8 flex">
 			<RouterLink to="/archive">
-				<Button variant="outline" class="bg-black/20 shadow-md shadow-white"
+				<Button variant="outline" class="bg-black/30 shadow-md shadow-white"
 					>View Full Project Archive</Button
 				>
 			</RouterLink>
