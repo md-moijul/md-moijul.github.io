@@ -304,7 +304,7 @@ const logConfig = () => {
   /* Blur and opacity are now dynamically applied via inline style for tuning */
   border-radius: 50%;
   transform-origin: 0 0;
-  will-change: transform;
+  will-change: transform, filter;
 }
 W
 /* Primary Teal/Cyan Blob */
@@ -315,7 +315,7 @@ W
   top: calc((325.332 / 900) * 100vh);
   transform: matrix(0.919496, 0.393099, -0.285986, 0.958234, 0, 0);
   background: linear-gradient(to right, #207E81 0%, #85FEEC 100%);
-  animation: drift-1 18s ease-in-out infinite alternate;
+  animation: drift-1 36s linear infinite;
 }
 
 .blob2 {
@@ -324,9 +324,9 @@ W
   left: calc((255.27 / 1440) * 100vw);
   top: calc((577.747 / 900) * 100vh);
   transform-origin: 50% 50%;
-  transform: rotate(-167.874deg);
+  transform: rotate(-165.874deg);
   background: #42FF00;
-  animation: drift-2 22s ease-in-out infinite alternate;
+  animation: drift-2 44s linear infinite;
 }
 
 .blob3 {
@@ -337,7 +337,7 @@ W
   transform-origin: 50% 50%;
   transform: rotate(-99.2188deg);
   background: linear-gradient(to right, white 0%, rgba(248, 122, 44, 0.05) 100%);
-  animation: drift-3 20s ease-in-out infinite alternate;
+  animation: drift-3 40s linear infinite;
 }
 
 .blob4 {
@@ -346,9 +346,9 @@ W
   left: calc((367.089 / 1440) * 100vw);
   top: calc((1180.04 / 900) * 100vh);
   transform-origin: 0 0;
-  transform: matrix(0.0736132, -0.997975, 0.939907, -0.34143, 0, 0);
+  transform: matrix(0.0636132, -0.997975, 0.939907, -0.34143, 0, 0);
   background: linear-gradient(to right, #FFE36A 0%, #FF3FBE 100%);
-  animation: drift-4 25s ease-in-out infinite alternate;
+  animation: drift-4 50s linear infinite;
 }
 
 .blob5 {
@@ -361,7 +361,7 @@ W
   border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
   background: linear-gradient(to top left, #9FF7FE 0%, #03FB56 55%, rgba(3, 251, 86, 0) 100%);
   /* Filter moved to inline style */
-  animation: drift-5 19s ease-in-out infinite alternate;
+  animation: drift-5 38s linear infinite;
 }
 
 .blob6 {
@@ -374,13 +374,14 @@ W
   border-radius: 60% 40% 30% 70% / 50% 40% 60% 50%;
   background: linear-gradient(to top left, #00FFF7 0%, #FF0054 100%);
   /* Filter moved to inline style */
-  animation: drift-6 24s ease-in-out infinite alternate;
+  animation: drift-6 48s linear infinite;
 }
 
 @keyframes drift-1 {
   0% { transform: matrix(0.919496, 0.393099, -0.285986, 0.958234, 0, 0) translate3d(0px, 0px, 0px) scale(1); }
-  50% { transform: matrix(0.919496, 0.393099, -0.285986, 0.958234, 0, 0) translate3d(30px, -40px, 0px) scale(1.05); }
-  100% { transform: matrix(0.919496, 0.393099, -0.285986, 0.958234, 0, 0) translate3d(-20px, 20px, 0px) scale(0.95); }
+  33% { transform: matrix(0.919496, 0.393099, -0.285986, 0.958234, 0, 0) translate3d(30px, -40px, 0px) scale(1.05); }
+  66% { transform: matrix(0.919496, 0.393099, -0.285986, 0.958234, 0, 0) translate3d(-20px, 20px, 0px) scale(0.95); }
+  100% { transform: matrix(0.919496, 0.393099, -0.285986, 0.958234, 0, 0) translate3d(0px, 0px, 0px) scale(1); }
 }
 
 @keyframes drift-2 {
@@ -392,26 +393,30 @@ W
 
 @keyframes drift-3 {
   0% { transform: rotate(-99.2188deg) translate3d(0px, 0px, 0px) scale(1); }
-  50% { transform: rotate(-99.2188deg) translate3d(40px, 50px, 0px) scale(0.9); }
-  100% { transform: rotate(-99.2188deg) translate3d(-30px, -20px, 0px) scale(1.05); }
+  33% { transform: rotate(-99.2188deg) translate3d(40px, 50px, 0px) scale(0.9); }
+  66% { transform: rotate(-99.2188deg) translate3d(-30px, -20px, 0px) scale(1.05); }
+  100% { transform: rotate(-99.2188deg) translate3d(0px, 0px, 0px) scale(1); }
 }
 
 @keyframes drift-4 {
   0% { transform: matrix(0.0636132, -0.997975, 0.939907, -0.34143, 0, 0) translate3d(0px, 0px, 0px) scale(1); }
-  50% { transform: matrix(0.0636132, -0.997975, 0.939907, -0.34143, 0, 0) translate3d(-50px, -30px, 0px) scale(1.1); }
-  100% { transform: matrix(0.0636132, -0.997975, 0.939907, -0.34143, 0, 0) translate3d(30px, 40px, 0px) scale(0.95); }
+  33% { transform: matrix(0.0636132, -0.997975, 0.939907, -0.34143, 0, 0) translate3d(-50px, -30px, 0px) scale(1.1); }
+  66% { transform: matrix(0.0636132, -0.997975, 0.939907, -0.34143, 0, 0) translate3d(30px, 40px, 0px) scale(0.95); }
+  100% { transform: matrix(0.0636132, -0.997975, 0.939907, -0.34143, 0, 0) translate3d(0px, 0px, 0px) scale(1); }
 }
 
 @keyframes drift-5 {
   0% { transform: translate3d(0px, 0px, 0px) scale(1); }
-  50% { transform: translate3d(-30px, 30px, 0px) scale(1.05); }
-  100% { transform: translate3d(40px, -20px, 0px) scale(0.9); }
+  33% { transform: translate3d(-30px, 30px, 0px) scale(1.05); }
+  66% { transform: translate3d(40px, -20px, 0px) scale(0.9); }
+  100% { transform: translate3d(0px, 0px, 0px) scale(1); }
 }
 
 @keyframes drift-6 {
   0% { transform: rotate(-45deg) translate3d(0px, 0px, 0px) scale(1); }
-  50% { transform: rotate(-45deg) translate3d(50px, -50px, 0px) scale(1.1); }
-  100% { transform: rotate(-45deg) translate3d(-40px, 30px, 0px) scale(0.95); }
+  33% { transform: rotate(-45deg) translate3d(50px, -50px, 0px) scale(1.1); }
+  66% { transform: rotate(-45deg) translate3d(-40px, 30px, 0px) scale(0.95); }
+  100% { transform: rotate(-45deg) translate3d(0px, 0px, 0px) scale(1); }
 }
 
 /* Tuning Panel Styles */
