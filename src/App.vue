@@ -27,10 +27,10 @@ watch(() => route.path, async () => {
 
 <template>
 	<div class="flex flex-col md:flex-row min-h-screen">
-		<BackgroundBlobs />
+		<BackgroundBlobs v-if="route.path !== '/test'" />
 		<!-- Desktop Sidebar: Only visible on md and up -->
 		<div
-			v-if="route.path !== '/archive'"
+			v-if="route.path !== '/archive' && route.path !== '/test'"
 			class="hidden md:flex md:w-1/2 md:h-screen md:items-center md:justify-center"
 		>
 			<NavigationPanel />
@@ -39,20 +39,20 @@ watch(() => route.path, async () => {
 		<!-- Main content area: Scrollable on all screens -->
 		<main
 			:class="[
-				route.path === '/archive' ? 'w-full' : 'md:w-1/2',
+				route.path === '/archive' || route.path === '/test' ? 'w-full' : 'md:w-1/2',
 				'h-screen overflow-y-auto scrollbar-hide relative',
 			]"
 		>
 			<div id="scroll-content">
 				<!-- Mobile Header: Only visible on mobile -->
-				<div v-if="route.path !== '/archive'" class="md:hidden">
+				<div v-if="route.path !== '/archive' && route.path !== '/test'" class="md:hidden">
 					<NavigationPanel />
 				</div>
 				<RouterView />
 			</div>
 		</main>
 
-		<MobileNav />
+		<MobileNav v-if="route.path !== '/test'" />
 	</div>
 </template>
 

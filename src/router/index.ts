@@ -15,6 +15,11 @@ export const routes = [
     component: ArchiveView,
     props: { projects }
   },
+  ...(import.meta.env.DEV ? [{
+    path: '/tune',
+    name: 'tune',
+    component: () => import('@/views/TuneView.vue')
+  }] : []),
   {
     path: '/:pathMatch(.*)*',
     redirect: '/'
