@@ -80,11 +80,11 @@ export const projects: Project[] = [
         featured: false
     },
     {
-        name: "FDC Digital",
+        name: "Childcare Compliance Platform",
         stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Shadcn/UI', 'Lerna', 'Feature Flags', 'React-Hook-Form', 'Storybook', 'Vitest', 'Nx', 'Claude Code'],
         date: new Date("2026-01"),
-        liveUrl: 'https://fdcdigital.com/',
-        desc: "FDC Digital is a compliance management platform that digitizes paper-based audit workflows for childcare providers. I took ownership of frontend sprint delivery and stabilized complex deployment pipelines. To solve critical 'Version Drift' across environments, I implemented Trunk-Based Development and introduced Feature Flags, which significantly reduced delivery time. This shifted us to a faster release cadence where bug patches reach Production in minutes and features can be tested safely without long-lived staging branches. The architecture includes a Next.js App Router with Zod-driven Server Actions and a proprietary 'Builder Pattern' for white-labeling.",
+        liveUrl: '',
+        desc: "A compliance management platform that digitizes paper-based audit workflows for childcare providers. I took ownership of frontend sprint delivery and stabilized complex deployment pipelines. To solve critical 'Version Drift' across environments, I implemented Trunk-Based Development and introduced Feature Flags, which significantly reduced delivery time. This shifted us to a faster release cadence where bug patches reach Production in minutes and features can be tested safely without long-lived staging branches. The architecture includes a Next.js App Router with Zod-driven Server Actions and a proprietary 'Builder Pattern' for white-labeling.",
         featured: true
     },
     {
@@ -96,25 +96,25 @@ export const projects: Project[] = [
         featured: true
     },
     {
-        name: "LCP Group / M Core Portfolio",
+        name: "Multi-Tenant Property Portfolio",
         stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Google Maps API', 'Jixaw (CMS)', 'Axios', 'React-Hook-Form', 'Shadcn/UI', 'Supercluster'],
         date: new Date("2024-04"),
-        liveUrl: 'https://lcpgroup.co.uk/',
-        desc: "A multi-tenant property portfolio platform powering three major real estate brands from a single Next.js codebase. My primary challenge was visualizing thousands of property assets without degrading performance. I built a high-performance interactive map handling over a thousand assets using supercluster for client-side clustering, maintaining 60fps by calculating the viewport bounding box in real-time. Additionally, I designed a URL-first state management system where every filter change synchronizes with the URL query string, ensuring instant UI feedback while making complex search results bookmarkable, shareable, and SEO-friendly.",
+        liveUrl: '',
+        desc: "A multi-tenant property portfolio platform powering multiple real estate brands from a single Next.js codebase. My primary challenge was visualizing thousands of property assets without degrading performance. I built a high-performance interactive map handling over a thousand assets using supercluster for client-side clustering, maintaining 60fps by calculating the viewport bounding box in real-time. Additionally, I designed a URL-first state management system where every filter change synchronizes with the URL query string, ensuring instant UI feedback while making complex search results bookmarkable, shareable, and SEO-friendly.",
     },
     {
-        name: "Badland Antennas",
+        name: "B2B Industrial e-commerce platform",
         stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Axios', 'Google Analytics', 'Lucide React', 'Jixaw (CMS)'],
         date: new Date("2024-08"),
-        liveUrl: 'https://badland.co.uk/',
-        desc: "Badland Antennas is a B2B industrial catalog where I bridged the gap between technical implementation and business strategy. I developed a URL-driven product filtering system utilizing Next.js Server Components to ensure search results were bookmarkable and SEO-friendly. I also developed a seamless Request a Quote workflow featuring auto-filled data for authenticated trade users and implemented high-fidelity conversion tracking for Google Ads. Uniquely for a developer role, I conducted on-site client training at their manufacturing facility where I identified a gap in their marketing workflow and successfully cross-sold an internal SaaS product to the client.",
+        liveUrl: '',
+        desc: "A B2B industrial catalog and e-commerce platform where I bridged the gap between technical implementation and business strategy. I developed a URL-driven product filtering system utilizing Next.js Server Components to ensure search results were bookmarkable and SEO-friendly. I also developed a seamless Request a Quote workflow featuring auto-filled data for authenticated trade users and implemented high-fidelity conversion tracking for Google Ads. Uniquely for a developer role, I conducted on-site client training at the manufacturing facility where I identified a gap in their marketing workflow and successfully cross-sold an internal SaaS product.",
     },
     {
-        name: "Robertson Restoration",
+        name: "Property Recovery business site",
         stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'Jixaw (CMS)', 'React Hooks',],
         date: new Date("2023-04"),
-        liveUrl: 'https://www.robertson-restoration.com/',
-        desc: "Robertson Restoration is a regional property recovery service requiring a fast-loading digital presence. Facing a strict MVP deadline before our internal CMS was fully operational, I adopted a modular, contract-first strategy. I built the frontend components using strict TypeScript interfaces, and once the CMS became available, I configured the data models myself to match my UI props exactly, allowing for a seamless migration without requiring backend support. Technically, I leveraged the experimental React use hook to handle asynchronous data fetching, built a highly performant, pure CSS before-and-after image slider, and maintained excellent Core Web Vitals.",
+        liveUrl: '',
+        desc: "Website built for a regional property recovery service requiring fast load times. Facing a strict MVP deadline before our internal CMS was fully operational, I adopted a modular, contract-first strategy. I built the frontend components using strict TypeScript interfaces, and once the CMS became available, I configured the data models myself to match my UI props exactly, allowing for a seamless migration without requiring backend support. Technically, I leveraged the experimental React use hook to handle asynchronous data fetching, built a highly performant, pure CSS before-and-after image slider, and maintained excellent Core Web Vitals.",
     },
     {
         name: "Gym Tech - IMU Trajectory Analyzer",
@@ -125,18 +125,18 @@ export const projects: Project[] = [
         featured: true
     },
     {
-        name: "The Turn (Band Site)",
+        name: "Music Band Portfolio Site",
         stack: ['Next.js', 'TypeScript', 'SCSS', 'Material UI', 'Docker', 'Kubernetes', 'Next/Image'],
         date: new Date("2023-04"),
-        liveUrl: 'https://theturn.uk/',
-        desc: "The Turn is a responsive portfolio and event tracking site for a local music band, optimized for speed and visual impact. Working under a strict deadline without a dedicated CMS backend, I created a mock API abstraction layer to structure static data access. This decoupled the frontend components from the hardcoded data files, making the architecture future-proof for easy CMS integration later. To handle hundreds of local high-resolution assets, I built a custom masonry layout featuring a randomized image algorithm and utilized Next.js image optimization to ensure high performance across devices. The final application was containerized with Docker and deployed to an internal Kubernetes cluster.",
+        liveUrl: '',
+        desc: "A responsive portfolio and event tracking site for a local music band, optimized for speed and visual impact. Working under a strict deadline without a dedicated CMS backend, I created a mock API abstraction layer to structure static data access. This decoupled the frontend components from the hardcoded data files, making the architecture future-proof for easy CMS integration later. To handle hundreds of local high-resolution assets, I built a custom masonry layout featuring a randomized image algorithm and utilized Next.js image optimization to ensure high performance across devices. The final application was containerized with Docker and deployed to an internal Kubernetes cluster.",
     },
     {
-        name: "Sparta Health",
+        name: "Occupational Health Portal",
         stack: ['JavaScript', 'jQuery', 'SCSS', 'PHP', 'FontAwesome', 'Sass Compiler', 'Chrome DevTools', 'Internal CMS'],
         date: new Date("2022-10"),
-        liveUrl: 'https://www.sparta-health.co.uk/',
-        desc: "Sparta Health is an occupational health platform where I led a complete responsive retrofit during my university placement. Tasked with modernizing a rigid, desktop-only legacy PHP platform without modifying the underlying backend logic, I created a custom responsive layout system using SCSS. I resolved deep-seated UI inconsistencies and safely overrode legacy global styles to ensure cross-browser compatibility. Refactoring the styling into modular components and redesigning complex health questionnaires for smaller screens transformed the platform into a fully mobile-accessible experience for patients and clinics.",
+        liveUrl: '',
+        desc: "An occupational health platform where I led a complete responsive retrofit during my university placement. Tasked with modernizing a rigid, desktop-only legacy PHP platform without modifying the underlying backend logic, I created a custom responsive layout system using SCSS. I resolved deep-seated UI inconsistencies and safely overrode legacy global styles to ensure cross-browser compatibility. Refactoring the styling into modular components and redesigning complex health questionnaires for smaller screens transformed the platform into a fully mobile-accessible experience for patients and clinics.",
     },
     {
         name: "Warehouse Order Picking System",

@@ -26,7 +26,7 @@ const formatDate = (date?: Date) => {
 
 <template>
 	<div
-		class="flex flex-col gap-4 lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-8 lg:py-6 hover:bg-white/5 transition-colors group items-start"
+		class="flex flex-col gap-4 lg:grid lg:grid-cols-[100px_2fr_4fr_3fr_120px] px-6 py-8 lg:py-6 hover:bg-black/10 transition-colors group items-start"
 	>
 		<!-- Year & Mobile Links -->
 		<div
