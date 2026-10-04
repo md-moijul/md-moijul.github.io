@@ -45,16 +45,18 @@ const handleNavClick = async (id: string, e?: Event) => {
 	<nav class="flex flex-col md:h-full justify-between p-8 sm:p-12 md:p-16">
 		<div class="mb-12 md:mb-16">
 			<h1
-				class="font-display text-4xl sm:text-5xl tracking-tight text-foreground uppercase mb-3"
+				class="font-display text-4xl sm:text-5xl tracking-tight text-foreground uppercase mb-3 flex flex-wrap gap-[0.3em]"
 			>
-				MD Moijul Islam
+				<span v-for="(word, i) in ['MD', 'Moijul', 'Islam']" :key="i" v-reveal="{ delay: i * 200 }" class="opacity-0 transition-opacity duration-1000 ease-out data-[revealed=true]:opacity-100">
+					{{ word }}
+				</span>
 			</h1>
 			<h2
 				class="font-sans text-lg sm:text-xl font-semibold text-foreground mb-4"
 			>
 				Software Engineer
 			</h2>
-			<p class="font-sans text-muted-foreground max-w-xs">
+			<p v-reveal="{ delay: 600 }" class="font-sans text-muted-foreground max-w-xs opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0">
 				I build high-performance, accessible digital experiences with
 				scalability in mind.
 			</p>
@@ -78,12 +80,18 @@ const handleNavClick = async (id: string, e?: Event) => {
 				:key="sectionId"
 				:href="`#${sectionId}`"
 				@click="handleNavClick(sectionId, $event)"
-				class="font-sans font-medium tracking-widest uppercase text-xs transition-colors hover:text-foreground"
-				:class="
-					activeSection === sectionId ? 'active-link' : 'text-muted-foreground'
-				"
+				class="font-sans tracking-widest uppercase text-xs transition-colors hover:text-foreground flex items-center group hover:font-bold"
+				:class="activeSection === sectionId ? 'text-foreground font-bold' : 'text-muted-foreground font-medium'"
 			>
+				<span 
+					class="transition-all duration-300 ease-out opacity-0 -translate-x-2 mr-2 font-bold group-hover:opacity-100 group-hover:translate-x-0"
+					:class="activeSection === sectionId ? '!opacity-100 !translate-x-0' : ''"
+				>[</span>
 				{{ sectionId }}
+				<span 
+					class="transition-all duration-300 ease-out opacity-0 translate-x-2 ml-2 font-bold group-hover:opacity-100 group-hover:translate-x-0"
+					:class="activeSection === sectionId ? '!opacity-100 !translate-x-0' : ''"
+				>]</span>
 			</a>
 		</nav>
 
@@ -117,6 +125,7 @@ const handleNavClick = async (id: string, e?: Event) => {
 				<img src="../assets/strava.svg" class="h-6 w-6" alt="Strava Profile" />
 			</a>
 		</div>
+
 	</nav>
 </template>
 

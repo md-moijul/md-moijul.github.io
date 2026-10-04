@@ -1,7 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { mount, config } from '@vue/test-utils';
 import NavigationPanel from './NavigationPanel.vue';
 import { Download } from 'lucide-vue-next';
+
+config.global.directives = {
+    reveal: () => {}
+};
 
 import { ref } from 'vue';
 
@@ -45,7 +49,8 @@ describe('NavigationPanel', () => {
     it('should have "about" as the active section by default', () => {
         const wrapper = mount(NavigationPanel);
         const aboutLink = wrapper.find('a[href="#about"]');
-        expect(aboutLink.classes()).toContain('active-link');
+        expect(aboutLink.classes()).toContain('font-bold');
+        expect(aboutLink.classes()).toContain('text-foreground');
     });
 
     it('should dynamically update active link classes based on useScrollSpy', async () => {
@@ -55,7 +60,8 @@ describe('NavigationPanel', () => {
         await wrapper.vm.$nextTick();
 
         const experienceLink = wrapper.find('a[href="#experience"]');
-        expect(experienceLink.classes()).toContain('active-link');
+        expect(experienceLink.classes()).toContain('font-bold');
+        expect(experienceLink.classes()).toContain('text-foreground');
     });
 
     it('should call lenis.scrollTo when a navigation link is clicked', async () => {

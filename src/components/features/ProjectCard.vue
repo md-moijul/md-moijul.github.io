@@ -16,10 +16,10 @@ defineEmits<{
 <template>
 	<Card>
 		<CardHeader>
-			<CardTitle>{{ project.name }}</CardTitle>
+			<CardTitle v-reveal="{ stagger: true }" class="opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0">{{ project.name }}</CardTitle>
 		</CardHeader>
 		<CardContent>
-			<p class="text-muted-foreground">{{ project.desc }}</p>
+			<p v-reveal="{ stagger: true }" class="text-muted-foreground opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0">{{ project.desc }}</p>
 		</CardContent>
 		<CardFooter v-if="project.stack.length > 0" class="flex-wrap gap-2">
 			<Badge 
@@ -27,7 +27,8 @@ defineEmits<{
 				:key="tech"
 				:variant="activeStacks.includes(tech) ? 'sparkly' : 'default'"
 				@click="$emit('toggle-stack', tech)"
-				class="cursor-pointer"
+				v-reveal="{ stagger: true }"
+				class="cursor-pointer opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0"
 			>
 				{{ tech }}
 			</Badge>

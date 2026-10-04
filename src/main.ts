@@ -9,6 +9,9 @@ if (import.meta.env.VITE_EMAILJS_PUBLIC_KEY) {
 	emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
 }
 
+import { vReveal } from './directives/vReveal'
+
 const app = createApp(App)
 app.use(router)
+app.directive('reveal', vReveal)
 app.mount('#app')

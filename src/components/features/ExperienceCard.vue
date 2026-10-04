@@ -16,7 +16,7 @@ defineProps<{
 <template>
 	<Card>
 		<CardHeader>
-			<CardTitle>
+			<CardTitle v-reveal="{ stagger: true }" class="opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0">
 				<a
 					v-if="experience.url"
 					:href="experience.url"
@@ -48,7 +48,7 @@ defineProps<{
 				</a>
 				<span v-else>{{ experience.company }}</span>
 			</CardTitle>
-			<CardDescription>
+			<CardDescription v-reveal="{ stagger: true }" class="opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0">
 				{{ experience.location }}
 			</CardDescription>
 		</CardHeader>
@@ -56,7 +56,8 @@ defineProps<{
 			<div
 				v-for="(role, roleIndex) in experience.roles"
 				:key="roleIndex"
-				class="space-y-1"
+				class="space-y-1 opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0"
+				v-reveal="{ stagger: true }"
 			>
 				<div
 					class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
@@ -82,7 +83,7 @@ defineProps<{
 				</div>
 			</div>
 			<div class="space-y-4 mt-4">
-				<p v-for="(p, pIndex) in experience.desc" :key="pIndex" class="text-muted-foreground">{{ p }}</p>
+				<p v-for="(p, pIndex) in experience.desc" :key="pIndex" class="text-muted-foreground opacity-0 -translate-x-5 transition-all duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-x-0" v-reveal="{ stagger: true }">{{ p }}</p>
 			</div>
 		</CardContent>
 	</Card>

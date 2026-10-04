@@ -13,7 +13,11 @@ defineProps<{
 			Experience
 		</h2>
 		<div class="space-y-6">
-			<ExperienceCard v-for="(experience, index) in experiences" :key="index" :experience="experience" />
+			<ExperienceCard 
+				v-for="(experience, index) in experiences" 
+				:key="index" 
+				:experience="experience" 
+			/>
 		</div>
 	</section>
 </template>
