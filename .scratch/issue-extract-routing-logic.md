@@ -4,9 +4,9 @@ Remove cross-page navigation side-effects from the scroll engine. Currently, the
 
 ## Acceptance criteria
 
-- [ ] Remove `router.push` and `route.path` checks from the scroll composable.
-- [ ] Update `NavigationPanel` and `MobileNav` to handle the routing: if not on `/`, they should `router.push("/")`, wait for the navigation to complete, and then call the scroll function.
-- [ ] Run `npm run test:e2e` and verify the "Cross-route navigation on mobile" test still passes perfectly.
+- [x] Remove `router.push` and `route.path` checks from the scroll composable.
+- [x] Update `NavigationPanel` and `MobileNav` to handle the routing: if not on `/`, they should `router.push("/")`, wait for the navigation to complete, and then call the scroll function.
+- [x] Run `npm run test:e2e` and verify the "Cross-route navigation on mobile" test still passes perfectly.
 
 ## Blocked by
 

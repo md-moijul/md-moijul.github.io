@@ -1,10 +1,42 @@
 <script setup lang="ts">
+import { nextTick } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useScrollController } from "@/composables/useScrollController";
 import { useSectionSpy } from "@/composables/useSectionSpy";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
-const { scrollToSection } = useScrollController();
+const { scrollToSection, lenis } = useScrollController();
 const { activeSection } = useSectionSpy(sectionIds);
+const router = useRouter();
+const route = useRoute();
+
+const handleNavClick = async (id: string, e?: Event) => {
+	if (e) e.preventDefault();
+
+	if (route.path !== "/") {
+		await router.push("/");
+		
+		await nextTick();
+		await nextTick();
+
+		if (lenis.value) {
+			lenis.value.resize();
+			
+			const targetId = id.startsWith("#") ? id : `#${id}`;
+			const tryScroll = (attempts = 0) => {
+				if (document.querySelector(targetId)) {
+					lenis.value?.resize();
+					scrollToSection(id);
+				} else if (attempts < 20) {
+					setTimeout(() => tryScroll(attempts + 1), 50);
+				}
+			};
+			tryScroll();
+		}
+	} else {
+		scrollToSection(id);
+	}
+};
 </script>
 
 <template>
@@ -31,7 +63,7 @@ const { activeSection } = useSectionSpy(sectionIds);
 				v-for="sectionId in sectionIds"
 				:key="sectionId"
 				:href="`#${sectionId}`"
-				@click="scrollToSection(sectionId, $event)"
+				@click="handleNavClick(sectionId, $event)"
 				class="font-sans font-medium tracking-widest uppercase text-xs transition-colors hover:text-foreground"
 				:class="
 					activeSection === sectionId ? 'active-link' : 'text-muted-foreground'

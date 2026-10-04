@@ -154,24 +154,7 @@ describe('useScrollController - scrollToSection', () => {
 
         await scrollToSection('#projects');
         
-        expect(mockPush).not.toHaveBeenCalled();
         expect(mockLenis.scrollTo).toHaveBeenCalledWith('#projects', expect.objectContaining({ duration: 0.8 }));
-    });
-
-    it('should navigate to home page then scroll when not on home page', async () => {
-        vi.spyOn(document, 'querySelector').mockReturnValue(document.createElement('div'));
-        mockRoute.path = '/archive';
-        const { scrollToSection } = useScrollController();
-        
-        // Setup global instance
-        lenisInstance.value = mockLenis;
-
-        await scrollToSection('#experience');
-        
-        expect(mockPush).toHaveBeenCalledWith('/');
-        // After push, it should have waited for nextTick and then scrolled
-        expect(mockLenis.resize).toHaveBeenCalled();
-        expect(mockLenis.scrollTo).toHaveBeenCalledWith('#experience', expect.objectContaining({ duration: 0.8, immediate: false }));
     });
 });
 

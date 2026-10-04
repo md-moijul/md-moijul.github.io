@@ -24,6 +24,7 @@ vi.mock('@/composables/useSectionSpy', () => ({
 vi.mock('@/composables/useScrollController', () => ({
     useScrollController: vi.fn(() => ({
         scrollToSection: mockScrollToSection,
+        lenis: { value: { resize: vi.fn() } }
     })),
     lenisInstance: {
         value: {
@@ -62,6 +63,6 @@ describe('NavigationPanel', () => {
         
         await aboutLink.trigger('click');
         
-        expect(mockScrollToSection).toHaveBeenCalledWith('about', expect.any(Object));
+        expect(mockScrollToSection).toHaveBeenCalledWith('about');
     });
 });

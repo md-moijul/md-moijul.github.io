@@ -1,5 +1,4 @@
 import { onMounted, onUnmounted, ref, type Ref, nextTick } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
 import Lenis from 'lenis';
 
 export const lenisInstance = ref<Lenis | null>(null);
@@ -7,8 +6,6 @@ export const lenisInstance = ref<Lenis | null>(null);
 export function useScrollController(options: { target?: Ref<HTMLElement | null> } = {}) {
     const target = options.target;
     const localLenis = ref<Lenis | null>(null);
-    const router = useRouter();
-    const route = useRoute();
 
     const animate = (time: number) => {
         if (target) {
@@ -85,41 +82,11 @@ export function useScrollController(options: { target?: Ref<HTMLElement | null> 
             parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
         const offset = -2 * rem;
 
-        if (route.path !== "/") {
-            await router.push("/");
-            
-            // Wait for multiple ticks to ensure:
-            // 1. The HomeView component is mounted and rendered.
-            // 2. The App.vue watcher has completed its scrollTo(0) and resize().
-            // 3. The DOM layout has stabilized.
-            await nextTick();
-            await nextTick();
-
-            if (lenisInstance.value) {
-                // Force a resize just in case the App.vue watcher hasn't finished or missed something
-                lenisInstance.value.resize();
-                
-                const tryScroll = (attempts = 0) => {
-                    if (document.querySelector(targetId)) {
-                        lenisInstance.value?.resize();
-                        lenisInstance.value?.scrollTo(targetId, {
-                            offset,
-                            duration: 0.8,
-                            immediate: false, // Ensure it's a smooth scroll
-                        });
-                    } else if (attempts < 20) {
-                        setTimeout(() => tryScroll(attempts + 1), 50);
-                    }
-                };
-                tryScroll();
-            }
-        } else {
-            if (lenisInstance.value) {
-                lenisInstance.value.scrollTo(targetId, {
-                    offset,
-                    duration: 0.8,
-                });
-            }
+        if (lenisInstance.value) {
+            lenisInstance.value.scrollTo(targetId, {
+                offset,
+                duration: 0.8,
+            });
         }
     };
 

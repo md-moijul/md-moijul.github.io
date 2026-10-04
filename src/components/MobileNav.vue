@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { ref, nextTick } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useScrollController } from "@/composables/useScrollController";
 import { useSectionSpy } from "@/composables/useSectionSpy";
 import { LayoutGrid, X } from "lucide-vue-next";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
 const route = useRoute();
-const { scrollToSection } = useScrollController();
+const router = useRouter();
+const { scrollToSection, lenis } = useScrollController();
 const { activeSection } = useSectionSpy(sectionIds);
-
 
 const isOpen = ref(false);
 
@@ -17,9 +17,33 @@ const toggleMenu = () => {
 	isOpen.value = !isOpen.value;
 };
 
-const handleNavClick = async (id: string) => {
+const handleNavClick = async (id: string, e?: Event) => {
+	if (e) e.preventDefault();
 	isOpen.value = false;
-	await scrollToSection(id);
+	
+	if (route.path !== "/") {
+		await router.push("/");
+		
+		await nextTick();
+		await nextTick();
+
+		if (lenis.value) {
+			lenis.value.resize();
+			
+			const targetId = id.startsWith("#") ? id : `#${id}`;
+			const tryScroll = (attempts = 0) => {
+				if (document.querySelector(targetId)) {
+					lenis.value?.resize();
+					scrollToSection(id);
+				} else if (attempts < 20) {
+					setTimeout(() => tryScroll(attempts + 1), 50);
+				}
+			};
+			tryScroll();
+		}
+	} else {
+		scrollToSection(id);
+	}
 };
 </script>
 
@@ -57,7 +81,7 @@ const handleNavClick = async (id: string) => {
 						v-for="sectionId in sectionIds"
 						:key="sectionId"
 						href="#"
-						@click.prevent="handleNavClick(sectionId)"
+						@click="handleNavClick(sectionId, $event)"
 						class="font-sans font-medium tracking-widest uppercase text-base transition-all duration-300"
 						:class="[
 							route.path === '/' && activeSection === sectionId
