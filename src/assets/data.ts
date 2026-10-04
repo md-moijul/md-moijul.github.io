@@ -56,9 +56,29 @@ export interface Project {
 
 export const projects: Project[] = [
     {
+        name: "New Age Athlete (NUAA)",
+        stack: [
+            'System Architecture', 'Product Management', 'Computer Vision', 'Edge Compute',
+            'Next.js', 'React Native', 'TypeScript', 'Python'
+        ],
+        date: new Date("2026-06"),
+        liveUrl: '',
+        desc: "A B2B SaaS platform providing frictionless AI biomechanical tracking for elite sports facilities. Currently in the pre-MVP phase, I am leading the product discovery and architectural planning. By conducting extensive requirements gathering with commercial gym owners and S&C coaches, I defined the core data models needed for a sensor-free tracking system. To bypass strict GDPR limitations, I conceptualized a zero-video-retention edge-compute pipeline that processes real-time pose estimation locally. Validated by this rigorous discovery phase, the platform has secured backing from the NatWest Accelerator and Gloucester Hub Incubator as we strategize our initial pilot rollouts.",
+        featured: false
+    },
+
+    {
+        name: "Agentic CV Tailoring Pipeline",
+        stack: ['TypeScript', 'Node.js', 'Gemini', 'LaTeX', 'Multi-Agent Systems', 'Prompt Engineering', 'Playwright'],
+        date: new Date("2026-05"),
+        liveUrl: '',
+        desc: "A 'Content as Code' monorepo designed to automate the process of tailoring my CV for specific job applications. I engineered a custom TypeScript pipeline in Node.js that parses job descriptions, cross-references them against a centralized JSON 'Truth Layer', and uses the Gemini LLM to autonomously draft targeted summaries and filter project bullets. The system features a bespoke 'Partials-Based' LaTeX compilation engine and deterministic keyword highlighting, successfully reducing my CV optimization time from 30 minutes down to just 4 minutes per application.",
+        featured: false
+    },
+    {
         name: "OweMe",
         stack: ['React', 'TypeScript', 'TDD', 'CDD', 'Replit AI'],
-        date: new Date("2026-07"),
+        date: new Date("2026-05"),
         liveUrl: 'https://oweme.replit.app/',
         desc: "OweMe is a web-based financial tool created to track personal loans and facilitate group cost-splitting. Built as a solo project during the Shared Futures Foundation Buildathon, I utilized Context-Driven Development and Replit AI to ship the fully functional MVP in under 7 hours. The platform features frictionless 1-on-1 loan logging and utilizes shareable URLs for automatic balance settlements and borrower confirmations, entirely removing the barrier of native app downloads.",
         featured: false
@@ -83,7 +103,7 @@ export const projects: Project[] = [
         name: "Childcare Compliance Platform",
         stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Shadcn/UI', 'Lerna', 'Feature Flags', 'React-Hook-Form', 'Storybook', 'Vitest', 'Nx', 'Claude Code'],
         date: new Date("2026-01"),
-        liveUrl: '',
+        liveUrl: 'https://fdcdigital.com/',
         desc: "A compliance management platform that digitizes paper-based audit workflows for childcare providers. I took ownership of frontend sprint delivery and stabilized complex deployment pipelines. To solve critical 'Version Drift' across environments, I implemented Trunk-Based Development and introduced Feature Flags, which significantly reduced delivery time. This shifted us to a faster release cadence where bug patches reach Production in minutes and features can be tested safely without long-lived staging branches. The architecture includes a Next.js App Router with Zod-driven Server Actions and a proprietary 'Builder Pattern' for white-labeling.",
         featured: true
     },
@@ -99,21 +119,21 @@ export const projects: Project[] = [
         name: "Multi-Tenant Property Portfolio",
         stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Google Maps API', 'Jixaw (CMS)', 'Axios', 'React-Hook-Form', 'Shadcn/UI', 'Supercluster'],
         date: new Date("2024-04"),
-        liveUrl: '',
+        liveUrl: 'https://lcpgroup.co.uk/',
         desc: "A multi-tenant property portfolio platform powering multiple real estate brands from a single Next.js codebase. My primary challenge was visualizing thousands of property assets without degrading performance. I built a high-performance interactive map handling over a thousand assets using supercluster for client-side clustering, maintaining 60fps by calculating the viewport bounding box in real-time. Additionally, I designed a URL-first state management system where every filter change synchronizes with the URL query string, ensuring instant UI feedback while making complex search results bookmarkable, shareable, and SEO-friendly.",
     },
     {
         name: "B2B Industrial e-commerce platform",
         stack: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Axios', 'Google Analytics', 'Lucide React', 'Jixaw (CMS)'],
         date: new Date("2024-08"),
-        liveUrl: '',
+        liveUrl: 'https://badland.co.uk/',
         desc: "A B2B industrial catalog and e-commerce platform where I bridged the gap between technical implementation and business strategy. I developed a URL-driven product filtering system utilizing Next.js Server Components to ensure search results were bookmarkable and SEO-friendly. I also developed a seamless Request a Quote workflow featuring auto-filled data for authenticated trade users and implemented high-fidelity conversion tracking for Google Ads. Uniquely for a developer role, I conducted on-site client training at the manufacturing facility where I identified a gap in their marketing workflow and successfully cross-sold an internal SaaS product.",
     },
     {
         name: "Property Recovery business site",
         stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'Jixaw (CMS)', 'React Hooks',],
         date: new Date("2023-04"),
-        liveUrl: '',
+        liveUrl: 'https://www.robertson-restoration.com/',
         desc: "Website built for a regional property recovery service requiring fast load times. Facing a strict MVP deadline before our internal CMS was fully operational, I adopted a modular, contract-first strategy. I built the frontend components using strict TypeScript interfaces, and once the CMS became available, I configured the data models myself to match my UI props exactly, allowing for a seamless migration without requiring backend support. Technically, I leveraged the experimental React use hook to handle asynchronous data fetching, built a highly performant, pure CSS before-and-after image slider, and maintained excellent Core Web Vitals.",
     },
     {
@@ -128,14 +148,14 @@ export const projects: Project[] = [
         name: "Music Band Portfolio Site",
         stack: ['Next.js', 'TypeScript', 'SCSS', 'Material UI', 'Docker', 'Kubernetes', 'Next/Image'],
         date: new Date("2023-04"),
-        liveUrl: '',
+        liveUrl: 'https://theturn.uk/',
         desc: "A responsive portfolio and event tracking site for a local music band, optimized for speed and visual impact. Working under a strict deadline without a dedicated CMS backend, I created a mock API abstraction layer to structure static data access. This decoupled the frontend components from the hardcoded data files, making the architecture future-proof for easy CMS integration later. To handle hundreds of local high-resolution assets, I built a custom masonry layout featuring a randomized image algorithm and utilized Next.js image optimization to ensure high performance across devices. The final application was containerized with Docker and deployed to an internal Kubernetes cluster.",
     },
     {
         name: "Occupational Health Portal",
         stack: ['JavaScript', 'jQuery', 'SCSS', 'PHP', 'FontAwesome', 'Sass Compiler', 'Chrome DevTools', 'Internal CMS'],
         date: new Date("2022-10"),
-        liveUrl: '',
+        liveUrl: 'https://www.sparta-health.co.uk/',
         desc: "An occupational health platform where I led a complete responsive retrofit during my university placement. Tasked with modernizing a rigid, desktop-only legacy PHP platform without modifying the underlying backend logic, I created a custom responsive layout system using SCSS. I resolved deep-seated UI inconsistencies and safely overrode legacy global styles to ensure cross-browser compatibility. Refactoring the styling into modular components and redesigning complex health questionnaires for smaller screens transformed the platform into a fully mobile-accessible experience for patients and clinics.",
     },
     {
