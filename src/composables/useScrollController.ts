@@ -202,11 +202,19 @@ export function useScrollController(options: { target?: Ref<HTMLElement | null>,
                 // Force a resize just in case the App.vue watcher hasn't finished or missed something
                 lenisInstance.value.resize();
                 
-                lenisInstance.value.scrollTo(targetId, {
-                    offset,
-                    duration: 0.8,
-                    immediate: false, // Ensure it's a smooth scroll
-                });
+                const tryScroll = (attempts = 0) => {
+                    if (document.querySelector(targetId)) {
+                        lenisInstance.value?.resize();
+                        lenisInstance.value?.scrollTo(targetId, {
+                            offset,
+                            duration: 0.8,
+                            immediate: false, // Ensure it's a smooth scroll
+                        });
+                    } else if (attempts < 20) {
+                        setTimeout(() => tryScroll(attempts + 1), 50);
+                    }
+                };
+                tryScroll();
             }
         } else {
             if (lenisInstance.value) {

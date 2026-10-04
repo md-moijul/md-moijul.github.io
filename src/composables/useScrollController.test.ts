@@ -145,11 +145,14 @@ describe('useScrollController - scrollToSection', () => {
             resize: vi.fn(),
             destroy: vi.fn(),
             raf: vi.fn(),
+            on: vi.fn(),
+            off: vi.fn(),
         };
-        vi.mocked(Lenis).mockImplementation(() => mockLenis);
+        vi.mocked(Lenis).mockImplementation(function() { return mockLenis; } as any);
     });
 
     it('should scroll to section on home page', async () => {
+        vi.spyOn(document, 'querySelector').mockReturnValue(document.createElement('div'));
         const { scrollToSection } = useScrollController();
         
         // Setup global instance
@@ -162,6 +165,7 @@ describe('useScrollController - scrollToSection', () => {
     });
 
     it('should navigate to home page then scroll when not on home page', async () => {
+        vi.spyOn(document, 'querySelector').mockReturnValue(document.createElement('div'));
         mockRoute.path = '/archive';
         const { scrollToSection } = useScrollController();
         
