@@ -41,8 +41,18 @@ const handleSubmit = async () => {
 
 <template>
 	<section id="contact" class="scroll-m-16">
-		<h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
-
+		<h2 class="text-3xl font-bold">Get in Touch</h2>
+		<p class="text-white/70 mb-8">
+			Send me a message below or
+			<a
+				href="https://calendar.app.google/KAq3kFJ7MSNAFwfN7"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="underline hover:text-white transition-colors"
+			>
+				book a meeting
+			</a>.
+		</p>
 		<div
 			v-if="status === 'success'"
 			class="flex flex-col items-center justify-center p-8 space-y-4 text-center border border-white/10 rounded-lg bg-white/5 max-w-xl"
