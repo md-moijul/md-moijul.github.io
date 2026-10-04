@@ -5,7 +5,7 @@ import { type Project } from '@/assets/data';
 
 import { ref, computed } from 'vue';
 import * as stackFilterModule from '@/composables/useStackFilter';
-import { useScrollController } from '@/composables/useScrollController';
+import { useSmoothScroll } from '@/composables/useSmoothScroll';
 
 // Mock useStackFilter
 const mockToggleStack = vi.fn();
@@ -48,15 +48,15 @@ vi.mock('vue-router', () => ({
     },
 }));
 
-// Mock useScrollController composable (for global instance if used)
-vi.mock('@/composables/useScrollController', () => ({
+// Mock useSmoothScroll composable (for global instance if used)
+vi.mock('@/composables/useSmoothScroll', () => ({
     lenisInstance: {
         value: {
             stop: vi.fn(),
             start: vi.fn(),
         },
     },
-    useScrollController: vi.fn(),
+    useSmoothScroll: vi.fn(),
 }));
 
 const mockProjects: Project[] = [
@@ -102,9 +102,9 @@ describe('ArchiveView', () => {
             expect(scrollContainer.classes()).toContain('overflow-y-auto');
         });
 
-        it('initializes a local Lenis instance via useScrollController', () => {
+        it('initializes a local Lenis instance via useSmoothScroll', () => {
             mountWithProps();
-            expect(useScrollController).toHaveBeenCalled();
+            expect(useSmoothScroll).toHaveBeenCalled();
         });
     });
 

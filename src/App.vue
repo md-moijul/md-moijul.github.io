@@ -2,7 +2,7 @@
 import { watch, nextTick, defineAsyncComponent } from "vue";
 import { useRoute } from "vue-router";
 import NavigationPanel from "@/components/NavigationPanel.vue";
-import { useScrollController, lenisInstance } from "@/composables/useScrollController";
+import { useSmoothScroll, lenisInstance } from "@/composables/useSmoothScroll";
 import BackgroundBlobs from "@/components/ui/BackgroundBlobs.vue";
 
 // Eagerly preload the async chunk
@@ -12,7 +12,7 @@ const MobileNav = defineAsyncComponent(() => mobileNavPromise);
 const route = useRoute();
 
 // Lenis smooth scrolling is enabled globally.
-useScrollController();
+useSmoothScroll();
 
 // Reset scroll to top and resize Lenis when route changes
 watch(() => route.path, async () => {

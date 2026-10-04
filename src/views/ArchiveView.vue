@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
 import { ref, computed } from "vue";
-import { useScrollController } from "@/composables/useScrollController";
+import { useSmoothScroll } from "@/composables/useSmoothScroll";
 import { useStackFilter } from "@/composables/useStackFilter";
 import ArchiveProjectRow from "@/components/features/ArchiveProjectRow.vue";
 import { sortProjectsByStackAndDate } from "@/lib/domain/project";
@@ -19,7 +19,7 @@ const sortedProjects = computed(() => sortProjectsByStackAndDate(props.projects,
 
 const scrollContainer = ref<HTMLElement | null>(null);
 
-useScrollController({ target: scrollContainer });
+useSmoothScroll({ target: scrollContainer });
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import Lenis from 'lenis';
 
 export const lenisInstance = ref<Lenis | null>(null);
 
-export function useScrollController(options: { target?: Ref<HTMLElement | null> } = {}) {
+export function useSmoothScroll(options: { target?: Ref<HTMLElement | null> } = {}) {
     const target = options.target;
     const localLenis = ref<Lenis | null>(null);
 

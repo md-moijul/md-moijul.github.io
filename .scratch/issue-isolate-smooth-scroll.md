@@ -4,10 +4,10 @@ With the spy and routing logic extracted, the remaining scroll logic is purely a
 
 ## Acceptance criteria
 
-- [ ] Rename `useScrollController.ts` to `useSmoothScroll.ts` (and update all imports).
-- [ ] Delete `useScrollController.test.ts`.
-- [ ] Write a simple unit test for `useSmoothScroll.ts` that safely mocks Lenis without triggering unhandled rejections or `onMounted` warnings.
-- [ ] Run `npm run test` and verify the suite is 100% green with no console warnings or unhandled rejections.
+- [x] Rename `useScrollController.ts` to `useSmoothScroll.ts` (and update all imports).
+- [x] Delete `useScrollController.test.ts`.
+- [x] Write a simple unit test for `useSmoothScroll.ts` that safely mocks Lenis without triggering unhandled rejections or `onMounted` warnings.
+- [x] Run `npm run test` and verify the suite is 100% green with no console warnings or unhandled rejections.
 
 ## Blocked by
 

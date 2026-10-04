@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useScrollController } from "@/composables/useScrollController";
+import { useSmoothScroll } from "@/composables/useSmoothScroll";
 import { useSectionSpy } from "@/composables/useSectionSpy";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
-const { scrollToSection, lenis } = useScrollController();
+const { scrollToSection, lenis } = useSmoothScroll();
 const { activeSection } = useSectionSpy(sectionIds);
 const router = useRouter();
 const route = useRoute();

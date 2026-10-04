@@ -21,8 +21,8 @@ vi.mock('@/composables/useSectionSpy', () => ({
     })),
 }));
 
-vi.mock('@/composables/useScrollController', () => ({
-    useScrollController: vi.fn(() => ({
+vi.mock('@/composables/useSmoothScroll', () => ({
+    useSmoothScroll: vi.fn(() => ({
         scrollToSection: mockScrollToSection,
         lenis: { value: { resize: vi.fn() } }
     })),

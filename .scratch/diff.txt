@@ -1,0 +1,270 @@
+diff --git a/.scratch/issue-extract-routing-logic.md b/.scratch/issue-extract-routing-logic.md
+index 9766ab3..4727e41 100644
+--- a/.scratch/issue-extract-routing-logic.md
++++ b/.scratch/issue-extract-routing-logic.md
+@@ -4,9 +4,9 @@ Remove cross-page navigation side-effects from the scroll engine. Currently, the
+ 
+ ## Acceptance criteria
+ 
+-- [ ] Remove `router.push` and `route.path` checks from the scroll composable.
+-- [ ] Update `NavigationPanel` and `MobileNav` to handle the routing: if not on `/`, they should `router.push("/")`, wait for the navigation to complete, and then call the scroll function.
+-- [ ] Run `npm run test:e2e` and verify the "Cross-route navigation on mobile" test still passes perfectly.
++- [x] Remove `router.push` and `route.path` checks from the scroll composable.
++- [x] Update `NavigationPanel` and `MobileNav` to handle the routing: if not on `/`, they should `router.push("/")`, wait for the navigation to complete, and then call the scroll function.
++- [x] Run `npm run test:e2e` and verify the "Cross-route navigation on mobile" test still passes perfectly.
+ 
+ ## Blocked by
+ 
+diff --git a/src/components/MobileNav.test.ts b/src/components/MobileNav.test.ts
+index 59e6e90..49f691f 100644
+--- a/src/components/MobileNav.test.ts
++++ b/src/components/MobileNav.test.ts
+@@ -24,6 +24,7 @@ vi.mock('@/composables/useSectionSpy', () => ({
+ vi.mock('@/composables/useScrollController', () => ({
+     useScrollController: vi.fn(() => ({
+         scrollToSection: mockScrollToSection,
++        lenis: { value: { resize: vi.fn() } }
+     })),
+     lenisInstance: {
+         value: {
+diff --git a/src/components/MobileNav.vue b/src/components/MobileNav.vue
+index 9f9ba72..5f3e633 100644
+--- a/src/components/MobileNav.vue
++++ b/src/components/MobileNav.vue
+@@ -1,25 +1,49 @@
+ <script setup lang="ts">
+-import { ref } from "vue";
+-import { useRoute } from "vue-router";
++import { ref, nextTick } from "vue";
++import { useRoute, useRouter } from "vue-router";
+ import { useScrollController } from "@/composables/useScrollController";
+ import { useSectionSpy } from "@/composables/useSectionSpy";
+ import { LayoutGrid, X } from "lucide-vue-next";
+ 
+ const sectionIds = ["about", "experience", "projects", "contact"];
+ const route = useRoute();
+-const { scrollToSection } = useScrollController();
++const router = useRouter();
++const { scrollToSection, lenis } = useScrollController();
+ const { activeSection } = useSectionSpy(sectionIds);
+ 
+-
+ const isOpen = ref(false);
+ 
+ const toggleMenu = () => {
+ 	isOpen.value = !isOpen.value;
+ };
+ 
+-const handleNavClick = async (id: string) => {
++const handleNavClick = async (id: string, e?: Event) => {
++	if (e) e.preventDefault();
+ 	isOpen.value = false;
+-	await scrollToSection(id);
++	
++	if (route.path !== "/") {
++		await router.push("/");
++		
++		await nextTick();
++		await nextTick();
++
++		if (lenis.value) {
++			lenis.value.resize();
++			
++			const targetId = id.startsWith("#") ? id : `#${id}`;
++			const tryScroll = (attempts = 0) => {
++				if (document.querySelector(targetId)) {
++					lenis.value?.resize();
++					scrollToSection(id);
++				} else if (attempts < 20) {
++					setTimeout(() => tryScroll(attempts + 1), 50);
++				}
++			};
++			tryScroll();
++		}
++	} else {
++		scrollToSection(id);
++	}
+ };
+ </script>
+ 
+@@ -57,7 +81,7 @@ const handleNavClick = async (id: string) => {
+ 						v-for="sectionId in sectionIds"
+ 						:key="sectionId"
+ 						href="#"
+-						@click.prevent="handleNavClick(sectionId)"
++						@click="handleNavClick(sectionId, $event)"
+ 						class="font-sans font-medium tracking-widest uppercase text-base transition-all duration-300"
+ 						:class="[
+ 							route.path === '/' && activeSection === sectionId
+diff --git a/src/components/NavigationPanel.test.ts b/src/components/NavigationPanel.test.ts
+index 9f6c358..eea528a 100644
+--- a/src/components/NavigationPanel.test.ts
++++ b/src/components/NavigationPanel.test.ts
+@@ -24,6 +24,7 @@ vi.mock('@/composables/useSectionSpy', () => ({
+ vi.mock('@/composables/useScrollController', () => ({
+     useScrollController: vi.fn(() => ({
+         scrollToSection: mockScrollToSection,
++        lenis: { value: { resize: vi.fn() } }
+     })),
+     lenisInstance: {
+         value: {
+@@ -62,6 +63,6 @@ describe('NavigationPanel', () => {
+         
+         await aboutLink.trigger('click');
+         
+-        expect(mockScrollToSection).toHaveBeenCalledWith('about', expect.any(Object));
++        expect(mockScrollToSection).toHaveBeenCalledWith('about');
+     });
+ });
+diff --git a/src/components/NavigationPanel.vue b/src/components/NavigationPanel.vue
+index 0475d79..02a8da8 100644
+--- a/src/components/NavigationPanel.vue
++++ b/src/components/NavigationPanel.vue
+@@ -1,10 +1,42 @@
+ <script setup lang="ts">
++import { nextTick } from "vue";
++import { useRouter, useRoute } from "vue-router";
+ import { useScrollController } from "@/composables/useScrollController";
+ import { useSectionSpy } from "@/composables/useSectionSpy";
+ 
+ const sectionIds = ["about", "experience", "projects", "contact"];
+-const { scrollToSection } = useScrollController();
++const { scrollToSection, lenis } = useScrollController();
+ const { activeSection } = useSectionSpy(sectionIds);
++const router = useRouter();
++const route = useRoute();
++
++const handleNavClick = async (id: string, e?: Event) => {
++	if (e) e.preventDefault();
++
++	if (route.path !== "/") {
++		await router.push("/");
++		
++		await nextTick();
++		await nextTick();
++
++		if (lenis.value) {
++			lenis.value.resize();
++			
++			const targetId = id.startsWith("#") ? id : `#${id}`;
++			const tryScroll = (attempts = 0) => {
++				if (document.querySelector(targetId)) {
++					lenis.value?.resize();
++					scrollToSection(id);
++				} else if (attempts < 20) {
++					setTimeout(() => tryScroll(attempts + 1), 50);
++				}
++			};
++			tryScroll();
++		}
++	} else {
++		scrollToSection(id);
++	}
++};
+ </script>
+ 
+ <template>
+@@ -31,7 +63,7 @@ const { activeSection } = useSectionSpy(sectionIds);
+ 				v-for="sectionId in sectionIds"
+ 				:key="sectionId"
+ 				:href="`#${sectionId}`"
+-				@click="scrollToSection(sectionId, $event)"
++				@click="handleNavClick(sectionId, $event)"
+ 				class="font-sans font-medium tracking-widest uppercase text-xs transition-colors hover:text-foreground"
+ 				:class="
+ 					activeSection === sectionId ? 'active-link' : 'text-muted-foreground'
+diff --git a/src/composables/useScrollController.test.ts b/src/composables/useScrollController.test.ts
+index 1d48e84..c24c446 100644
+--- a/src/composables/useScrollController.test.ts
++++ b/src/composables/useScrollController.test.ts
+@@ -154,24 +154,7 @@ describe('useScrollController - scrollToSection', () => {
+ 
+         await scrollToSection('#projects');
+         
+-        expect(mockPush).not.toHaveBeenCalled();
+         expect(mockLenis.scrollTo).toHaveBeenCalledWith('#projects', expect.objectContaining({ duration: 0.8 }));
+     });
+-
+-    it('should navigate to home page then scroll when not on home page', async () => {
+-        vi.spyOn(document, 'querySelector').mockReturnValue(document.createElement('div'));
+-        mockRoute.path = '/archive';
+-        const { scrollToSection } = useScrollController();
+-        
+-        // Setup global instance
+-        lenisInstance.value = mockLenis;
+-
+-        await scrollToSection('#experience');
+-        
+-        expect(mockPush).toHaveBeenCalledWith('/');
+-        // After push, it should have waited for nextTick and then scrolled
+-        expect(mockLenis.resize).toHaveBeenCalled();
+-        expect(mockLenis.scrollTo).toHaveBeenCalledWith('#experience', expect.objectContaining({ duration: 0.8, immediate: false }));
+-    });
+ });
+ 
+diff --git a/src/composables/useScrollController.ts b/src/composables/useScrollController.ts
+index 528cd94..eb3e727 100644
+--- a/src/composables/useScrollController.ts
++++ b/src/composables/useScrollController.ts
+@@ -1,5 +1,4 @@
+ import { onMounted, onUnmounted, ref, type Ref, nextTick } from 'vue';
+-import { useRouter, useRoute } from 'vue-router';
+ import Lenis from 'lenis';
+ 
+ export const lenisInstance = ref<Lenis | null>(null);
+@@ -7,8 +6,6 @@ export const lenisInstance = ref<Lenis | null>(null);
+ export function useScrollController(options: { target?: Ref<HTMLElement | null> } = {}) {
+     const target = options.target;
+     const localLenis = ref<Lenis | null>(null);
+-    const router = useRouter();
+-    const route = useRoute();
+ 
+     const animate = (time: number) => {
+         if (target) {
+@@ -85,41 +82,11 @@ export function useScrollController(options: { target?: Ref<HTMLElement | null>
+             parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+         const offset = -2 * rem;
+ 
+-        if (route.path !== "/") {
+-            await router.push("/");
+-            
+-            // Wait for multiple ticks to ensure:
+-            // 1. The HomeView component is mounted and rendered.
+-            // 2. The App.vue watcher has completed its scrollTo(0) and resize().
+-            // 3. The DOM layout has stabilized.
+-            await nextTick();
+-            await nextTick();
+-
+-            if (lenisInstance.value) {
+-                // Force a resize just in case the App.vue watcher hasn't finished or missed something
+-                lenisInstance.value.resize();
+-                
+-                const tryScroll = (attempts = 0) => {
+-                    if (document.querySelector(targetId)) {
+-                        lenisInstance.value?.resize();
+-                        lenisInstance.value?.scrollTo(targetId, {
+-                            offset,
+-                            duration: 0.8,
+-                            immediate: false, // Ensure it's a smooth scroll
+-                        });
+-                    } else if (attempts < 20) {
+-                        setTimeout(() => tryScroll(attempts + 1), 50);
+-                    }
+-                };
+-                tryScroll();
+-            }
+-        } else {
+-            if (lenisInstance.value) {
+-                lenisInstance.value.scrollTo(targetId, {
+-                    offset,
+-                    duration: 0.8,
+-                });
+-            }
++        if (lenisInstance.value) {
++            lenisInstance.value.scrollTo(targetId, {
++                offset,
++                duration: 0.8,
++            });
+         }
+     };
+ 
