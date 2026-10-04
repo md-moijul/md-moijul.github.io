@@ -8,11 +8,11 @@ Migrate the background blob SVG from a static CSS `background-image` (which uses
 
 ## Acceptance criteria
 
-- [ ] Create `src/components/ui/BackgroundBlobs.vue` using the shapes from `Ellipses.svg` (completely stripped of SMIL `<animateTransform>` tags).
-- [ ] Remove the `background-image: url('./assets/Ellipses.svg');` styling from `src/style.css`.
-- [ ] Inject `<BackgroundBlobs />` into the background of `src/App.vue` using fixed positioning.
-- [ ] Apply CSS animations (`@keyframes` in a scoped style block) to the SVG `<g>` tags to translate and scale them.
-- [ ] Ensure the animation durations are long (> 15s) and staggered between blobs for an organic, out-of-sync effect.
+- [x] Create `src/components/ui/BackgroundBlobs.vue` using the shapes from `Ellipses.svg` (completely stripped of SMIL `<animateTransform>` tags).
+- [x] Remove the `background-image: url('./assets/Ellipses.svg');` styling from `src/style.css`.
+- [x] Inject `<BackgroundBlobs />` into the background of `src/App.vue` using fixed positioning.
+- [x] Apply CSS animations (`@keyframes` in a scoped style block) to the SVG `<g>` tags to translate and scale them.
+- [x] Ensure the animation durations are long (> 15s) and staggered between blobs for an organic, out-of-sync effect.
 
 ## Blocked by
 

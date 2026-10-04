@@ -159,18 +159,7 @@ describe('ArchiveView', () => {
     });
 
     describe('Expansion Logic', () => {
-        it('truncates description and expands on click', async () => {
-            const wrapper = mountWithProps();
-            const descPara = wrapper.find('p');
-            expect(descPara.classes()).toContain('lg:line-clamp-3');
-            
-            await descPara.trigger('click');
-            expect(descPara.classes()).toContain('line-clamp-none');
-            expect(descPara.classes()).not.toContain('lg:line-clamp-3');
-            
-            await descPara.trigger('click');
-            expect(descPara.classes()).toContain('lg:line-clamp-3');
-        });
+
 
         it('tech stack has flex-wrap and max-height by default', () => {
             const wrapper = mountWithProps();

@@ -8,14 +8,14 @@ To ensure the shapes remain anchored to their original layout positions, the exi
 
 ## Acceptance criteria
 
-- [ ] Create a new Vue component (e.g., `src/components/ui/BackgroundBlobs.vue`) containing the contents of `Ellipses.svg`.
-- [ ] Remove the `background-image: url('./assets/Ellipses.svg')` from `src/style.css`.
-- [ ] Insert the new component into the root layout (e.g., `App.vue`), ensuring it sits fixed behind all page content.
-- [ ] Wrap the `<ellipse>` and `<path>` elements in `<g>` tags within the SVG template.
-- [ ] Implement drifting (translation) and pulsing (scaling) via CSS animations (e.g. `@keyframes`) or Vue-compatible animation logic targeting the `<g>` tags.
-- [ ] The timings for translation and scaling are sufficiently long (e.g. >15 seconds) to be subtle and tasteful.
-- [ ] The timings are slightly offset between blobs (e.g., 20s vs 22s) so they move out-of-sync.
-- [ ] The overall visual layout is preserved; shapes do not drift permanently off-screen or break the original composition.
+- [x] Create a new Vue component (e.g., `src/components/ui/BackgroundBlobs.vue`) containing the contents of `Ellipses.svg`.
+- [x] Remove the `background-image: url('./assets/Ellipses.svg')` from `src/style.css`.
+- [x] Insert the new component into the root layout (e.g., `App.vue`), ensuring it sits fixed behind all page content.
+- [x] Wrap the `<ellipse>` and `<path>` elements in `<g>` tags within the SVG template.
+- [x] Implement drifting (translation) and pulsing (scaling) via CSS animations (e.g. `@keyframes`) or Vue-compatible animation logic targeting the `<g>` tags.
+- [x] The timings for translation and scaling are sufficiently long (e.g. >15 seconds) to be subtle and tasteful.
+- [x] The timings are slightly offset between blobs (e.g., 20s vs 22s) so they move out-of-sync.
+- [x] The overall visual layout is preserved; shapes do not drift permanently off-screen or break the original composition.
 
 ## Blocked by
 

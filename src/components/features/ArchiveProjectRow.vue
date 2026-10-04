@@ -69,11 +69,11 @@ const formatDate = (date?: Date) => {
 		<!-- Description -->
 		<div class="min-w-0 pr-8 text-muted-foreground text-sm">
 			<p
-				class="transition-all duration-300 cursor-pointer lg:hover:text-foreground"
+				class="transition-[max-height] duration-500 ease-in-out overflow-hidden cursor-pointer lg:hover:text-foreground"
 				:class="
 					isExpanded
-						? 'line-clamp-none'
-						: 'line-clamp-none lg:line-clamp-3'
+						? 'max-h-[1000px]'
+						: 'max-h-[1000px] lg:max-h-[60px]'
 				"
 				@click="toggleExpand"
 			>
@@ -84,11 +84,11 @@ const formatDate = (date?: Date) => {
 		<!-- Stack -->
 		<div class="min-w-0 pr-4 overflow-hidden">
 			<div
-				class="flex gap-1.5 transition-all duration-300 flex-wrap overflow-hidden"
+				class="flex gap-1.5 transition-[max-height] duration-500 ease-in-out flex-wrap overflow-hidden"
 				:class="
 					isExpanded
-						? 'lg:max-h-none'
-						: 'lg:max-h-[72px]'
+						? 'max-h-[500px]'
+						: 'max-h-[500px] lg:max-h-[72px]'
 				"
 			>
 				<Badge

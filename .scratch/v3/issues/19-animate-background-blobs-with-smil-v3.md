@@ -6,12 +6,12 @@ To ensure the shapes remain anchored to their original layout positions, the exi
 
 ## Acceptance criteria
 
-- [ ] All `<ellipse>` and `<path>` elements in `Ellipses.svg` that represent the blobs are wrapped in `<g>` tags.
-- [ ] SMIL `<animateTransform type="translate">` and `<animateTransform type="scale">` tags are added to the wrapper groups.
-- [ ] The `additive="sum"` attribute is used correctly where needed.
-- [ ] The timings for translation and scaling are sufficiently long (e.g. >15 seconds) to be subtle and tasteful.
-- [ ] The timings are slightly offset between blobs (e.g., 20s vs 22s) so they move out-of-sync.
-- [ ] The overall visual layout is preserved; shapes do not drift permanently off-screen or break the original composition.
+- [x] All `<ellipse>` and `<path>` elements in `Ellipses.svg` that represent the blobs are wrapped in `<g>` tags.
+- [x] SMIL `<animateTransform type="translate">` and `<animateTransform type="scale">` tags are added to the wrapper groups.
+- [x] The `additive="sum"` attribute is used correctly where needed.
+- [x] The timings for translation and scaling are sufficiently long (e.g. >15 seconds) to be subtle and tasteful.
+- [x] The timings are slightly offset between blobs (e.g., 20s vs 22s) so they move out-of-sync.
+- [x] The overall visual layout is preserved; shapes do not drift permanently off-screen or break the original composition.
 
 ## Blocked by
 
