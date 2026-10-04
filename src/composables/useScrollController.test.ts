@@ -25,13 +25,7 @@ vi.mock('lenis', () => {
     };
 });
 
-class MockIntersectionObserver {
-    observe = vi.fn();
-    disconnect = vi.fn();
-    unobserve = vi.fn();
-}
 
-vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
 
 describe('useScrollController - Global', () => {
     beforeEach(() => {
@@ -181,23 +175,3 @@ describe('useScrollController - scrollToSection', () => {
     });
 });
 
-describe('useScrollController - spySections', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
-        lenisInstance.value = null;
-    });
-
-    it('should initialize activeSection with the first spy section', () => {
-        const TestComponent = defineComponent({
-            setup() {
-                const { activeSection } = useScrollController({ spySections: ['about', 'projects'] });
-                return { activeSection };
-            },
-            template: '<div></div>',
-        });
-
-        const wrapper = mount(TestComponent, { attachTo: document.body });
-        expect(wrapper.vm.activeSection).toBe('about');
-        wrapper.unmount();
-    });
-});

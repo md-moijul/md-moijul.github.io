@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useScrollController } from "@/composables/useScrollController";
+import { useSectionSpy } from "@/composables/useSectionSpy";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
-const { scrollToSection, activeSection } = useScrollController({ spySections: sectionIds });
+const { scrollToSection } = useScrollController();
+const { activeSection } = useSectionSpy(sectionIds);
 </script>
 
 <template>

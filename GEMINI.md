@@ -55,7 +55,7 @@ npm run preview
 - **Navigation:** Navigation is handled programmatically via the `scrollToSection` function from the `useScrollController` composable.
 - **Smooth Scrolling:** Powered by **Lenis**. A shared `lenisInstance` is managed and exposed via `useScrollController.ts`. For local scrolling contexts (like Archive), `useScrollController({ target })` can be used to isolate smooth scrolling.
 - **Cross-Page Support:** When navigating to a section from a non-home route, the `scrollToSection` logic redirects to `/` and then triggers a smooth scroll to the target section after the DOM stabilizes.
-- **Active Highlighting:** Section highlighting in the navigation panel is managed via the `useScrollController` composable by passing `{ spySections: [...] }`, which uses an IntersectionObserver to detect the active section.
+- **Active Highlighting:** Section highlighting in the navigation panel is managed via the `useSectionSpy` composable by passing `[...sectionIds]`, which uses an IntersectionObserver to detect the active section.
 
 ## Development Conventions
 
@@ -64,7 +64,7 @@ npm run preview
 - **Styling:** Use Tailwind CSS utility classes. Prefer the `@/` alias for imports from the `src` directory.
 - **Data Management:** Most of the portfolio content (experiences, projects) is stored in `src/assets/data.ts`. Update this file to add or modify entries. Use the exported `Experience` and `Project` interfaces for type safety.
 - **UI Components:** New generic UI components should be added to `src/components/ui` following the existing pattern (typically a component file and an `index.ts` for exports).
-- **Smooth Scrolling:** Lenis is initialized globally via the `useScrollController` composable. For programmatic scrolling and active section tracking, use `useScrollController({ spySections })`. For local scrolling contexts, use `useScrollController({ target })` to isolate smooth scrolling. Any scroll-related interactions should be compatible with Lenis.
+- **Smooth Scrolling:** Lenis is initialized globally via the `useScrollController` composable. For programmatic scrolling use `useScrollController()`. For active section tracking use `useSectionSpy(sectionIds)`. For local scrolling contexts, use `useScrollController({ target })` to isolate smooth scrolling. Any scroll-related interactions should be compatible with Lenis.
 
 ## Key Files
 

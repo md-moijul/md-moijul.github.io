@@ -2,11 +2,14 @@
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useScrollController } from "@/composables/useScrollController";
+import { useSectionSpy } from "@/composables/useSectionSpy";
 import { LayoutGrid, X } from "lucide-vue-next";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
 const route = useRoute();
-const { scrollToSection, activeSection } = useScrollController({ spySections: sectionIds });
+const { scrollToSection } = useScrollController();
+const { activeSection } = useSectionSpy(sectionIds);
+
 
 const isOpen = ref(false);
 

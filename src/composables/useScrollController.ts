@@ -4,7 +4,7 @@ import Lenis from 'lenis';
 
 export const lenisInstance = ref<Lenis | null>(null);
 
-export function useScrollController(options: { target?: Ref<HTMLElement | null>, spySections?: string[] } = {}) {
+export function useScrollController(options: { target?: Ref<HTMLElement | null> } = {}) {
     const target = options.target;
     const localLenis = ref<Lenis | null>(null);
     const router = useRouter();
@@ -22,100 +22,6 @@ export function useScrollController(options: { target?: Ref<HTMLElement | null>,
         }
     };
 
-    const activeSection = ref(options.spySections?.[0] || "about");
-    let observer: IntersectionObserver | null = null;
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-    const intersectionHeights = new Map<string, number>();
-
-    const checkScrollPosition = (args?: any) => {
-        if (!options.spySections?.length) return;
-        const sectionIds = options.spySections;
-        
-        if (args) {
-            const { scroll, limit } = args;
-            if (limit > 0 && scroll >= limit - 10) {
-                activeSection.value = sectionIds[sectionIds.length - 1];
-            }
-        } else if (lenisInstance.value) {
-            const { scroll, limit } = lenisInstance.value;
-            if (limit > 0 && scroll >= limit - 10) {
-                activeSection.value = sectionIds[sectionIds.length - 1];
-            }
-        }
-    };
-
-    const handleScroll = (args?: any) => checkScrollPosition(args); // We can throttle this if needed, or lenis handles it fast
-
-    const setupObserver = () => {
-        if (!options.spySections?.length) return;
-        const sectionIds = options.spySections;
-
-        observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    intersectionHeights.set(entry.target.id, entry.intersectionRect.height);
-                });
-
-                let maxHeight = 0;
-                let maxId = activeSection.value;
-
-                intersectionHeights.forEach((height, id) => {
-                    if (height > maxHeight) {
-                        maxHeight = height;
-                        maxId = id;
-                    }
-                });
-
-                let isAtBottom = false;
-                if (lenisInstance.value) {
-                    const { scroll, limit } = lenisInstance.value;
-                    if (limit > 0 && scroll >= limit - 10) {
-                        isAtBottom = true;
-                    }
-                }
-
-                if (isAtBottom) {
-                    activeSection.value = sectionIds[sectionIds.length - 1];
-                } else if (maxHeight > 0) {
-                    activeSection.value = maxId;
-                }
-            },
-            {
-                rootMargin: "0px 0px 0px 0px",
-                threshold: Array.from({ length: 21 }, (_, i) => i / 20),
-            }
-        );
-
-        const tryObserve = () => {
-            if (!observer) return;
-            let allFound = true;
-            sectionIds.forEach((id) => {
-                const el = document.getElementById(id);
-                if (el) {
-                    observer?.observe(el);
-                } else {
-                    allFound = false;
-                }
-            });
-
-            if (!allFound) {
-                timeoutId = setTimeout(tryObserve, 100);
-            }
-        };
-
-        tryObserve();
-    };
-
-    const disconnectObserver = () => {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-            timeoutId = null;
-        }
-        if (observer) {
-            observer.disconnect();
-            observer = null;
-        }
-    };
 
     let isCreator = false;
 
@@ -151,28 +57,19 @@ export function useScrollController(options: { target?: Ref<HTMLElement | null>,
                 }
                 
                 if (lenisInstance.value) {
-                    lenisInstance.value.on("scroll", handleScroll);
+                    // Global lenis initialized
                 }
-            });
-        }
-
-        if (options.spySections?.length) {
-            nextTick(() => {
-                setupObserver();
-                handleScroll();
             });
         }
     });
 
     onUnmounted(() => {
-        disconnectObserver();
         if (target) {
             if (localLenis.value && isCreator) {
                 localLenis.value.destroy();
                 localLenis.value = null;
             }
         } else if (lenisInstance.value) {
-            lenisInstance.value.off("scroll", handleScroll);
             // Global lenis is tied to App.vue which never unmounts,
             // so we don't destroy it here even if this component created it.
         }
@@ -229,6 +126,5 @@ export function useScrollController(options: { target?: Ref<HTMLElement | null>,
     return {
         lenis: target ? localLenis : lenisInstance,
         scrollToSection,
-        activeSection,
     };
 }

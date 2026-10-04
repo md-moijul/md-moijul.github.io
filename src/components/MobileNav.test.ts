@@ -15,9 +15,14 @@ vi.mock('vue-router', () => ({
 const mockActiveSection = ref('about');
 const mockScrollToSection = vi.fn();
 
+vi.mock('@/composables/useSectionSpy', () => ({
+    useSectionSpy: vi.fn(() => ({
+        activeSection: mockActiveSection,
+    })),
+}));
+
 vi.mock('@/composables/useScrollController', () => ({
     useScrollController: vi.fn(() => ({
-        activeSection: mockActiveSection,
         scrollToSection: mockScrollToSection,
     })),
     lenisInstance: {
