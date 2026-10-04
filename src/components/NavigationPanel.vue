@@ -3,6 +3,8 @@ import { nextTick } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useSmoothScroll } from "@/composables/useSmoothScroll";
 import { useSectionSpy } from "@/composables/useSectionSpy";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-vue-next";
 
 const sectionIds = ["about", "experience", "projects", "contact"];
 const { scrollToSection, lenis } = useSmoothScroll();
@@ -56,6 +58,18 @@ const handleNavClick = async (id: string, e?: Event) => {
 				I build high-performance, accessible digital experiences with
 				scalability in mind.
 			</p>
+			<Button
+				as="a"
+				href="/resume.pdf"
+				target="_blank"
+				rel="noopener noreferrer"
+				download="Moijul-Islam-Resume.pdf"
+				variant="outline"
+				class="bg-white/20 mt-6 w-fit flex items-center gap-2 group transition-colors duration-300 hover:bg-white/30"
+			>
+				<Download class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5 group-hover:text-white" />
+				Download Resume
+			</Button>
 		</div>
 
 		<nav class="hidden md:flex flex-col items-start space-y-4">

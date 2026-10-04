@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import NavigationPanel from './NavigationPanel.vue';
+import { Download } from 'lucide-vue-next';
 
 import { ref } from 'vue';
 
@@ -8,7 +9,7 @@ const mockPush = vi.fn();
 
 vi.mock('vue-router', () => ({
     useRouter: vi.fn(() => ({ push: mockPush })),
-    useRoute: vi.fn(() => ({ path: '/' })),
+    useRoute: vi.fn(() => ({ path: '/', query: {} })),
     RouterLink: { template: '<a><slot /></a>' },
 }));
 
@@ -64,5 +65,20 @@ describe('NavigationPanel', () => {
         await aboutLink.trigger('click');
         
         expect(mockScrollToSection).toHaveBeenCalledWith('about');
+    });
+
+    it('should render a download resume button with correct attributes', () => {
+        const wrapper = mount(NavigationPanel);
+        const resumeLink = wrapper.find('a[href="/resume.pdf"]');
+        
+        expect(resumeLink.exists()).toBe(true);
+        expect(resumeLink.attributes('target')).toBe('_blank');
+        expect(resumeLink.attributes('rel')).toBe('noopener noreferrer');
+        expect(resumeLink.attributes('download')).toBe('Moijul-Islam-Resume.pdf');
+        expect(resumeLink.text()).toContain('Resume');
+        
+        // Check for the Download icon component
+        const icon = resumeLink.findComponent(Download);
+        expect(icon.exists()).toBe(true);
     });
 });
